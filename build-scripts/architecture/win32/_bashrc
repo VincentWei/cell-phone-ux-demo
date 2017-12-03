@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo "win32 bashrc"
+
+CMAKE_PATH="/C/Program Files/CMake 2.6/bin"
+VIM_PATH="/C/Program Files/Vim/vim73"
+export PATH="/bin:$_ARCH_ROOT/bin:$PATH:$CMAKE_PATH:$VIM_PATH"
+export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$_ARCH_ROOT/lib/pkgconfig"
+
+# override the default setting
+unset CC
+unset CXX
+export CFLAGS=" /MP20 "
+export CXXFLAGS=" /MP20 "
+export CPPFLAGS=" /MP20 "
+export LDFLAGS=

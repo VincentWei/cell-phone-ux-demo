@@ -1,0 +1,1 @@
+OPT_CMAKE="-Dlicense_screensaver=OFF -Dlicense_splash=OFF -Dwith_fontttfsupport=ft2 -D_MGGAL_S3C6410=ON"

@@ -1,0 +1,359 @@
+Index: include/chipmunk/chipmunk_types.h
+===================================================================
+--- include/chipmunk/chipmunk_types.h	(revision 605)
++++ include/chipmunk/chipmunk_types.h	(working copy)
+@@ -38,6 +38,10 @@
+ 	#define cpfceil ceilf
+ #endif
+ 
++#ifdef WIN32
++#	define inline __inline
++#endif
++
+ static inline cpFloat
+ cpfmax(cpFloat a, cpFloat b)
+ {
+Index: include/chipmunk/cpArbiter.h
+===================================================================
+--- include/chipmunk/cpArbiter.h	(revision 605)
++++ include/chipmunk/cpArbiter.h	(working copy)
+@@ -174,10 +174,10 @@
+ static inline cpContactPointSet
+ cpArbiterGetContactPointSet(const cpArbiter *arb)
+ {
++	int i;
+ 	cpContactPointSet set;
+ 	set.count = cpArbiterGetCount(arb);
+ 	
+-	int i;
+ 	for(i=0; i<set.count; i++){
+ 		set.points[i].point = arb->CP_PRIVATE(contacts)[i].p;
+ 		set.points[i].normal = arb->CP_PRIVATE(contacts)[i].p;
+Index: include/chipmunk/constraints/util.h
+===================================================================
+--- include/chipmunk/constraints/util.h	(revision 605)
++++ include/chipmunk/constraints/util.h	(working copy)
+@@ -93,6 +93,17 @@
+ static inline void
+ k_tensor(cpBody *a, cpBody *b, cpVect r1, cpVect r2, cpVect *k1, cpVect *k2)
+ {
++	cpFloat a_i_inv;
++	cpFloat r1xsq;
++	cpFloat r1ysq;
++	cpFloat r1nxy;
++	cpFloat b_i_inv;
++	cpFloat r2xsq;
++	cpFloat r2ysq;
++	cpFloat r2nxy;
++	cpFloat determinant;
++	cpFloat det_inv;
++
+ 	// calculate mass matrix
+ 	// If I wasn't lazy and wrote a proper matrix class, this wouldn't be so gross...
+ 	cpFloat k11, k12, k21, k22;
+@@ -103,26 +114,26 @@
+ 	k21 = 0.0f;  k22 = m_sum;
+ 	
+ 	// add the influence from r1
+-	cpFloat a_i_inv = a->i_inv;
+-	cpFloat r1xsq =  r1.x * r1.x * a_i_inv;
+-	cpFloat r1ysq =  r1.y * r1.y * a_i_inv;
+-	cpFloat r1nxy = -r1.x * r1.y * a_i_inv;
++	a_i_inv = a->i_inv;
++	r1xsq =  r1.x * r1.x * a_i_inv;
++	r1ysq =  r1.y * r1.y * a_i_inv;
++	r1nxy = -r1.x * r1.y * a_i_inv;
+ 	k11 += r1ysq; k12 += r1nxy;
+ 	k21 += r1nxy; k22 += r1xsq;
+ 	
+ 	// add the influnce from r2
+-	cpFloat b_i_inv = b->i_inv;
+-	cpFloat r2xsq =  r2.x * r2.x * b_i_inv;
+-	cpFloat r2ysq =  r2.y * r2.y * b_i_inv;
+-	cpFloat r2nxy = -r2.x * r2.y * b_i_inv;
++	b_i_inv = b->i_inv;
++	r2xsq =  r2.x * r2.x * b_i_inv;
++	r2ysq =  r2.y * r2.y * b_i_inv;
++	r2nxy = -r2.x * r2.y * b_i_inv;
+ 	k11 += r2ysq; k12 += r2nxy;
+ 	k21 += r2nxy; k22 += r2xsq;
+ 	
+ 	// invert
+-	cpFloat determinant = k11*k22 - k12*k21;
++	determinant = k11*k22 - k12*k21;
+ 	cpAssert(determinant != 0.0, "Unsolvable constraint.");
+ 	
+-	cpFloat det_inv = 1.0f/determinant;
++	det_inv = 1.0f/determinant;
+ 	*k1 = cpv( k22*det_inv, -k12*det_inv);
+ 	*k2 = cpv(-k21*det_inv,  k11*det_inv);
+ }
+Index: include/chipmunk/constraints/cpConstraint.h
+===================================================================
+--- include/chipmunk/constraints/cpConstraint.h	(revision 605)
++++ include/chipmunk/constraints/cpConstraint.h	(working copy)
+@@ -59,8 +59,9 @@
+ static inline void
+ cpConstraintActivateBodies(cpConstraint *constraint)
+ {
+-	cpBody *a = constraint->a; if(a) cpBodyActivate(a);
+-	cpBody *b = constraint->b; if(b) cpBodyActivate(b);
++	cpBody *a, *b;
++	a = constraint->a; if(a) cpBodyActivate(a);
++	b = constraint->b; if(b) cpBodyActivate(b);
+ }
+ 
+ static inline cpFloat
+Index: include/chipmunk/cpPolyShape.h
+===================================================================
+--- include/chipmunk/cpPolyShape.h	(revision 605)
++++ include/chipmunk/cpPolyShape.h	(working copy)
+@@ -91,11 +91,12 @@
+ cpPolyShapeContainsVertPartial(const cpPolyShape *poly, const cpVect v, const cpVect n)
+ {
+ 	cpPolyShapeAxis *axes = poly->CP_PRIVATE(tAxes);
++	cpFloat dist;
+ 	
+ 	int i;
+ 	for(i=0; i<poly->CP_PRIVATE(numVerts); i++){
+ 		if(cpvdot(axes[i].n, n) < 0.0f) continue;
+-		cpFloat dist = cpvdot(axes[i].n, v) - axes[i].d;
++		dist = cpvdot(axes[i].n, v) - axes[i].d;
+ 		if(dist > 0.0f) return cpFalse;
+ 	}
+ 	
+Index: src/cpArbiter.c
+===================================================================
+--- src/cpArbiter.c	(revision 605)
++++ src/cpArbiter.c	(working copy)
+@@ -233,6 +233,30 @@
+ {
+ 	cpBody *a = arb->a->body;
+ 	cpBody *b = arb->b->body;
++		cpContact *con;
++		cpVect n;
++		cpVect r1;
++		cpVect r2;
++		cpVect vb1;
++		cpVect vb2;
++		cpFloat vbn;
++		cpFloat jbn;
++		cpFloat jbnOld;
++		cpVect vr;
++		cpFloat vrn;
++		cpFloat jn;
++		cpFloat jnOld;
++		cpFloat vrt;
++		
++		// Calculate and clamp the friction impulse.
++		cpFloat jtMax = arb->u*con->jnAcc;
++		cpFloat jt = -vrt*con->tMass;
++		cpFloat jtOld = con->jtAcc;
++		con->jtAcc = cpfclamp(jtOld + jt, -jtMax, jtMax);
++		jt = con->jtAcc - jtOld;
++		
++		// Apply the final impulse.
++		apply_impulses(a, b, r1, r2, cpvrotate(n, cpv(jn, jt)));
+ 
+ 	for(int i=0; i<arb->numContacts; i++){
+ 		cpContact *con = &arb->contacts[i];
+Index: src/cpSpace.c
+===================================================================
+--- src/cpSpace.c	(revision 605)
++++ src/cpSpace.c	(working copy)
+@@ -46,13 +46,15 @@
+ {
+ 	if(space->pooledArbiters->num == 0){
+ 		// arbiter pool is exhausted, make more
++		int i;
+ 		int count = CP_BUFFER_BYTES/sizeof(cpArbiter);
++		cpArbiter *buffer;
+ 		cpAssert(count, "Buffer size too small.");
+ 		
+-		cpArbiter *buffer = (cpArbiter *)cpmalloc(CP_BUFFER_BYTES);
++		buffer = (cpArbiter *)cpmalloc(CP_BUFFER_BYTES);
+ 		cpArrayPush(space->allocatedBuffers, buffer);
+ 		
+-		for(int i=0; i<count; i++) cpArrayPush(space->pooledArbiters, buffer + i);
++		for(i=0; i<count; i++) cpArrayPush(space->pooledArbiters, buffer + i);
+ 	}
+ 	
+ 	return cpArbiterInit((cpArbiter *) cpArrayPop(space->pooledArbiters), shapes[0], shapes[1]);
+@@ -224,16 +226,18 @@
+ 	// Remove any old function so the new one will get added.
+ 	cpSpaceRemoveCollisionHandler(space, a, b);
+ 	
+-	cpCollisionHandler handler = {
+-		a, b,
+-		begin ? begin : alwaysCollide,
+-		preSolve ? preSolve : alwaysCollide,
+-		postSolve ? postSolve : nothing,
+-		separate ? separate : nothing,
+-		data
+-	};
+-	
+-	cpHashSetInsert(space->collFuncSet, CP_HASH_PAIR(a, b), &handler, NULL);
++	{
++		cpCollisionHandler handler = {
++			a, b,
++			begin ? begin : alwaysCollide,
++			preSolve ? preSolve : alwaysCollide,
++			postSolve ? postSolve : nothing,
++			separate ? separate : nothing,
++			data
++		};
++
++		cpHashSetInsert(space->collFuncSet, CP_HASH_PAIR(a, b), &handler, NULL);
++	}
+ }
+ 
+ void
+@@ -398,6 +402,7 @@
+ cpSpaceRemoveShape(cpSpace *space, cpShape *shape)
+ {
+ 	cpBody *body = shape->body;
++
+ 	if(cpBodyIsStatic(body)){
+ 		cpSpaceRemoveStaticShape(space, shape);
+ 		return;
+@@ -411,8 +416,10 @@
+ 	
+ 	cpBodyRemoveShape(body, shape);
+ 	
+-	removalContext context = {space, shape};
+-	cpHashSetFilter(space->contactSet, (cpHashSetFilterFunc)contactSetFilterRemovedShape, &context);
++	{
++		removalContext context = {space, shape};
++		cpHashSetFilter(space->contactSet, (cpHashSetFilterFunc)contactSetFilterRemovedShape, &context);
++	}
+ 	cpSpaceHashRemove(space->activeShapes, shape, shape->hashid);
+ }
+ 
+@@ -423,8 +430,10 @@
+ 		"Cannot remove a static or sleeping shape that was never added to the space. (Removed twice maybe?)");
+ 	cpAssertSpaceUnlocked(space);
+ 	
+-	removalContext context = {space, shape};
+-	cpHashSetFilter(space->contactSet, (cpHashSetFilterFunc)contactSetFilterRemovedShape, &context);
++	{
++		removalContext context = {space, shape};
++		cpHashSetFilter(space->contactSet, (cpHashSetFilterFunc)contactSetFilterRemovedShape, &context);
++	}
+ 	cpSpaceHashRemove(space->staticShapes, shape, shape->hashid);
+ 	
+ 	activateShapesTouchingShape(space, shape);
+Index: src/chipmunk.c
+===================================================================
+--- src/chipmunk.c	(revision 605)
++++ src/chipmunk.c	(working copy)
+@@ -74,13 +74,15 @@
+ cpFloat
+ cpMomentForPoly(cpFloat m, const int numVerts, cpVect *verts, cpVect offset)
+ {
++	int i;
++	cpFloat sum1 = 0.0f;
++	cpFloat sum2 = 0.0f;
+ 	cpVect *tVerts = (cpVect *)cpcalloc(numVerts, sizeof(cpVect));
+-	for(int i=0; i<numVerts; i++)
++
++	for(i=0; i<numVerts; i++)
+ 		tVerts[i] = cpvadd(verts[i], offset);
+ 	
+-	cpFloat sum1 = 0.0f;
+-	cpFloat sum2 = 0.0f;
+-	for(int i=0; i<numVerts; i++){
++	for(i=0; i<numVerts; i++){
+ 		cpVect v1 = tVerts[i];
+ 		cpVect v2 = tVerts[(i+1)%numVerts];
+ 		
+Index: src/constraints/cpDampedSpring.c
+===================================================================
+--- src/constraints/cpDampedSpring.c	(revision 605)
++++ src/constraints/cpDampedSpring.c	(working copy)
+@@ -33,41 +33,52 @@
+ static void
+ preStep(cpDampedSpring *spring, cpFloat dt, cpFloat dt_inv)
+ {
++	cpVect delta;
++	cpFloat dist;
++	cpFloat k;
++	cpFloat f_spring;
++
+ 	CONSTRAINT_BEGIN(spring, a, b);
+ 	
+ 	spring->r1 = cpvrotate(spring->anchr1, a->rot);
+ 	spring->r2 = cpvrotate(spring->anchr2, b->rot);
+ 	
+-	cpVect delta = cpvsub(cpvadd(b->p, spring->r2), cpvadd(a->p, spring->r1));
+-	cpFloat dist = cpvlength(delta);
++	delta = cpvsub(cpvadd(b->p, spring->r2), cpvadd(a->p, spring->r1));
++	dist = cpvlength(delta);
+ 	spring->n = cpvmult(delta, 1.0f/(dist ? dist : INFINITY));
+ 	
+-	cpFloat k = k_scalar(a, b, spring->r1, spring->r2, spring->n);
++	k = k_scalar(a, b, spring->r1, spring->r2, spring->n);
+ 	spring->nMass = 1.0f/k;
+ 	
+ 	spring->target_vrn = 0.0f;
+ 	spring->v_coef = 1.0f - cpfexp(-spring->damping*dt*k);
+ 
+ 	// apply spring force
+-	cpFloat f_spring = spring->springForceFunc((cpConstraint *)spring, dist);
++	f_spring = spring->springForceFunc((cpConstraint *)spring, dist);
+ 	apply_impulses(a, b, spring->r1, spring->r2, cpvmult(spring->n, f_spring*dt));
+ }
+ 
+ static void
+ applyImpulse(cpDampedSpring *spring)
+ {
++	cpVect n;
++	cpVect r1;
++	cpVect r2;
++	cpFloat vrn;
++	cpFloat v_damp;
++
+ 	CONSTRAINT_BEGIN(spring, a, b);
+ 	
+-	cpVect n = spring->n;
+-	cpVect r1 = spring->r1;
+-	cpVect r2 = spring->r2;
++	n = spring->n;
++	r1 = spring->r1;
++	r2 = spring->r2;
+ 
+ 	// compute relative velocity
+-	cpFloat vrn = normal_relative_velocity(a, b, r1, r2, n) - spring->target_vrn;
++	vrn = normal_relative_velocity(a, b, r1, r2, n) - spring->target_vrn;
+ 	
+ 	// compute velocity loss from drag
+ 	// not 100% certain this is derived correctly, though it makes sense
+-	cpFloat v_damp = -vrn*spring->v_coef;
++	v_damp = -vrn*spring->v_coef;
+ 	spring->target_vrn = vrn + v_damp;
+ 	
+ 	apply_impulses(a, b, spring->r1, spring->r2, cpvmult(spring->n, v_damp*spring->nMass));
+Index: CMakeLists.txt
+===================================================================
+--- CMakeLists.txt	(revision 605)
++++ CMakeLists.txt	(working copy)
+@@ -30,9 +30,17 @@
+   set(BUILD_STATIC ON FORCE)
+ endif(BUILD_DEMOS OR BUILD_RUBY_EXT OR INSTALL_STATIC)
+ 
+-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99") # allways use gnu99
+-set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -ffast-math") # extend release-profile with fast-math
+-set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -Wall") # extend debug-profile with -Wall
++IF (WIN32)
++    #    # compile as C++
++    #set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /TP")
++    #set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /TP") 
++    #set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} /TP")
++    ADD_DEFINITIONS(" /TP ")
++ELSE ()
++    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99") # allways use gnu99
++    set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -ffast-math") # extend release-profile with fast-math
++    set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -Wall") # extend debug-profile with -Wall
++ENDIF (WIN32)
+ 
+ add_subdirectory(src)
+ 

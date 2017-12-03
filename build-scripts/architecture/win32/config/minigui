@@ -1,0 +1,1 @@
+OPT_CMAKE="${OPT_CMAKE} -Dmisc_incoreres=ON"

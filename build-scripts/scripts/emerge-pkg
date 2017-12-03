@@ -1,0 +1,63 @@
+#! /bin/bash
+
+f_print_dep="no"
+ARGS=""
+list=""
+
+usage () {
+    echo "Usage: ./scripts/build-pkg pkg-name(s)"
+}
+
+main () {
+    source ./scripts/_bashrc
+
+    # parse args
+    for keyword in $*
+    do
+        case "x$keyword" in 
+            "x--nd")
+                f_build_some="yes"
+                ;;
+            x--help|x-h)
+                ./scripts/_functions print-help
+                exit 0;
+                ;;
+            x--print-dep)
+                f_print_dep="yes"
+                ;;
+            x--*)
+                ARGS+="$keyword "
+                ;;
+            *)
+                list+="$keyword "
+                ;;
+        esac
+    done
+
+    # don't know what to build
+    if [ "x$list" == "x" ];then
+        ./scripts/_functions print-help
+        exit 1
+    fi
+
+    # calc all for build
+    if [ "x$f_build_some" == "x" ];then
+        list=`./scripts/_functions calc-dependencies $list | tail -n 1`
+    fi
+
+    # do
+    if [ "x$f_print_dep" == "xyes" ];then
+        echo "Depends: $list"
+    else
+        echo "Build list: $list"
+        for pkg in $list; do
+            ./scripts/_functions build-pkg $pkg $ARGS
+            if [ $? -ne 0 ];then
+                echo "!!!Build $pkg error."
+                exit 1
+            fi
+        done
+    fi
+}
+
+main $*

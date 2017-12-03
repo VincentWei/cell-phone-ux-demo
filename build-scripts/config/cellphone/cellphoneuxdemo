@@ -1,0 +1,2 @@
+#OPT_CMAKE="-Denable_ncs4pad_test=ON -Ddebug_scrollview=ON"
+#OPT_CMAKE="-Ddebug_scrollview=ON"

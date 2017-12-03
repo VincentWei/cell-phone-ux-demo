@@ -1,0 +1,5 @@
+How to build:
+    ./scripts/emerge-pkg cellphoneuxdemo
+
+How to run:
+    ./scripts/shell

@@ -1,0 +1,1 @@
+OPT_CMAKE="${OPT_CMAKE} -Dlicense_screensaver=OFF -Dlicense_splash=OFF -Dwith_fontttfsupport=ft2 -Dfont_ttfenablecache=ON -Dfont_ttfcachesize=256 -Dgal_s3c6410=ON -Dgal_qvfb=OFF -Dgal_pcxvfg=OFF -Dial_tslib=ON"

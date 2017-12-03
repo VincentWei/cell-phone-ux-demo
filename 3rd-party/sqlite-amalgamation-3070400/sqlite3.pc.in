@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: sqlite
+Description: SQLite
+Version: @SQLITE_VERSION@
+Requires:
+Libs: -L${libdir} @PC_LIBS@
+Libs.private:
+Cflags: -I${includedir} @PC_CFLAGS@

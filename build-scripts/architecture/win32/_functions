@@ -1,0 +1,95 @@
+#! /bin/bash
+
+f_build_release_ver="no"
+f_create_visual_solution="no"
+
+do_unpack () {
+    echo "minigui win32 unpack"
+    if [ "x$_PKG" == "xminigui" ];then
+        $_ARCH_ROOT/install_dep_libs.sh # pthread, jpeg, png, freetype, xml, ...
+    fi
+}
+
+do_preconfigure () {
+    put win32 _preconfig
+    if [ "x$f_build_release_ver" == "xyes" ];then
+        export _OPT_CMAKE="${_OPT_CMAKE} -DCMAKE_BUILD_TYPE=Release"
+    else
+        export _OPT_CMAKE="${_OPT_CMAKE} -DCMAKE_BUILD_TYPE=Debug"
+    fi
+    return 0
+}
+
+do_configure () {
+    put win32 _configure
+    cd $_PKG_BUILD_PATH
+
+    if [ "x$f_create_visual_solution" == "xyes" ];then
+        # Build with Visual C
+        put cmake $_OPT_CMAKE $URI
+        cmake $_OPT_CMAKE $URI || die
+        ret=$?
+    else
+        # Build with NMake
+        put cmake -G NMake\ Makefiles $_OPT_CMAKE $URI
+        cmake -G NMake\ Makefiles $_OPT_CMAKE $URI || die
+        ret=$?
+    fi
+
+    cd $OLDPWD
+    return $((ret))
+}
+
+do_compile () {
+    put win32 _compile
+    cd $_PKG_BUILD_PATH
+
+    nmake $_OPT_MAKE > $_PKG_LOG_PATH/compile.log || die
+    ret=$?
+
+    cd $OLDPWD
+    return $((ret))
+}
+
+do_install () {
+    put win32 _install
+    cd $_PKG_BUILD_PATH
+
+    nmake install > $_PKG_LOG_PATH/install.log || die
+    ret=$?
+
+    cd $OLDPWD
+    return $((ret))
+}
+
+do_parse_args () {
+    if [ "x$*" == "x" ]; then
+        return 1
+    fi
+
+    args=$*
+    for arg in $args
+    do
+        case $arg in
+            --release)
+                f_build_release_ver="yes";;
+            --vc)
+                f_create_visual_solution="yes";;
+            *) 
+            ;;
+        esac
+    done
+    return 0
+}
+
+do_print_help () {
+    put "Usage: "
+    put "./scripts/emerge-pkg [option] <names>"
+    put "  option:"
+    put "   --nd <names>  Select what to build."
+    put "   --release     Build release version."
+    put "   --vc          Create Visual C solution."
+    put "   --print-dep   Print depends."
+    put "   --help        Print this message."
+}
+

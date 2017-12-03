@@ -1,0 +1,10 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+/* Define for X86 version */
+#cmakedefine __ARCH_X86__         1
+
+/* Define for s3c6410 version */
+#cmakedefine __ARCH_S3C6410__     1
+
+#endif  /* CONFIG_H */

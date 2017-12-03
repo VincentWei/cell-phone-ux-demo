@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ ! -e ./scripts/_bashrc ]; then
+    echo "FATAL: There is no ./scripts/_bashrc"
+    exit 1
+fi
+
+if [ $# -gt 0 ]; then
+    export BASH_ENV=./scripts/_bashrc
+    /bin/bash $* || exit 1
+else
+    /bin/bash --rcfile ./scripts/_bashrc $* || exit 1
+fi

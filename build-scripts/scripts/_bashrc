@@ -1,0 +1,115 @@
+#!/bin/bash
+
+f=./global.conf
+
+usage () {
+    echo ""
+    echo "*** Please set ARCH, CONFIG and SRC_ROOT in '$f' file. ***"
+    echo ""
+    echo "e.g."
+    echo "   # normal config"
+    echo "   ARCH=x86 # Linux on x86"
+    echo "   CONFIG=cellphone # Cellphone UX Demo project"
+    echo "   SRC_ROOT=~/baseline/cellphone # Where you put the source code"
+    echo ""
+    echo "   # win32 config"
+    echo "   ARCH=win32 # Windows"
+    echo "   CONFIG=cellphone # Cellphone UX Demo project"
+    echo "   SRC_ROOT=/e/baseline/cellphone # Where you put the source code. /e/xxx means E:/xxx"
+    echo ""
+}
+
+if [ ! -e $f ]; then
+    usage
+    exit 1
+fi
+
+source $f
+
+if [ "x$ARCH" == "x" ]; then
+    usage
+    echo "Fatal: ARCH not set"
+    exit 1
+fi
+
+if [ "x$CONFIG" == "x" ]; then
+    usage
+    echo "Fatal: CONFIG not set"
+    exit 1
+fi
+
+if [ "x$SRC_ROOT" == "x" ]; then
+    usage
+    echo "Fatal: SRC_ROOT not set"
+    exit 1
+fi
+
+export ARCH
+export CONFIG
+export SRC_ROOT
+
+export OPT_MAKE="-j 9"
+
+export _ARCH_ROOT=$PWD/architecture/$ARCH
+
+export _BUILD_ROOT=$PWD/build/$ARCH-$CONFIG
+export _LOG_ROOT=$PWD/log/$ARCH-$CONFIG
+
+export PREFIX=$PWD/target/$ARCH-$CONFIG
+
+export PKG_CONFIG_PATH="$_BUILD_ROOT/lib/pkgconfig:$_BUILD_ROOT/share/pkgconfig:$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig"
+
+export CPPFLAGS="-I$PREFIX/include -Wall"
+export CXXFLAGS=$CPPFLAGS
+export CFLAGS=$CPPFLAGS
+
+export LDFLAGS="-L$PREFIX/lib -Wl,-rpath-link=$PREFIX/lib"
+
+export PATH=$PREFIX/bin:$PATH
+export LD_LIBRARY_PATH=$PREFIX/lib
+export MG_RES_PATH=$PREFIX/share/minigui/res/
+export MG_CFG_PATH=$PREFIX/etc
+
+export PS1="\[\033[01;31m\]$ARCH-$CONFIG\[\033[01;34m\] \w \$\[\033[00m\] "
+
+# ccache
+export CCACHE_DIR=$PWD/.ccache/$ARCH
+if [ ! -e $PWD/.ccache ];then
+    mkdir -p $PWD/.ccache
+fi
+
+# cmake
+alias cmake='cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_LIBRARY_PATH=$PREFIX/lib -DCMAKE_INCLUDE_PATH=$PREFIX/include'
+alias ccmake='ccmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_LIBRARY_PATH=$PREFIX/lib -DCMAKE_INCLUDE_PATH=$PREFIX/include'
+
+######################################################
+
+export LANG=en_US.UTF-8
+
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='cp -i'
+alias vi='vim'
+alias make='make -j9'
+alias mi='echo make install ...; make install > /dev/null'
+alias ls='ls --show-control-chars --color=auto'
+alias dir='ls -l --color'
+
+#set bell-style none
+
+export EDITOR="vim"
+
+alias svndiff='svn diff --diff-cmd ~/bin/mydiff.sh'
+alias vns='source ~/bin/vns'
+
+export HISTCONTROL=ignoredups
+export HISTIGNORE="[  ]*:&:bg:fg:exit:ls:rm"
+export HISTFILESIZE=10000000
+export HISTSIZE=1000000
+shopt -s histappend
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+
+if [ -e $_ARCH_ROOT/_bashrc ]; then
+    source $_ARCH_ROOT/_bashrc
+fi
+

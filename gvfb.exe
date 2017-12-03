@@ -1,0 +1,5 @@
+#!/bin/sh
+
+#gvfb $* --disable-menubar --auto-fullscreen -c
+/usr/local/bin/gvfb $* --disable-menubar -c
+#gvfb $*

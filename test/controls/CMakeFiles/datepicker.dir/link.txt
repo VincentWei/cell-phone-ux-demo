@@ -1,0 +1,1 @@
+/usr/bin/cc   -Wall -g   CMakeFiles/datepicker.dir/datepicker.c.o  -o datepicker  -L/usr/local/lib -rdynamic -lminigui_ths -ljpeg -lpng -ldl -lm -lpthread -lmgncs4pad -Wl,-rpath,/usr/local/lib 

@@ -1,0 +1,8 @@
+#! /bin/bash
+export CC=arm-linux-gcc
+export CXX=arm-linux-g++
+export HOST=arm-linux
+
+export PATH=/bin:/usr/bin:/home/Public/projects/uxdemo/crosstools/bin/
+
+echo "Build 6410 platform..."

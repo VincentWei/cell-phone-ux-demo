@@ -1,0 +1,44 @@
+name: toolbar_gradient
+transparence: 50%
+100 	 # 0f1700
+99 	# 434343
+96 	# 2d2d2d
+51 	# 151515
+49 	# 010101
+0 	# 000000 
+
+name: infobox_gradient
+transparence: 80%
+100 	 # e0e496
+99 	# d1d671
+60 	# bbc866
+60 	# a9b93f
+38 	# 94ac35
+37 	# 76892a
+37 	# afc169
+36 	# 92aa34
+0 	# 7b9b28 
+
+#name: infobox1_gradient
+#transparence: 80%
+#100 	 # e0e496
+#99 	# d1d671
+#60 	# bbc866
+#60 	# a9b93f
+#38 	# 94ac35
+#37 	# 76892a
+#37 	# afc169
+#36 	# 92aa34
+#
+#name: infobox2_gradient
+#transparence: 80%
+#36 	# 92aa34
+#0 	# 7b9b28 
+
+name: mp_navbar_gradient
+100 	 # d0d571
+51 	# b5c363
+51 	# 9eb23a
+4 	# 7f9e2c
+3 	# 597311 
+0 	# 597311 

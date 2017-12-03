@@ -1,0 +1,358 @@
+#! /bin/bash
+
+f_build_release_ver="no"
+f_print_depends="no"
+
+put() {
+    echo -e "\033[31m$*\033[0m" >&2
+}
+
+die () {
+    if [ $# -gt 0 ]; then
+        put "$*"
+    else
+        put "DIED"
+    fi
+    exit 1
+}
+
+_fetch () {
+    put _fetch
+}
+
+_unpack () {
+    put _unpack
+
+    cd $_PKG_BUILD_PATH
+
+    # TODO
+    if [ ! -d $URI ]; then
+        die "Cann't find source for package '$_PKG': $URI"
+    fi
+
+    lndir $URI > /dev/null || die
+    ret=$?
+
+    cd $OLDPWD
+    return $((ret))
+}
+
+_preconfigure () {
+    put _preconfigure
+    cd $_PKG_BUILD_PATH
+
+    if [ ! -e CMakeLists.txt ] && [ ! -L configure ] && [ -x autogen.sh ]; then
+        ./autogen.sh > $_PKG_LOG_PATH/preconfigure.log || die
+    fi
+
+    if [ "x$f_build_release_ver" == "xyes" ];then
+        export _OPT_CMAKE="${_OPT_CMAKE} -DCMAKE_BUILD_TYPE=Release"
+        export CXXFLAGS="$CXXFLAGS -O2"
+        export CFLAGS="$CXXFLAGS -O2"
+    else
+        export _OPT_CMAKE="${_OPT_CMAKE} -DCMAKE_BUILD_TYPE=Debug"
+        export CXXFLAGS="$CXXFLAGS -g"
+        export CFLAGS="$CFLAGS -g"
+    fi
+
+    cd $OLDPWD
+    return 0
+}
+
+_configure () {
+    put _configure
+    cd $_PKG_BUILD_PATH
+
+    _OPT_MAKE="${OPT_MAKE}"
+
+    if [ -e configure ]; then
+        ./configure --host=$HOST $_OPT_CONFIGURE > $_PKG_LOG_PATH/configure.log || die
+        ret=$?
+    elif [ -e CMakeLists.txt ]; then
+        cmake $_OPT_CMAKE . || die
+        ret=$?
+    else
+        die "There is neither configure nor CMakeLists.txt"
+    fi
+
+    cd $OLDPWD
+
+    return $((ret))
+}
+
+_precompile () {
+    put _precompile
+}
+
+_compile () {
+    put _compile
+    cd $_PKG_BUILD_PATH
+
+    make $_OPT_MAKE > $_PKG_LOG_PATH/compile.log || die
+    ret=$?
+
+    cd $OLDPWD
+    return $((ret))
+}
+
+_preinstall () {
+    put _preinstall
+}
+
+_install () {
+    cd $_PKG_BUILD_PATH
+
+    make install > $_PKG_LOG_PATH/install.log || die
+    ret=$?
+
+    cd $OLDPWD
+    return $((ret))
+}
+
+_postinstall () {
+    put _postinstall
+}
+
+_parse_args () {
+    if [ "x$*" == "x" ]; then
+        return 1
+    fi
+
+    f_build_release_ver="no"
+    f_rebuild="no"
+    args=$*
+    for arg in $args
+    do
+        case $arg in
+            --release)
+                f_build_release_ver="yes";;
+            --rebuild)
+                f_rebuild="yes";;
+            *) ;;
+        esac
+    done
+    return 0
+}
+
+_usage () {
+    put "Usage: "
+    put "./scripts/emerge-pkg [option] <names>"
+    put "  option:"
+    put "   --nd <names>  Select what to build."
+    put "   --release     Build release version."
+    put "   --print-dep   Print depends."
+    put "   --rebuild     Rebuild."
+    put "   --help        Print this message."
+}
+
+do_print_help () {
+    _usage
+}
+
+do_parse_args () {
+    _parse_args $*
+    return $?
+}
+
+do_prepare () {
+    if [ "x$f_rebuild" == "xyes" ];then
+        /bin/rm -rf $_PKG_BUILD_PATH
+    fi
+
+    if [ ! -d $_PKG_BUILD_PATH ]; then
+        mkdir -p $_PKG_BUILD_PATH || die
+    fi
+
+    if [ ! -d $_PKG_LOG_PATH ]; then
+        mkdir -p $_PKG_LOG_PATH || die
+    fi
+}
+
+do_fetch () {
+    _fetch
+    return $?
+}
+
+do_unpack () {
+    _unpack
+    return $?
+}
+
+do_preconfigure () {
+    _preconfigure
+    return $?
+}
+
+do_configure () {
+    _configure
+    return $?
+}
+
+do_precompile () {
+    _precompile
+    return $?
+}
+
+do_compile () {
+    _compile
+    return $?
+}
+
+do_preinstall () {
+    _preinstall
+    return $?
+}
+
+do_install () {
+    _install
+    return $?
+}
+
+do_postinstall () {
+    _postinstall
+    return $?
+}
+
+_parse_config () {
+    export _PKG=$1
+
+    _PKG_ROOT=./package/$_PKG
+
+    test -d $_PKG_ROOT || die "No such package '$_PKG'"
+    test -d $_ARCH_ROOT || die "No such architecture '$ARCH'"
+    test -d ./config/$CONFIG || die "No such config '$CONFIG'"
+
+    # Package
+    for f in `ls -1 $_PKG_ROOT`; do
+        test -f $_PKG_ROOT/$f && source $_PKG_ROOT/$f || die
+        test -f $_ARCH_ROOT/package/$f && source $_ARCH_ROOT/package/$f
+    done
+
+    # Config
+    f=./config/$CONFIG/$_PKG
+    if [ -e $f ]; then
+        test -f $f && source $f
+        test -f $_ARCH_ROOT/config/$_PKG && source $_ARCH_ROOT/config/$_PKG
+    fi
+
+    export _PKG_BUILD_PATH=$_BUILD_ROOT/$_PKG
+    export _PKG_LOG_PATH=$_LOG_ROOT/$_PKG
+
+    export _OPT_CONFIGURE="--prefix=$PREFIX $OPT_CONFIGURE"
+    export _OPT_CMAKE="-DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_LIBRARY_PATH=$PREFIX/lib -DCMAKE_INCLUDE_PATH=$PREFIX/include $OPT_CMAKE"
+
+    # ccache
+    if [ ! -d $_BUILD_ROOT/bin ]; then
+        mkdir -p $_BUILD_ROOT/bin || die
+        cd $_BUILD_ROOT/bin
+        if [ ! -L $CC ]; then
+            ln -s /usr/bin/ccache $CC || die
+            ln -s /usr/bin/ccache $CXX || die
+        fi
+        cd $OLDPWD
+    fi
+    return 0
+}
+
+_build_pkg () {
+    put 
+    put "* Building $1..."
+    _parse_config $1 || die
+    do_prepare || die
+    do_fetch || die
+    do_unpack || die
+    do_preconfigure || die
+    do_configure || die
+    do_precompile || die
+    do_compile || die
+    do_preinstall || die
+    do_install || die
+    do_postinstall || die
+}
+
+_print_depend () {
+    _parse_config $1 || die
+    ret=$?
+    echo $RDEPEND
+
+    return $((ret))
+}
+
+_calc_dependencies () {
+    #echo "calc dependencies for $*"
+    #echo
+    for pkg in $*; do
+        found=0
+        for i in $list; do
+            if [ "x$pkg" == "x$i" ]; then
+                found=1
+                break
+            fi
+        done
+        if [ $found -eq 1 ]; then
+            #echo "skip $pkg"
+            continue
+        fi
+
+        #parents=`./scripts/_functions print-depend $pkg | tail -n 1`
+        parents=`_print_depend $pkg`
+
+        if [ "x$parents" != "x" ]; then
+            for i in $parents; do
+                found=0
+                for j in $list; do
+                    if [ "x$i" == "x$j" ]; then
+                        found=1
+                        break
+                    fi
+                done
+                if [ $found -eq 0 ]; then
+                    export list
+                    #list=`./scripts/_functions calc-dependencies $i`
+                    list=`_calc_dependencies $i`
+                fi
+            done
+        fi
+        list+=" $pkg"
+    done
+    echo $list
+
+    return 0
+}
+
+main () {
+    f=$_ARCH_ROOT/_functions
+    if [ -e $f ]; then
+        source $f || die
+    fi
+
+    do_parse_args $* || die
+
+    case "$1" in
+        build-pkg)
+            shift
+            _build_pkg $*
+            ret=$?
+            ;;
+        calc-dependencies)
+            shift
+            _calc_dependencies $*
+            ret=$?
+            ;;
+        print-dep)
+            shift
+            _print_depend $1
+            ret=$?
+            ;;
+        print-help)
+            do_print_help
+            ret=$?
+            ;;
+    esac
+
+    return $((ret))
+}
+
+main $*
+exit $?
+

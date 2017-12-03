@@ -1,0 +1,6 @@
+/home/weiym/devel/minigui/cellphoneuxdemo.dn/test/CMakeFiles/edit_cache.dir
+/home/weiym/devel/minigui/cellphoneuxdemo.dn/test/CMakeFiles/rebuild_cache.dir
+/home/weiym/devel/minigui/cellphoneuxdemo.dn/test/controls/CMakeFiles/edit_cache.dir
+/home/weiym/devel/minigui/cellphoneuxdemo.dn/test/controls/CMakeFiles/rebuild_cache.dir
+/home/weiym/devel/minigui/cellphoneuxdemo.dn/test/controls/CMakeFiles/datepicker.dir
+/home/weiym/devel/minigui/cellphoneuxdemo.dn/test/controls/CMakeFiles/test_animationedit.dir

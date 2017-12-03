@@ -1,0 +1,26 @@
+cmake_minimum_required(VERSION 2.6)
+project (tools)
+
+set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
+set (CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -Wall")
+
+LIST (APPEND CMAKE_MODULE_PATH
+    "${CMAKE_INSTALL_PREFIX}/share/minigui/cmake/Modules"
+    )
+
+include (common)
+
+INCLUDE (FindPkgConfig)
+PKG_CHECK_MODULES (MINIGUI minigui)
+IF (NOT MINIGUI_FOUND)
+    MESSAGE(FATAL_ERROR "MiniGUI not found")
+ENDIF (NOT MINIGUI_FOUND)
+INCLUDE_DIRECTORIES (${MINIGUI_INCLUDE_DIRS})
+LINK_DIRECTORIES (${MINIGUI_LIBRARY_DIRS})
+
+LIST (APPEND _LIBS ${MINIGUI_LIBRARIES} ts)
+
+ADD_EXECUTABLE(bootstrap bootstrap.c)
+TARGET_LINK_LIBRARIES(bootstrap ${_LIBS})
+
+INSTALL(TARGETS bootstrap DESTINATION bin)

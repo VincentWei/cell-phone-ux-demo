@@ -1,0 +1,9 @@
+[SkinFile]
+Up=./res/gvfb/phone_frame_up.png
+Down=./res/gvfb/phone_frame_pressed.png
+Closed=./res/gvfb/phone_frame.png
+Screen=40 132 400 612
+Areas=2
+
+"HOME"     0xFF1B  106 658 174 658 182 669 174 680 106 680 98 669
+"RETURN"   0xFF08  268 658 336 658 344 669 336 680 268 680 260 669
