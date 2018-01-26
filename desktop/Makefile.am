@@ -1,0 +1,55 @@
+AM_CPPFLAGS=../include/
+
+noinst_LIBRARIES=libdesktop.a
+
+libdesktop_a_SOURCES= \
+    ctivityDesktop.cc \
+    ActivityDesktop.hh \
+    DesktopCommonProc.cc \
+    DesktopToolbar.cc \
+    IPhoneDesktopController.cc \
+    IPhoneDesktopController.hh \
+    IPhoneDesktopItem.cc \
+    IPhoneDesktopItem.hh \
+    IPhoneDesktopLayout.cc \
+    IPhoneDesktopLayout.hh \
+    IPhoneDesktopStateApp.cc \
+    IPhoneDesktopStateApp.hh \
+    IPhoneDesktopState.cc \
+    IPhoneDesktopStateDraging.cc \
+    IPhoneDesktopStateDraging.hh \
+    IPhoneDesktopState.hh \
+    IPhoneDesktopStateInertia.cc \
+    IPhoneDesktopStateInertia.hh \
+    IPhoneDesktopStateNormal.cc \
+    IPhoneDesktopStateNormal.hh \
+    IPhoneDesktopStatePageTurning.cc \
+    IPhoneDesktopStatePageTurning.hh \
+    IPhoneDesktopStatePickup.cc \
+    IPhoneDesktopStatePickup.hh \
+    IPhoneDesktopStateShaking.cc \
+    IPhoneDesktopStateShaking.hh \
+    IPhoneDesktopStateShifting.cc \
+    IPhoneDesktopStateShifting.hh \
+    IPhoneDesktopStateTransposition.cc \
+    IPhoneDesktopStateTransposition.hh \
+    IPhoneDesktopTransitionInterface.cc \
+    IPhoneDesktopTransitionInterface.hh \
+    IPhoneDesktopView.cc \
+    IPhoneDesktopView.hh \
+    ScrollPageTrigger.cc \
+    ScrollPageTrigger.hh \
+    speedmeter.c \
+    speedmeter.h \
+    TransitionClickOnItem.cc \
+    TransitionClickOnItem.hh \
+    TransitionCollideItem.cc \
+    TransitionCollideItem.hh \
+    TransitionFilterMouseMove.cc \
+    TransitionFilterMouseMove.hh \
+    TransitionPressOnItem.cc \
+    TransitionPressOnItem.hh \
+    TransitionSpeedMeasure.cc \
+    TransitionSpeedMeasure.hh \
+    TransitionStandStillOnItem.cc \
+    TransitionStandStillOnItem.hh
