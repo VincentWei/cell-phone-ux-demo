@@ -66,7 +66,6 @@ dnl ========================================
 dnl check for installation of dependencies
 
 PKG_CHECK_MODULES([MINIGUI], [minigui >= 3.2.0])
-PKG_CHECK_MODULES([MGUTILS], [mgutils >= 1.2.0])
 PKG_CHECK_MODULES([MGPLUS], [mgplus >= 1.4.0])
 PKG_CHECK_MODULES([MGEFF], [mgeff >= 1.2.0])
 PKG_CHECK_MODULES([MGNCS], [mgncs >= 1.2.0])
