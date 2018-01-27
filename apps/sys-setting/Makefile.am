@@ -1,6 +1,8 @@
-noinst_LIBRARIES = libsys-setting.a
+AM_CPPFLAGS = -I../../include -I../../ncs4pad/include -I../../ncs4pad/include/misc -I../../ncs4pad/include/physics-animation -I../../ncs4pad/include/pieces
 
-libsys_setting_a_SOURCES = \
+noinst_LTLIBRARIES = libsys-setting.la
+
+libsys_setting_la_SOURCES = \
     SettingActivity.cc \
     SettingActivity.hh \
     SettingClockPiece.cc \

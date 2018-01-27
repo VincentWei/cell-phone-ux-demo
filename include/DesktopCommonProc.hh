@@ -26,8 +26,10 @@ int desktop_common_proc(HWND hwnd, int msg, WPARAM wparam, LPARAM lparam);
 void transition_home_key(void *object, mStateMachine::Transition *_transition, const Event* event, void *param) ;
 void transition_back_key(void *object, mStateMachine::Transition *_transition, const Event* event, void *param) ;
 void transition_clicked(void *object, mStateMachine::Transition* _transition, const Event* event, void *param);
-int common_key_hook(void* context, HWND dst_wnd, 
-                int msg, WPARAM wparam, LPARAM lparam);
+int common_key_hook(void* context, HWND dst_wnd, UINT msg, WPARAM wparam, LPARAM lparam);
+
+#define MSG_USER_GIVENKEY_UP (MSG_USER + 1003)
+#define MSG_USER_GIVENKEY_DOWN (MSG_USER + 1004)
 
 #endif   /* ----- #ifndef DESKTOP_COMMON_PROC_INC  ----- */
 

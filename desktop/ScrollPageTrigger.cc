@@ -112,7 +112,7 @@ void ScrollPageTrigger::onScrollPageTrigger(void* object, Transition* trans, con
 }
 
 
-void ScrollPageTrigger::animationCallback (MGEFF_ANIMATION handle, void* target, int id, void* value)
+void ScrollPageTrigger::animationCallback (MGEFF_ANIMATION handle, void* target, intptr_t id, void* value)
 {
     RECT view_rc, move_rc;
     IPhoneDesktopView* view;

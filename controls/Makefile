@@ -100,17 +100,14 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-LIBRARIES = $(noinst_LIBRARIES)
-AR = ar
-ARFLAGS = cru
-AM_V_AR = $(am__v_AR_$(V))
-am__v_AR_ = $(am__v_AR_$(AM_DEFAULT_VERBOSITY))
-am__v_AR_0 = @echo "  AR      " $@;
-am__v_AR_1 = 
-libcontrols_a_AR = $(AR) $(ARFLAGS)
-libcontrols_a_LIBADD =
-am_libcontrols_a_OBJECTS = animationedit.$(OBJEXT)
-libcontrols_a_OBJECTS = $(am_libcontrols_a_OBJECTS)
+LTLIBRARIES = $(noinst_LTLIBRARIES)
+libcontrols_la_LIBADD =
+am_libcontrols_la_OBJECTS = animationedit.lo
+libcontrols_la_OBJECTS = $(am_libcontrols_la_OBJECTS)
+AM_V_lt = $(am__v_lt_$(V))
+am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
+am__v_lt_0 = --silent
+am__v_lt_1 = 
 AM_V_P = $(am__v_P_$(V))
 am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))
 am__v_P_0 = false
@@ -129,10 +126,6 @@ am__depfiles_maybe = depfiles
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-AM_V_lt = $(am__v_lt_$(V))
-am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
-am__v_lt_0 = --silent
-am__v_lt_1 = 
 LTCOMPILE = $(LIBTOOL) $(AM_V_lt) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -148,8 +141,8 @@ AM_V_CCLD = $(am__v_CCLD_$(V))
 am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libcontrols_a_SOURCES)
-DIST_SOURCES = $(libcontrols_a_SOURCES)
+SOURCES = $(libcontrols_la_SOURCES)
+DIST_SOURCES = $(libcontrols_la_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -194,6 +187,7 @@ CXXFLAGS = -g -O2
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
+DEP_LIBS =  -L/usr/local/lib -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -L/usr/local/lib -lmgplus -lfreetype -lpthread -lstdc++ -L/usr/local/lib -lmgeff -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -L/usr/local/lib -lmgncs -lmgplus -lfreetype -lpthread -lstdc++ -lsqlite3 -lxml2 -lmgutils -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -L/usr/local/lib -lmgncs4touch -lmgncs -lmgplus -lfreetype -lpthread -lstdc++ -lsqlite3 -lxml2 -lmgutils -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -lmgeff -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -lmgplus -lfreetype -lpthread -lstdc++ -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -lsqlite3 -lxml2 -lchipmunk
 ECHO = echo
 ECHO_C = 
 ECHO_N = -n
@@ -216,7 +210,7 @@ MAKEINFO = ${SHELL} /home/weiym/devel/minilinux/cell-phone-ux-demo/missing makei
 MGEFF_CFLAGS = -I/usr/local/include
 MGEFF_LIBS = -L/usr/local/lib -lmgeff -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype
 MGNCS4TOUCH_CFLAGS = -I/usr/local/include
-MGNCS4TOUCH_LIBS = -L/usr/local/lib -lmgncs4touch DEP_LIBS
+MGNCS4TOUCH_LIBS = -L/usr/local/lib -lmgncs4touch -lmgncs -lmgplus -lfreetype -lpthread -lstdc++ -lsqlite3 -lxml2 -lmgutils -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -lmgeff -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -lmgplus -lfreetype -lpthread -lstdc++ -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype
 MGNCS_CFLAGS = -I/usr/local/include
 MGNCS_LIBS = -L/usr/local/lib -lmgncs -lmgplus -lfreetype -lpthread -lstdc++ -lsqlite3 -lxml2 -lmgutils -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype
 MGPLUS_CFLAGS = -I/usr/local/include
@@ -298,8 +292,8 @@ top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
 AM_CPPFLAGS = -I../include/ -I../ncs4pad/include -I../ncs4pad/include/pieces
-noinst_LIBRARIES = libcontrols.a
-libcontrols_a_SOURCES = animationedit.h animationedit.c
+noinst_LTLIBRARIES = libcontrols.la
+libcontrols_la_SOURCES = animationedit.h animationedit.c
 all: all-am
 
 .SUFFIXES:
@@ -313,9 +307,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign controls/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu controls/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign controls/Makefile
+	  $(AUTOMAKE) --gnu controls/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \
@@ -334,13 +328,19 @@ $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
 
-clean-noinstLIBRARIES:
-	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
+clean-noinstLTLIBRARIES:
+	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
+	@list='$(noinst_LTLIBRARIES)'; \
+	locs=`for p in $$list; do echo $$p; done | \
+	      sed 's|^[^/]*$$|.|; s|/[^/]*$$||; s|$$|/so_locations|' | \
+	      sort -u`; \
+	test -z "$$locs" || { \
+	  echo rm -f $${locs}; \
+	  rm -f $${locs}; \
+	}
 
-libcontrols.a: $(libcontrols_a_OBJECTS) $(libcontrols_a_DEPENDENCIES) $(EXTRA_libcontrols_a_DEPENDENCIES) 
-	$(AM_V_at)-rm -f libcontrols.a
-	$(AM_V_AR)$(libcontrols_a_AR) libcontrols.a $(libcontrols_a_OBJECTS) $(libcontrols_a_LIBADD)
-	$(AM_V_at)$(RANLIB) libcontrols.a
+libcontrols.la: $(libcontrols_la_OBJECTS) $(libcontrols_la_DEPENDENCIES) $(EXTRA_libcontrols_la_DEPENDENCIES) 
+	$(AM_V_CCLD)$(LINK)  $(libcontrols_la_OBJECTS) $(libcontrols_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -348,7 +348,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-include ./$(DEPDIR)/animationedit.Po
+include ./$(DEPDIR)/animationedit.Plo
 
 .c.o:
 	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -461,7 +461,7 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(LIBRARIES)
+all-am: Makefile $(LTLIBRARIES)
 installdirs:
 install: install-am
 install-exec: install-exec-am
@@ -495,7 +495,7 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic clean-libtool clean-noinstLIBRARIES \
+clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
 	mostlyclean-am
 
 distclean: distclean-am
@@ -567,7 +567,7 @@ uninstall-am:
 .MAKE: install-am install-strip
 
 .PHONY: CTAGS GTAGS TAGS all all-am check check-am clean clean-generic \
-	clean-libtool clean-noinstLIBRARIES cscopelist-am ctags \
+	clean-libtool clean-noinstLTLIBRARIES cscopelist-am ctags \
 	ctags-am distclean distclean-compile distclean-generic \
 	distclean-libtool distclean-tags distdir dvi dvi-am html \
 	html-am info info-am install install-am install-data \

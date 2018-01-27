@@ -861,9 +861,12 @@ void ActivityPicturePlayer::initRes(){
 int ActivityPicturePlayer::loadRes(void){
     mPic = (BITMAP *)Load32Resource (gPic[mIndex], RES_TYPE_IMAGE, (DWORD)HDC_SCREEN);
 
-    mNextPic = (BITMAP *)Load32Resource("res/pictureviewer/picplayer/pic_next.png",RES_TYPE_IMAGE,HDC_SCREEN);
-    mPlayPic = (BITMAP *)Load32Resource("res/pictureviewer/picplayer/pic_pause_play.png",RES_TYPE_IMAGE,HDC_SCREEN);
-    mPrevPic = (BITMAP *)Load32Resource("res/pictureviewer/picplayer/pic_prev.png",RES_TYPE_IMAGE,HDC_SCREEN);
+    mNextPic = (BITMAP *)Load32Resource("res/pictureviewer/picplayer/pic_next.png",
+            RES_TYPE_IMAGE, (DWORD)HDC_SCREEN);
+    mPlayPic = (BITMAP *)Load32Resource("res/pictureviewer/picplayer/pic_pause_play.png",
+            RES_TYPE_IMAGE, (DWORD)HDC_SCREEN);
+    mPrevPic = (BITMAP *)Load32Resource("res/pictureviewer/picplayer/pic_prev.png",
+            RES_TYPE_IMAGE, (DWORD)HDC_SCREEN);
     return 0;
 }
 int ActivityPicturePlayer::releaseRes(void){

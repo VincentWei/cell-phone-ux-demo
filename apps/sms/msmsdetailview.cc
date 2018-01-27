@@ -293,7 +293,7 @@ static void mSmsDetailView_reloadData(mSmsDetailView* self)
         day_it->format(title, 64, "%Y-%m-%d");
         title_list.push_back(title);
         
-        printf("======================== tmp_sms_list size: %d %s\n", tmp_sms_list.size(), title);
+        printf("======================== tmp_sms_list size: %lu %s\n", tmp_sms_list.size(), title);
     }
 
     releaseIcons(self);

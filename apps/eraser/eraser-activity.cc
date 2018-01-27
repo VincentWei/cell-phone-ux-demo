@@ -48,6 +48,7 @@ EraserActivity::~EraserActivity() {
 }
 
 void EraserActivity::setup() {
+#if 0
     HDC dc;
 
     dc = m_controller->getDC(Controller::FOREGROUND);
@@ -55,6 +56,7 @@ void EraserActivity::setup() {
 
     dc = m_controller->getDC(Controller::BACKGROUND);
     // TODO: paint on dc
+#endif
 
     m_controller->setup();
 }

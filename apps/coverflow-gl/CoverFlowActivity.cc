@@ -1,3 +1,7 @@
+#include "global.h"
+
+#ifdef GPU_GLES1
+
 #include "ActivityStack.hh"
 #include "CoverFlowActivity.hh"
 #include "mspeedmeter.h"
@@ -409,3 +413,5 @@ HWND CoverFlowActivity::createHWND() {
 
     return hWnd;
 }
+
+#endif /* GPU_GLES1 */

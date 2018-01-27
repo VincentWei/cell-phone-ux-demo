@@ -198,6 +198,7 @@ CXXFLAGS = -g -O2
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
+DEP_LIBS =  -L/usr/local/lib -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -L/usr/local/lib -lmgplus -lfreetype -lpthread -lstdc++ -L/usr/local/lib -lmgeff -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -L/usr/local/lib -lmgncs -lmgplus -lfreetype -lpthread -lstdc++ -lsqlite3 -lxml2 -lmgutils -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -L/usr/local/lib -lmgncs4touch -lmgncs -lmgplus -lfreetype -lpthread -lstdc++ -lsqlite3 -lxml2 -lmgutils -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -lmgeff -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -lmgplus -lfreetype -lpthread -lstdc++ -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -lsqlite3 -lxml2 -lchipmunk
 ECHO = echo
 ECHO_C = 
 ECHO_N = -n
@@ -220,7 +221,7 @@ MAKEINFO = ${SHELL} /home/weiym/devel/minilinux/cell-phone-ux-demo/missing makei
 MGEFF_CFLAGS = -I/usr/local/include
 MGEFF_LIBS = -L/usr/local/lib -lmgeff -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype
 MGNCS4TOUCH_CFLAGS = -I/usr/local/include
-MGNCS4TOUCH_LIBS = -L/usr/local/lib -lmgncs4touch DEP_LIBS
+MGNCS4TOUCH_LIBS = -L/usr/local/lib -lmgncs4touch -lmgncs -lmgplus -lfreetype -lpthread -lstdc++ -lsqlite3 -lxml2 -lmgutils -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -lmgeff -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -lmgplus -lfreetype -lpthread -lstdc++ -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype
 MGNCS_CFLAGS = -I/usr/local/include
 MGNCS_LIBS = -L/usr/local/lib -lmgncs -lmgplus -lfreetype -lpthread -lstdc++ -lsqlite3 -lxml2 -lmgutils -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype
 MGPLUS_CFLAGS = -I/usr/local/include
@@ -315,9 +316,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign ncs4pad/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu ncs4pad/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign ncs4pad/Makefile
+	  $(AUTOMAKE) --gnu ncs4pad/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \

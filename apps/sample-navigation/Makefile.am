@@ -1,5 +1,7 @@
-noinst_LIBRARIES = libsample-navigation.a
+AM_CPPFLAGS = -I../../include -I../../ncs4pad/include -I../../ncs4pad/include/misc -I../../ncs4pad/include/physics-animation -I../../ncs4pad/include/pieces
 
-libsample_navigation_a_SOURCES = \
+noinst_LTLIBRARIES = libsample-navigation.la
+
+libsample_navigation_la_SOURCES = \
     sample-navigation.cc \
     sample-navigation.hh

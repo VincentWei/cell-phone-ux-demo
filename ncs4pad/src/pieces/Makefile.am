@@ -1,8 +1,8 @@
 AM_CPPFLAGS = -I../../../include -I../../include -I../../include/misc -I../../include/physics-animation -I../../include/pieces
 
-noinst_LIBRARIES = libpieces.a
+noinst_LTLIBRARIES = libpieces.la
 
-libpieces_a_SOURCES = \
+libpieces_la_SOURCES = \
     m3dbuttonpiece.c \
     mabstractitemmanager.c \
     manimationeditpiece.c \

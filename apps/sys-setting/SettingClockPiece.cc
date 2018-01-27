@@ -8,12 +8,9 @@
 #include <minigui/window.h>
 #include <minigui/control.h>
 
-#include <mgncs/mgncs.h>
 #include <mgeff/mgeff.h>
-
-#include "mgncs/mgncs.h"
-#include "mgncs4pad/mpad.h"
-#include "mgeff/mgeff.h"
+#include <mgncs/mgncs.h>
+#include <mgncs4touch/mgncs4touch.h>
 
 #include "mcontainerctrl.h"
 #include "mpanelpiece.h"
@@ -180,19 +177,19 @@ static NCS_WND_TEMPLATE time_tmpl[] =
         0 
     },
 };
-static void moveWindowAnimCb(MGEFF_ANIMATION anim, void* target, int id, void* value)
+static void moveWindowAnimCb(MGEFF_ANIMATION anim, void* target, intptr_t id, void* value)
 {
     mPanelPiece *piece = (mPanelPiece *) target;
     int pos = *(int*)value;
 
     if (pos < S_PICKER_Y)
         pos = S_PICKER_Y;
-    if (id == (int)g_datePiece)
+    if (id == (intptr_t)g_datePiece)
     {
         _c(piece)->movePiece(piece,(mHotPiece *)g_datePiece,S_PICKER_X,pos);
         _c(piece)->movePiece(piece,(mHotPiece *)g_dateTitlePiece,S_PICKER_X,pos - S_SET_TITLE_H);
     }
-    else if (id == (int)g_timePiece)
+    else if (id == (intptr_t)g_timePiece)
     {
         _c(piece)->movePiece(piece,(mHotPiece *)g_timePiece,S_PICKER_X,pos);
         _c(piece)->movePiece(piece,(mHotPiece *)g_timeTitlePiece,S_PICKER_X,pos - S_SET_TITLE_H);
@@ -201,7 +198,7 @@ static void moveWindowAnimCb(MGEFF_ANIMATION anim, void* target, int id, void* v
 
 static void clockSwitchWidget(mPanelPiece *piece,mWidget* from, mWidget* to)
 {
-    int id = (int)from;
+    intptr_t id = (intptr_t)from;
     int int_s = S_PICKER_Y;
     int int_e = S_PICKER_HIDE_Y;
     int duration = S_MOVE_ANI_DURATION;
@@ -217,7 +214,7 @@ static void clockSwitchWidget(mPanelPiece *piece,mWidget* from, mWidget* to)
     mGEffAnimationSetCurve(anim, curve);
     mGEffAnimationAddToGroup(group, anim);
 
-    id = (int)to;
+    id = (intptr_t)to;
     int_s = S_PICKER_HIDE_Y;
     int_e = S_PICKER_Y,
     

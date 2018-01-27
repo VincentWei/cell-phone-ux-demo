@@ -13,7 +13,7 @@ void dmState::addTransition(dmTransition* transition)
     m_transitionTable.push_back(transition);
 }
 
-dmState* dmState::processEvent(int eventId)
+dmState* dmState::processEvent(intptr_t eventId)
 {
     dmState* nextState = NULL;
     dmTransitionTable::iterator it;
@@ -54,8 +54,9 @@ dmStateMachine::~dmStateMachine()
         dmTransitionTable* transTable = state->getTransitionTable();
 
         while (transTable->size() != 0) {
-            delete transTable->back();
+            dmTransition* tmp = transTable->back();
             transTable->pop_back();
+            delete tmp;
         }
 
         delete state;
@@ -63,7 +64,7 @@ dmStateMachine::~dmStateMachine()
     }
 }
 
-dmState* dmStateMachine::addState(const char* name, int id)
+dmState* dmStateMachine::addState(const char* name, intptr_t id)
 {
     assert(name != NULL);
     dmState* newState = new dmState(name, id);
@@ -72,7 +73,7 @@ dmState* dmStateMachine::addState(const char* name, int id)
     return newState;
 }
 
-dmState* dmStateMachine::findState(int stateId)
+dmState* dmStateMachine::findState(intptr_t stateId)
 {
     dmState* found = NULL;
     dmStateTable::iterator it;
@@ -83,14 +84,14 @@ dmState* dmStateMachine::findState(int stateId)
     return found;
 }
 
-void dmStateMachine::addStateTable(const int* stateTable)
+void dmStateMachine::addStateTable(const intptr_t* stateTable)
 {
-    const int* p = stateTable;
-    int id;
+    const intptr_t* p = stateTable;
+    intptr_t id;
     char* name;
 
     while (1) {
-        id = (int)*p;
+        id = (intptr_t)*p;
         ++p;
 
         name = (char*)*p;
@@ -108,7 +109,7 @@ void dmStateMachine::addStateTable(const int* stateTable)
     }
 }
 
-dmTransition* dmStateMachine::addTransition(dmState* source, int eventId, dmState* target, 
+dmTransition* dmStateMachine::addTransition(dmState* source, intptr_t eventId, dmState* target, 
         const char* eventDesc)
 {
     dmTransition* transition = new dmTransition(source, eventId, target, eventDesc);
@@ -116,7 +117,7 @@ dmTransition* dmStateMachine::addTransition(dmState* source, int eventId, dmStat
     return transition;
 }
 
-dmTransition* dmStateMachine::addTransition(int sourceId, int eventId, int targetId, 
+dmTransition* dmStateMachine::addTransition(intptr_t sourceId, intptr_t eventId, intptr_t targetId, 
         const char* eventDesc)
 {
     dmState* source = findState(sourceId);
@@ -126,20 +127,20 @@ dmTransition* dmStateMachine::addTransition(int sourceId, int eventId, int targe
     return addTransition(source, eventId, target, eventDesc);
 }
 
-void dmStateMachine::addTransitionTable(const int* transitionTable)
+void dmStateMachine::addTransitionTable(const intptr_t* transitionTable)
 {
-    const int* p = transitionTable;
-    int sourceId, eventId, targetId;
+    const intptr_t* p = transitionTable;
+    intptr_t sourceId, eventId, targetId;
     char* eventDesc;
 
     while (1) {
-        sourceId = (int)*p;
+        sourceId = *p;
         ++p;
 
-        eventId = (int)*p;
+        eventId = *p;
         ++p;
 
-        targetId = (int)*p;
+        targetId = *p;
         ++p;
 
         eventDesc = (char*)*p;
@@ -160,7 +161,7 @@ void dmStateMachine::addTransitionTable(const int* transitionTable)
     }
 }
 
-bool dmStateMachine::moveOn(int eventId)
+bool dmStateMachine::moveOn(intptr_t eventId)
 {
     m_stateChangedFlag = false;
 

@@ -36,7 +36,7 @@ IPhoneDesktopStateTransposition::IPhoneDesktopStateTransposition(IPhoneDesktopCo
             "Transposition->PickedNormal");
 }
 
-void IPhoneDesktopStateTransposition::onTransposition(MGEFF_ANIMATION animation, void *target, int id, void *pValue)
+void IPhoneDesktopStateTransposition::onTransposition(MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue)
 {
     IPhoneDesktopItem *item = (IPhoneDesktopItem *)target;
     item->moveTo(*(POINT *)pValue);

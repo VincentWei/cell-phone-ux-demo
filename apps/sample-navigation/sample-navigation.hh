@@ -7,5 +7,5 @@ public:
     
     HWND createHWND();
 protected:
-    static int proc(HWND hWnd, int message, WPARAM wParam,LPARAM lParam);
+    static LRESULT proc(HWND hWnd, UINT message, WPARAM wParam,LPARAM lParam);
 };

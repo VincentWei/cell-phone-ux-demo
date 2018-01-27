@@ -1,8 +1,8 @@
 AM_CPPFLAGS = -I../../include -I../../include/misc -I../../include/physics-animation -I../../include/pieces
 
-noinst_LIBRARIES = libphyanim.a
+noinst_LTLIBRARIES = libphyanim.la
 
-libphyanim_a_SOURCES = \
+libphyanim_la_SOURCES = \
     chipmunk-utils.c \
     mspeedmeter.c \
     physics-animation.c

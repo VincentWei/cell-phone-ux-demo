@@ -113,7 +113,7 @@ extern int phone_calc_compute(const char* left,
 }
 #endif
 
-static void titleAreaDash (MGEFF_ANIMATION handle, void* target, int id, void* value);
+static void titleAreaDash (MGEFF_ANIMATION handle, void* target, intptr_t id, void* value);
 static void calc_set_gradient_color(mShapeTransRoundPiece *backpiece,
         ARGB *data,float *pos,int num)
 {
@@ -139,7 +139,7 @@ static void calc_renew_op_color(CalcActivity* act)
     return;
 }
 
-int CalcActivity::getButtonPieceIndex(mButtonPanelPiece* piece,int idx)
+intptr_t CalcActivity::getButtonPieceIndex(mButtonPanelPiece* piece,int idx)
 {
     int i;
     if (idx == -1)
@@ -154,7 +154,7 @@ int CalcActivity::getButtonPieceIndex(mButtonPanelPiece* piece,int idx)
     }
     if (idx >= 0 && idx < CALC_BTN_NUM)
     {
-        return (int)m_btnPiece[idx]; 
+        return (intptr_t)m_btnPiece[idx]; 
     }
     return -1;
 }
@@ -395,7 +395,7 @@ static BOOL op_key_event(CalcActivity* act, mHotPiece *self,
     return TRUE;
 }
 
-static BOOL s_onTimer(HWND hwnd, int id, DWORD tickCount) {
+static BOOL s_onTimer(HWND hwnd, LINT id, DWORD tickCount) {
     num_key_event(hwnd, (mButtonPanelPiece*)id);
     KillTimer(hwnd, id);
     return TRUE;
@@ -428,7 +428,7 @@ static BOOL key_event_handler(mWidget *self, mHotPiece *piece,
         if (index/CALC_VER_NUM != CALC_ROW_NUM - 1) //num key
         {
             if (event_id == NCSN_ABP_PUSHED) {
-                SetTimerEx(main_hwnd, (int)piece, PRESS_TIMEOUT, s_onTimer);
+                SetTimerEx(main_hwnd, (LINT)piece, PRESS_TIMEOUT, s_onTimer);
             //num_key_event(self, piece);
             }
         }
@@ -883,7 +883,7 @@ static void main_onPaint (mWidget* _this, HDC hdc, const PCLIPRGN clipRgn)
     return;
 }
 
-static void calc_title_animation(mWidget* self,int pts,int pte,int id,int duration,EffMotionType curve)
+static void calc_title_animation(mWidget* self,int pts,int pte,intptr_t id,int duration,EffMotionType curve)
 {
     mContainerCtrl* ctnr = (mContainerCtrl*)ncsGetChildObj(self->hwnd, CALC_IDC_TITLECTRL);
     CalcActivity* act = (CalcActivity*)
@@ -896,8 +896,7 @@ static void calc_title_animation(mWidget* self,int pts,int pte,int id,int durati
     body = (mPanelPiece*)ctnr->body;
     assert(body);
     
-    animation = mGEffAnimationCreate (self, titleAreaDash, 
-            id, MGEFF_INT);
+    animation = mGEffAnimationCreate (self, titleAreaDash, id, MGEFF_INT);
 
     mGEffAnimationSetStartValue (animation, &pts);
     mGEffAnimationSetEndValue (animation, &pte);
@@ -920,7 +919,7 @@ static void calc_title_animation(mWidget* self,int pts,int pte,int id,int durati
 #define CALC_AM_END_POS3 CALC_AM_START_POS2
 #define CALC_AM_END_POS4 CALC_AM_START_POS5
 #define CALC_AM_END_POS5 CALC_AM_START_POS4
-static void titleAreaDash (MGEFF_ANIMATION handle, void* target, int id, void* value)
+static void titleAreaDash (MGEFF_ANIMATION handle, void* target, intptr_t id, void* value)
 {
     mWidget* self = (mWidget*)target;
     CalcActivity* act = (CalcActivity*)

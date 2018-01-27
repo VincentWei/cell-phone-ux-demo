@@ -156,7 +156,7 @@ static int mymain_onKeyUp(mWidget* self, int scancode, int status)
 
     MGEFF_ANIMATION anim3_1 = _c(body)->scalePieceWithAnimation(body, ct3, 2.0, 2.0, ANIMATION_RUNTIME, Linear);
     MGEFF_ANIMATION anim3_2 = _c(body)->scalePieceWithAnimation(body, ct3, 1.0, 1.0, ANIMATION_RUNTIME, Linear);
-    POINT anim3_2_startValue = {2.0, 2.0};
+    POINT anim3_2_startValue = {2, 2};
     mGEffAnimationSetStartValue(anim3_2, &anim3_2_startValue);
     MGEFF_ANIMATION anim3 = mGEffAnimationCreateGroup(MGEFF_SEQUENTIAL);
     mGEffAnimationAddToGroup(anim3, anim3_1);

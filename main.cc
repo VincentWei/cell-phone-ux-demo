@@ -12,11 +12,11 @@
 #include <minigui/window.h>
 #include <minigui/control.h>
 
-#include <mgncs/mgncs.h>
-
-#include <mgeff/mgeff.h>
 #include <mgeff/mgeff.h>
 #include <mgeff/mgeff-effector.h>
+#include <mgncs/mgncs.h>
+
+#include <mgncs4touch/mgncs4touch.h>
 
 #include "global.h"
 #include "register.h"
@@ -305,17 +305,21 @@ static NCS_EVENT_HANDLER command_handlers[] = {
     {0, NULL},
 };
 
-static int assistantWndProc (HWND hWnd, int message, WPARAM wParam, LPARAM lParam)
+static LRESULT assistantWndProc (HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     int i;
     static mButton *button[BUTTON_MAX];
     switch (message) {
     case MSG_CREATE:
-        kb = (PBITMAP)LoadResource(KB_IMAGE, RES_TYPE_IMAGE, HDC_SCREEN);
-        button_image[ESC_BUTTON] = (PBITMAP)Load32Resource(ESC_IMAGE, RES_TYPE_IMAGE, HDC_SCREEN);
-        button_image[BACKSPACE_BUTTON] = (PBITMAP)Load32Resource(BACKSPACE_IMAGE, RES_TYPE_IMAGE, HDC_SCREEN);
-        button_image[ESC_BUTTON + BUTTON_MAX] = (PBITMAP)Load32Resource(ESC_HILIGHT_IMAGE, RES_TYPE_IMAGE, HDC_SCREEN);
-        button_image[BACKSPACE_BUTTON + BUTTON_MAX] = (PBITMAP)Load32Resource(BACKSPACE_HILIGHT_IMAGE, RES_TYPE_IMAGE, HDC_SCREEN);
+        kb = (PBITMAP)LoadResource(KB_IMAGE, RES_TYPE_IMAGE, (DWORD)HDC_SCREEN);
+        button_image[ESC_BUTTON] = (PBITMAP)Load32Resource(ESC_IMAGE, 
+            RES_TYPE_IMAGE, (DWORD)HDC_SCREEN);
+        button_image[BACKSPACE_BUTTON] = (PBITMAP)Load32Resource(BACKSPACE_IMAGE, 
+            RES_TYPE_IMAGE, (DWORD)HDC_SCREEN);
+        button_image[ESC_BUTTON + BUTTON_MAX] = (PBITMAP)Load32Resource(ESC_HILIGHT_IMAGE, 
+            RES_TYPE_IMAGE, (DWORD)HDC_SCREEN);
+        button_image[BACKSPACE_BUTTON + BUTTON_MAX] = (PBITMAP)Load32Resource(BACKSPACE_HILIGHT_IMAGE, 
+            RES_TYPE_IMAGE, (DWORD)HDC_SCREEN);
         for (i=0;i<BUTTON_MAX;i++)
         {
             button[i] = (mButton *)ncsCreateWindow(NCSCTRL_BUTTON,
@@ -404,7 +408,7 @@ static HWND createAssistantWnd (HWND hostWnd)
 #endif
 
 
-static int InfoBarProc(HWND hWnd, int message, WPARAM wParam, LPARAM lParam)
+static LRESULT InfoBarProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 #ifdef USE_32MEMDC
     static HDC bar_hdc;
@@ -438,7 +442,7 @@ static int InfoBarProc(HWND hWnd, int message, WPARAM wParam, LPARAM lParam)
 
                 mGEffInit();
 
-                if(Load32Resource (BACK_GROUND_IMAGE, RES_TYPE_IMAGE, HDC_SCREEN) == NULL) {
+                if(Load32Resource (BACK_GROUND_IMAGE, RES_TYPE_IMAGE, (DWORD)HDC_SCREEN) == NULL) {
                     printf("load bitmap %s failed\n", BACK_GROUND_IMAGE);
                     assert(0);
                     return -1;
@@ -530,7 +534,7 @@ BOOL initializeEnvironment (void)
 {
     Init32MemDC();
     ncsInitialize ();
-    ncs4PadInitialize();
+    ncs4TouchInitialize();
 
     REGISTER_NCS();
 
@@ -542,12 +546,12 @@ void finalizeEnvironment ()
     MGNCS_UNREG_COMPONENT(mIconFlow);
     MGNCS_UNREG_COMPONENT(mContainerCtrl);
 
-    ncs4PadUninitialize();
+    ncs4TouchUninitialize();
 	ncsUninitialize ();
     Release32MemDC();
 }
 
-static BOOL idleHandler(HWND hwnd, int timer_id, DWORD tick_count)
+static BOOL idleHandler(HWND hwnd, LINT timer_id, DWORD tick_count)
 {
     Activity* currApp = ACTIVITYSTACK->top();
 
@@ -615,7 +619,7 @@ int main (int argc, const char* argv[])
     ContentProvider* provider[6];
 
 #ifdef USE_ASS_WND
-    HWND ass;
+    //HWND ass;
 #endif
 
 #if defined(USE_ASS_WND) && defined(USE_DRAW_WND)
@@ -696,13 +700,12 @@ int main (int argc, const char* argv[])
     ShowWindow(hMainWnd, SW_SHOW);
 
 #ifdef USE_ASS_WND
-    ass = createAssistantWnd(HWND_DESKTOP);
+    /*ass = */createAssistantWnd(HWND_DESKTOP);
 #endif
 
 #if defined(USE_ASS_WND) && defined(USE_DRAW_WND)
     draw = createDrawWnd(HWND_DESKTOP);
 #endif
-
 
     SetTimerEx(hMainWnd, SCREEN_IDLE_TIMER_ID, SCREEN_IDLE_TIMER, (TIMERPROC)idleHandler);
  

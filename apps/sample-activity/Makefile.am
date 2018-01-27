@@ -1,6 +1,8 @@
-noinst_LIBRARIES = libsample-activity.a
+AM_CPPFLAGS = -I../../include -I../../ncs4pad/include -I../../ncs4pad/include/misc -I../../ncs4pad/include/physics-animation -I../../ncs4pad/include/pieces
 
-libsample_activity_a_SOURCES = \
+noinst_LTLIBRARIES = libsample-activity.la
+
+libsample_activity_la_SOURCES = \
     ncs4pad-activity.cc \
     ncs4pad-activity.hh \
     pieceanimation-activity.cc \

@@ -1,5 +1,7 @@
-noinst_LIBRARIES = libcamera.a
+AM_CPPFLAGS = -I../../include -I../../ncs4pad/include -I../../ncs4pad/include/misc -I../../ncs4pad/include/physics-animation -I../../ncs4pad/include/pieces
 
-libcamera_a_SOURCES = \
+noinst_LTLIBRARIES = libcamera.la
+
+libcamera_la_SOURCES = \
     ActivityCamera.cc \
     ActivityCamera.hh

@@ -13,10 +13,6 @@
 
 #include "NCSActivity.hh"
 
-#include "mgncs/mgncs.h"
-#include "mgncs4pad/mpad.h"
-#include "mgeff/mgeff.h"
-
 #include "mcontainerctrl.h"
 #include "mpanelpiece.h"
 #include "mtextpiece.h"

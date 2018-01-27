@@ -19,7 +19,7 @@ class IPhoneDesktopStateTransposition : public IPhoneDesktopState {
         ~IPhoneDesktopStateTransposition() {}
 
     private:
-        static void onTransposition(MGEFF_ANIMATION animation, void* target, int id, void *pValue);
+        static void onTransposition(MGEFF_ANIMATION animation, void* target, intptr_t id, void *pValue);
         void onEnter(const Event* event, const Transition *_transition);
         void onLeave(const Event* event, const Transition *_transition);
 

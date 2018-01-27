@@ -28,7 +28,7 @@ public:
     ~ScrollPageTrigger ();
 
     static void onScrollPageTrigger (void* object, Transition* trans, const Event* event, void* param);
-    static void animationCallback (MGEFF_ANIMATION handle, void* target, int id, void* value);
+    static void animationCallback (MGEFF_ANIMATION handle, void* target, intptr_t id, void* value);
 
 };
 

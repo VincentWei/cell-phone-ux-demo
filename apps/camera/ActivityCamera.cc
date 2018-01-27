@@ -76,7 +76,7 @@ static void my_finish_cb(MGEFF_ANIMATION handle)
 {
     mTimer* timer;
     effector_params_t *params = (effector_params_t *)mGEffAnimationGetContext(handle);
-    ActivityCamera *act = (ActivityCamera*)Activity::getActivityFromHWND(params->hwnd);
+    //ActivityCamera *act = (ActivityCamera*)Activity::getActivityFromHWND(params->hwnd);
     mGEffEffectorDelete (params->effector);
     DeleteMemDC (params->src1_dc);
     DeleteMemDC (params->src2_dc);
@@ -184,9 +184,7 @@ static BOOL s_onClickEvent(mWidget *self, mHotPiece *piece, int event_id,  DWORD
     HWND hwnd = GetMainWindowHandle(self->hwnd);
     ActivityCamera *activity = (ActivityCamera*)Activity::getActivityFromHWND (hwnd);
     static BOOL haveShoot = FALSE;
-    MGEFF_ANIMATION anim;
 
-    anim = activity->getAnim();
     if (event_id == NCSN_ABP_CLICKED||event_id == NCSN_ABP_PUSHED) {
         if (!activity) {
             printf ("camera activity invalid!\n");
@@ -372,7 +370,7 @@ void ActivityCamera::createBody(mWidget *self)
     _c(ctTool)->setBody(ctTool, (mHotPiece*)toolbar);
 }
 
-void on_view(MGEFF_ANIMATION handle, void *target, int id, void *value)
+static void on_view(MGEFF_ANIMATION handle, void *target, intptr_t id, void *value)
 {
     mWidget *self = (mWidget*)target;
     ActivityCamera *act = (ActivityCamera*)Activity::getActivityFromHWND(self->hwnd);

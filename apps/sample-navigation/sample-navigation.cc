@@ -80,7 +80,7 @@ static BOOL button2_clicked_handler (mObject *self,
     return TRUE;
 }
 
-int SampleNavigation::proc(HWND hWnd, int message, WPARAM wParam,LPARAM lParam) {
+LRESULT SampleNavigation::proc(HWND hWnd, UINT message, WPARAM wParam,LPARAM lParam) {
     switch (message) {
         case MSG_CREATE: 
             {

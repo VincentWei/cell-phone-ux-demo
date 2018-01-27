@@ -80,13 +80,13 @@ void IPhoneDesktopStatePickup::createChildStates()
     }
 }
 
-void IPhoneDesktopStatePickup::s_callSetItemScale (MGEFF_ANIMATION animation, void *target, int id, void *pValue) 
+void IPhoneDesktopStatePickup::s_callSetItemScale (MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue) 
 {
     IPhoneDesktopItem *curItem = (IPhoneDesktopItem *)target;
     curItem->setScale (*(float*)pValue);
 }
 
-void IPhoneDesktopStatePickup::s_callSetItemAlpha (MGEFF_ANIMATION animation, void *target, int id, void *pValue) 
+void IPhoneDesktopStatePickup::s_callSetItemAlpha (MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue) 
 {
     IPhoneDesktopItem *curItem = (IPhoneDesktopItem *)target;
     curItem->setTransparency (*(int*)pValue);
@@ -150,7 +150,7 @@ void IPhoneDesktopStatePickup::onEnter(const Event *event, const Transition *tra
     mGEffAnimationSetProperty(group_animation, MGEFF_PROP_KEEPALIVE, 0);
 }
 
-void IPhoneDesktopStatePickup::s_callSetItemPos (MGEFF_ANIMATION animation, void *target, int id, void *pValue) 
+void IPhoneDesktopStatePickup::s_callSetItemPos (MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue) 
 {
     IPhoneDesktopItem *curItem = (IPhoneDesktopItem *)target;
     curItem->moveTo (*(POINT*)pValue);

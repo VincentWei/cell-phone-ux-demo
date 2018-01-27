@@ -23,7 +23,7 @@ class IPhoneDesktopController;
 class ActivityDesktop : public Activity
 {
 public:
-    static int DesktopProc(HWND hWnd, int message, WPARAM wParam, LPARAM lParam);
+    static LRESULT DesktopProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
     static HWND getDesktopHwnd();
 
     static void TryStopShaking(mObject*);
@@ -35,11 +35,11 @@ public:
         int event_id, DWORD param);
 
     static void animationFinishedCb(MGEFF_ANIMATION animation);
-    static void onStateItemAround(MGEFF_ANIMATION animation, void *target, int id, void *pValue);
-    static void onStateItemCenter(MGEFF_ANIMATION animation, void *target, int id, void *pValue);
-    static void onStateApp(MGEFF_ANIMATION animation, void *target, int id, void *pValue);
-    static void onMoveToolBar(MGEFF_ANIMATION animation, void *target, int id, void *pValue);
-    static void onStatePageBar(MGEFF_ANIMATION animation, void *target, int id, void *pValue);
+    static void onStateItemAround(MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue);
+    static void onStateItemCenter(MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue);
+    static void onStateApp(MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue);
+    static void onMoveToolBar(MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue);
+    static void onStatePageBar(MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue);
     MGEFF_ANIMATION pageBarAnimationCreate(void *target, int duration, int zoomout);
 
     ActivityDesktop();

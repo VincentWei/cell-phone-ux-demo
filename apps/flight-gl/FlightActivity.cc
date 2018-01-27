@@ -1,3 +1,7 @@
+#include "global.h"
+
+#ifdef GPU_GLES1
+
 #include "FlightActivity.hh"
 #include <minigui/control.h>
 
@@ -100,3 +104,5 @@ HWND FlightActivity::createHWND() {
 
     return hWnd;
 }
+
+#endif /* GPU_GLES1 */

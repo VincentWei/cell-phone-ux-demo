@@ -1,5 +1,5 @@
 AM_CPPFLAGS=-I../include/ -I../ncs4pad/include -I../ncs4pad/include/pieces
 
-noinst_LIBRARIES=libcontrols.a
+noinst_LTLIBRARIES=libcontrols.la
 
-libcontrols_a_SOURCES= animationedit.h animationedit.c
+libcontrols_la_SOURCES= animationedit.h animationedit.c

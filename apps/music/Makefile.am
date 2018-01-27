@@ -1,6 +1,8 @@
-noinst_LIBRARIES = libmusic.a
+AM_CPPFLAGS = -I../../include -I../../ncs4pad/include -I../../ncs4pad/include/misc -I../../ncs4pad/include/physics-animation -I../../ncs4pad/include/pieces
 
-libmusic_a_SOURCES = \
+noinst_LTLIBRARIES = libmusic.la
+
+libmusic_la_SOURCES = \
     ActivityAlbum.cc \
     ActivityAlbum.hh \
     ActivityMusicPlayer.cc \

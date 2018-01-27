@@ -80,7 +80,7 @@ public:
         char *str1,char *str2,int duration,enum EffMotionType type);
     virtual void initResource(void);
     virtual void releaseResource(void);
-    int getButtonPieceIndex(mButtonPanelPiece* piece,int idx);
+    intptr_t getButtonPieceIndex(mButtonPanelPiece* piece, int idx);
     mAnimationEditPiece *getAnimationEditPiece(void)
     {
         return m_editPiece;

@@ -14,8 +14,6 @@
 #include "IPhoneDesktopController.hh"
 
 HWND g_desktop_hwnd = HWND_INVALID;
-#define MSG_USER_GIVENKEY_UP (MSG_USER + 1003)
-#define MSG_USER_GIVENKEY_DOWN (MSG_USER + 1004)
 
 int common_key_hook(void* context, HWND dst_wnd, 
                 int msg, WPARAM wparam, LPARAM lparam)

@@ -23,7 +23,7 @@ IPhoneDesktopStateDraging::~IPhoneDesktopStateDraging()
 
 void IPhoneDesktopStateDraging::onDragingTrigger(void* object, Transition* trans, const Event* event, void* param)
 {
-    int cur_page, total_page;
+    int /*cur_page, */total_page;
     int scene_w, view_w, boundary_w;
     int distance;
     POINT old_pos, pos;
@@ -40,7 +40,7 @@ void IPhoneDesktopStateDraging::onDragingTrigger(void* object, Transition* trans
 
     view_rc = view->getRect ();
     view_w = RECTW(view_rc);
-    cur_page = layout->currentPage ();
+    //cur_page = layout->currentPage ();
     total_page = layout->totalPage ();
     scene_w = view_w * total_page;
     boundary_w = view_w / 2;

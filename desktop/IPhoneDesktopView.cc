@@ -46,7 +46,7 @@ void IPhoneDesktopView::invalidateRect(const RECT *rc) {
 #endif
 }
 
-void IPhoneDesktopView::callRedraw(MGEFF_ANIMATION animation, void *target, int id, void *pValue) {
+void IPhoneDesktopView::callRedraw(MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue) {
     IPhoneDesktopView *view = (IPhoneDesktopView *)target;
     view->invalidateRect(id ? &view->getAnimationArea() : NULL);
 }

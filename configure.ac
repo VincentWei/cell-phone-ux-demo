@@ -89,6 +89,7 @@ DEP_LIBS="$DEP_LIBS $MINIGUI_LIBS"
 DEP_LIBS="$DEP_LIBS $MGPLUS_LIBS"
 DEP_LIBS="$DEP_LIBS $MGEFF_LIBS"
 DEP_LIBS="$DEP_LIBS $MGNCS_LIBS"
+DEP_LIBS="$DEP_LIBS $MGNCS4TOUCH_LIBS"
 
 AC_CHECK_LIB(sqlite3, sqlite3_open_v2, DEP_LIBS="$DEP_LIBS -lsqlite3", sqlite3_installed=no)
 if test "x$sqlite3_installed" = "xno"; then
@@ -122,6 +123,8 @@ if test "$ac_cv_prog_gcc" = "yes"; then
     CPPFLAGS="$CPPFLAGS -D_GNU_SOURCE -Wall -pipe"
     CFLAGS="$CFLAGS -Wstrict-prototypes"
 fi
+
+AC_SUBST(DEP_LIBS)
 
 AC_OUTPUT(
     Makefile
@@ -160,5 +163,6 @@ AC_OUTPUT(
     apps/time-setting/Makefile
     desktop/Makefile
     inner-res/Makefile
+    res/Makefile
 )
 

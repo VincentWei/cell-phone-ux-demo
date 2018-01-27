@@ -53,9 +53,9 @@ public:
     // EVT_BUBBLE2_SWITCH_OK
     static void evt_bubble2_switch_ok(MGEFF_ANIMATION anim);
     // EVT_BUBBLE_IDLE
-    static BOOL evt_bubble_idle(HWND hwnd, int id, DWORD count);
+    static BOOL evt_bubble_idle(HWND hwnd, LINT id, DWORD count);
     // EVT_PHONE_IDLE
-    static BOOL evt_phone_idle(HWND hwnd, int id, DWORD count);
+    static BOOL evt_phone_idle(HWND hwnd, LINT id, DWORD count);
     // EVT_ESC_PRESSED
     static int evt_esc_pressed(mWidget* self, int scancode, int status);
     // EVT_PHONE_SWITCH_OK

@@ -1,6 +1,8 @@
-noinst_LIBRARIES = libaddress-book.a
+AM_CPPFLAGS = -I../../include -I../../ncs4pad/include -I../../ncs4pad/include/misc -I../../ncs4pad/include/physics-animation -I../../ncs4pad/include/pieces
 
-libaddress_book_a_SOURCES = \
+noinst_LTLIBRARIES = libaddress-book.la
+
+libaddress_book_la_SOURCES = \
     ActivityContacts.cc \
     ActivityContacts.hh \
     ContactsLoadHelper.cc \

@@ -115,10 +115,8 @@ static void mCallHistoryTableViewPiece_rowDidSelectAtIndexPath( mCallHistoryTabl
     ACTIVITYSTACK->switchTo("PhoneCallActivity", CallHistoryActivity::m_intent);
 }
 
-static void mCallHistoryTableViewPiece_onCommitDeleteRowAtIndexPath(mCallHistoryTableViewPiece* self, const mIndexPath* indexpath) {
-    int row;
-
-    row = indexpath->row;
+static void mCallHistoryTableViewPiece_onCommitDeleteRowAtIndexPath(mCallHistoryTableViewPiece* self, 
+        const mIndexPath* indexpath) {
     //add:del data with row in db
 
     self->activity->callDeleteRow(self->data,indexpath->row);

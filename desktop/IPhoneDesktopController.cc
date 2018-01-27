@@ -1,5 +1,14 @@
+#include <stdio.h>
+
+#include <minigui/common.h>
+#include <minigui/minigui.h>
+#include <minigui/gdi.h>
+#include <minigui/window.h>
+
 #include <algorithm>
 #include <sstream>
+#include <cassert>
+
 #include "IPhoneDesktopController.hh"
 #include "IPhoneDesktopItem.hh"
 #include "IPhoneDesktopStateNormal.hh"
@@ -12,10 +21,7 @@
 #include "TransitionSpeedMeasure.hh"
 #include "utility.h"
 #include "DesktopCommonProc.hh"
-#include <minigui/gdi.h>
-#include <minigui/window.h>
 #include "global.h"
-#include <cassert>
 #include "ContentResolver.hh"
 #include "AppsInfoProvider.hh"
 
@@ -117,7 +123,7 @@ IPhoneDesktopController *IPhoneDesktopController::getControllerFromHwnd(HWND hwn
     return (IPhoneDesktopController *)GetWindowAdditionalData2(hwnd);
 }
 
-int IPhoneDesktopController::wndProcWrapper(HWND hwnd, int message, WPARAM wParam, LPARAM lParam) {
+LRESULT IPhoneDesktopController::wndProcWrapper(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
     IPhoneDesktopController *controller = getControllerFromHwnd(hwnd);
     return controller->wndProc(hwnd, message, wParam, lParam);
 }

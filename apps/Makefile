@@ -100,26 +100,23 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-LIBRARIES = $(noinst_LIBRARIES)
-AR = ar
-ARFLAGS = cru
-AM_V_AR = $(am__v_AR_$(V))
-am__v_AR_ = $(am__v_AR_$(AM_DEFAULT_VERBOSITY))
-am__v_AR_0 = @echo "  AR      " $@;
-am__v_AR_1 = 
-libapps_a_AR = $(AR) $(ARFLAGS)
-libapps_a_DEPENDENCIES = common/libcommon.a \
-	address-book/libaddress-book.a photo/libphoto.a sms/libsms.a \
-	calc/libcalc.a dial/libdial.a \
-	sample-activity/libsample-activity.a \
-	sys-setting/libsys-setting.a callhistory/libcallhistory.a \
-	eraser/liberaser.a music/libmusic.a \
-	sample-navigation/libsample-navigation.a \
-	time-setting/libtime-setting.a camera/libcamera.a \
-	phone-call/libphone-call.a screen-lock/libscreen-lock.a \
-	flight-gl/libflight-gl.a coverflow-gl/libcoverflow-gl.a
-am_libapps_a_OBJECTS =
-libapps_a_OBJECTS = $(am_libapps_a_OBJECTS)
+LTLIBRARIES = $(noinst_LTLIBRARIES)
+libapps_la_DEPENDENCIES = common/libcommon.la \
+	address-book/libaddress-book.la photo/libphoto.la \
+	sms/libsms.la calc/libcalc.la dial/libdial.la \
+	sample-activity/libsample-activity.la \
+	sys-setting/libsys-setting.la callhistory/libcallhistory.la \
+	eraser/liberaser.la music/libmusic.la \
+	sample-navigation/libsample-navigation.la \
+	time-setting/libtime-setting.la camera/libcamera.la \
+	phone-call/libphone-call.la screen-lock/libscreen-lock.la \
+	flight-gl/libflight-gl.la coverflow-gl/libcoverflow-gl.la
+am_libapps_la_OBJECTS = foo.lo
+libapps_la_OBJECTS = $(am_libapps_la_OBJECTS)
+AM_V_lt = $(am__v_lt_$(V))
+am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
+am__v_lt_0 = --silent
+am__v_lt_1 = 
 AM_V_P = $(am__v_P_$(V))
 am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))
 am__v_P_0 = false
@@ -133,12 +130,11 @@ am__v_at_ = $(am__v_at_$(AM_DEFAULT_VERBOSITY))
 am__v_at_0 = @
 am__v_at_1 = 
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
+depcomp = $(SHELL) $(top_srcdir)/depcomp
+am__depfiles_maybe = depfiles
+am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-AM_V_lt = $(am__v_lt_$(V))
-am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
-am__v_lt_0 = --silent
-am__v_lt_1 = 
 LTCOMPILE = $(LIBTOOL) $(AM_V_lt) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -154,8 +150,8 @@ AM_V_CCLD = $(am__v_CCLD_$(V))
 am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libapps_a_SOURCES)
-DIST_SOURCES = $(libapps_a_SOURCES)
+SOURCES = $(libapps_la_SOURCES)
+DIST_SOURCES = $(libapps_la_SOURCES)
 RECURSIVE_TARGETS = all-recursive check-recursive cscopelist-recursive \
 	ctags-recursive dvi-recursive html-recursive info-recursive \
 	install-data-recursive install-dvi-recursive \
@@ -197,7 +193,7 @@ am__define_uniq_tagged_files = \
 ETAGS = etags
 CTAGS = ctags
 DIST_SUBDIRS = $(SUBDIRS)
-am__DIST_COMMON = $(srcdir)/Makefile.in
+am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/depcomp
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 am__relativize = \
   dir0=`pwd`; \
@@ -242,6 +238,7 @@ CXXFLAGS = -g -O2
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
+DEP_LIBS =  -L/usr/local/lib -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -L/usr/local/lib -lmgplus -lfreetype -lpthread -lstdc++ -L/usr/local/lib -lmgeff -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -L/usr/local/lib -lmgncs -lmgplus -lfreetype -lpthread -lstdc++ -lsqlite3 -lxml2 -lmgutils -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -L/usr/local/lib -lmgncs4touch -lmgncs -lmgplus -lfreetype -lpthread -lstdc++ -lsqlite3 -lxml2 -lmgutils -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -lmgeff -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -lmgplus -lfreetype -lpthread -lstdc++ -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -lsqlite3 -lxml2 -lchipmunk
 ECHO = echo
 ECHO_C = 
 ECHO_N = -n
@@ -264,7 +261,7 @@ MAKEINFO = ${SHELL} /home/weiym/devel/minilinux/cell-phone-ux-demo/missing makei
 MGEFF_CFLAGS = -I/usr/local/include
 MGEFF_LIBS = -L/usr/local/lib -lmgeff -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype
 MGNCS4TOUCH_CFLAGS = -I/usr/local/include
-MGNCS4TOUCH_LIBS = -L/usr/local/lib -lmgncs4touch DEP_LIBS
+MGNCS4TOUCH_LIBS = -L/usr/local/lib -lmgncs4touch -lmgncs -lmgplus -lfreetype -lpthread -lstdc++ -lsqlite3 -lxml2 -lmgutils -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -lmgeff -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype -lmgplus -lfreetype -lpthread -lstdc++ -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype
 MGNCS_CFLAGS = -I/usr/local/include
 MGNCS_LIBS = -L/usr/local/lib -lmgncs -lmgplus -lfreetype -lpthread -lstdc++ -lsqlite3 -lxml2 -lmgutils -lminigui_procs -ljpeg -lpng -lm -lfreetype -lz -lpng12 -lfreetype
 MGPLUS_CFLAGS = -I/usr/local/include
@@ -365,31 +362,32 @@ SUBDIRS = \
     flight-gl \
     coverflow-gl
 
-noinst_LIBRARIES = libapps.a
-libapps_a_SOURCES = 
-libapps_a_LIBADD = \
-    common/libcommon.a \
-    address-book/libaddress-book.a \
-    photo/libphoto.a \
-    sms/libsms.a \
-    calc/libcalc.a \
-    dial/libdial.a \
-    sample-activity/libsample-activity.a \
-    sys-setting/libsys-setting.a \
-    callhistory/libcallhistory.a \
-    eraser/liberaser.a \
-    music/libmusic.a \
-    sample-navigation/libsample-navigation.a \
-    time-setting/libtime-setting.a \
-    camera/libcamera.a \
-    phone-call/libphone-call.a \
-    screen-lock/libscreen-lock.a \
-    flight-gl/libflight-gl.a \
-    coverflow-gl/libcoverflow-gl.a
+noinst_LTLIBRARIES = libapps.la
+libapps_la_SOURCES = foo.c
+libapps_la_LIBADD = \
+    common/libcommon.la \
+    address-book/libaddress-book.la \
+    photo/libphoto.la \
+    sms/libsms.la \
+    calc/libcalc.la \
+    dial/libdial.la \
+    sample-activity/libsample-activity.la \
+    sys-setting/libsys-setting.la \
+    callhistory/libcallhistory.la \
+    eraser/liberaser.la \
+    music/libmusic.la \
+    sample-navigation/libsample-navigation.la \
+    time-setting/libtime-setting.la \
+    camera/libcamera.la \
+    phone-call/libphone-call.la \
+    screen-lock/libscreen-lock.la \
+    flight-gl/libflight-gl.la \
+    coverflow-gl/libcoverflow-gl.la
 
 all: all-recursive
 
 .SUFFIXES:
+.SUFFIXES: .c .lo .o .obj
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -399,9 +397,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign apps/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu apps/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign apps/Makefile
+	  $(AUTOMAKE) --gnu apps/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \
@@ -420,19 +418,48 @@ $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
 
-clean-noinstLIBRARIES:
-	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
+clean-noinstLTLIBRARIES:
+	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
+	@list='$(noinst_LTLIBRARIES)'; \
+	locs=`for p in $$list; do echo $$p; done | \
+	      sed 's|^[^/]*$$|.|; s|/[^/]*$$||; s|$$|/so_locations|' | \
+	      sort -u`; \
+	test -z "$$locs" || { \
+	  echo rm -f $${locs}; \
+	  rm -f $${locs}; \
+	}
 
-libapps.a: $(libapps_a_OBJECTS) $(libapps_a_DEPENDENCIES) $(EXTRA_libapps_a_DEPENDENCIES) 
-	$(AM_V_at)-rm -f libapps.a
-	$(AM_V_AR)$(libapps_a_AR) libapps.a $(libapps_a_OBJECTS) $(libapps_a_LIBADD)
-	$(AM_V_at)$(RANLIB) libapps.a
+libapps.la: $(libapps_la_OBJECTS) $(libapps_la_DEPENDENCIES) $(EXTRA_libapps_la_DEPENDENCIES) 
+	$(AM_V_CCLD)$(LINK)  $(libapps_la_OBJECTS) $(libapps_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
 
 distclean-compile:
 	-rm -f *.tab.c
+
+include ./$(DEPDIR)/foo.Plo
+
+.c.o:
+	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+#	$(AM_V_CC)source='$<' object='$@' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(COMPILE) -c -o $@ $<
+
+.c.obj:
+	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+#	$(AM_V_CC)source='$<' object='$@' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+.c.lo:
+	$(AM_V_CC)$(LTCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Plo
+#	$(AM_V_CC)source='$<' object='$@' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LTCOMPILE) -c -o $@ $<
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -596,7 +623,7 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-recursive
-all-am: Makefile $(LIBRARIES)
+all-am: Makefile $(LTLIBRARIES)
 installdirs: installdirs-recursive
 installdirs-am:
 install: install-recursive
@@ -631,10 +658,11 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-recursive
 
-clean-am: clean-generic clean-libtool clean-noinstLIBRARIES \
+clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
 	mostlyclean-am
 
 distclean: distclean-recursive
+	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -680,6 +708,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-recursive
+	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
@@ -702,7 +731,7 @@ uninstall-am:
 
 .PHONY: $(am__recursive_targets) CTAGS GTAGS TAGS all all-am check \
 	check-am clean clean-generic clean-libtool \
-	clean-noinstLIBRARIES cscopelist-am ctags ctags-am distclean \
+	clean-noinstLTLIBRARIES cscopelist-am ctags ctags-am distclean \
 	distclean-compile distclean-generic distclean-libtool \
 	distclean-tags distdir dvi dvi-am html html-am info info-am \
 	install install-am install-data install-data-am install-dvi \

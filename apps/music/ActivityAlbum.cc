@@ -4,7 +4,10 @@
 #include <minigui/gdi.h>
 #include <minigui/window.h>
 
+#include <mgeff/mgeff.h>
 #include <mgncs/mgncs.h>
+#include <mgncs4touch/mgncs4touch.h>
+
 #include "mcontainerctrl.h"
 #include "mpanelpiece.h"
 #include "mtableviewpiece.h"

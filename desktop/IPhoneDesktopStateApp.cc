@@ -51,20 +51,20 @@ void IPhoneDesktopStateApp::animationFinishedCb(MGEFF_ANIMATION animation)
     }
 }
 
-void IPhoneDesktopStateApp::onStateItemAround(MGEFF_ANIMATION animation, void *target, int id, void *pValue)
+void IPhoneDesktopStateApp::onStateItemAround(MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue)
 {
     IPhoneDesktopItem *item = (IPhoneDesktopItem *)target;
     item->moveTo(*(POINT *)pValue);
 }
 
-void IPhoneDesktopStateApp::onStateItemCenter(MGEFF_ANIMATION animation, void *target, int id, void *pValue)
+void IPhoneDesktopStateApp::onStateItemCenter(MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue)
 {
     IPhoneDesktopItem *item = (IPhoneDesktopItem *)target;
     // item->setScale (1.00f);
     item->setTransparency (*(int*)pValue);
 }
 
-void IPhoneDesktopStateApp::onStateApp(MGEFF_ANIMATION animation, void *target, int id, void *pValue)
+void IPhoneDesktopStateApp::onStateApp(MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue)
 {
     static RECT old_rc;
     HDC hsdc = (HDC)id;

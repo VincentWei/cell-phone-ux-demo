@@ -35,9 +35,9 @@ private:
     void onEnter(const Event *event, const Transition *transition);
     void onLeave(const Event *event, const Transition *transition);
 
-    static void s_callSetItemAlpha (MGEFF_ANIMATION animation, void *target, int id, void *pValue);
-    static void s_callSetItemScale (MGEFF_ANIMATION animation, void *target, int id, void *pValue);
-    static void s_callSetItemPos (MGEFF_ANIMATION animation, void *target, int id, void *pValue);
+    static void s_callSetItemAlpha (MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue);
+    static void s_callSetItemScale (MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue);
+    static void s_callSetItemPos (MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue);
     static void s_transitionPickupMove(void *object, Transition *_transition, const Event* event, void *param);
 
 private:

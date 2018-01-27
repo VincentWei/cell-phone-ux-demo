@@ -10,16 +10,17 @@
 #ifndef DMSTATEMACHINE_HH
 #define DMSTATEMACHINE_HH
 
+#include <stdint.h>
 #include <vector>
 #include <string>
 #include <cassert>
 
 // convenient for state table declaration
 #define BEGIN_STATE_DECLARE(tableName) \
-    static const int tableName[] = {
+    static const intptr_t tableName[] = {
 
 #define DECLARE_STATE(s) \
-        s, (int)#s, 
+        s, (intptr_t)#s, 
 
 #define END_STATE_DELCARE \
         0, 0, \
@@ -27,10 +28,10 @@
 
 // convenient for transition table declaration
 #define BEGIN_TRANSITION_DECLARE(tableName) \
-    static const int tableName[] = {
+    static const intptr_t tableName[] = {
 
 #define DECLARE_TRANSITION(s1, evt, s2) \
-        s1, evt, s2, (int)#evt, 
+        s1, evt, s2, (intptr_t)#evt, 
 
 #define END_TRANSITION_DELCARE \
         0, 0, 0, 0, \
@@ -58,40 +59,40 @@ class dmNamedObj
 class dmEvent : public dmNamedObj
 {
     public:
-        dmEvent(const char* name, int id) : dmNamedObj(name), m_id(id) {}
+        dmEvent(const char* name, intptr_t id) : dmNamedObj(name), m_id(id) {}
         virtual ~dmEvent() {}
 
-        int id() const {return m_id;}
+        intptr_t id() const {return m_id;}
 
     protected:
-        int m_id;
+        intptr_t m_id;
 };
 
 class dmState : public dmNamedObj
 {
     public:
-        dmState(const char* name, int id) : dmNamedObj(name), m_id(id) {}
+        dmState(const char* name, intptr_t id) : dmNamedObj(name), m_id(id) {}
         virtual ~dmState();
 
         void addTransition(dmTransition* transition);
 
         dmTransitionTable* getTransitionTable() {return &m_transitionTable;}
 
-        dmState* processEvent(int eventId);
+        dmState* processEvent(intptr_t eventId);
 
-        int id() const {return m_id;}
+        intptr_t id() const {return m_id;}
 
     protected:
-        int m_id;
+        intptr_t m_id;
         dmTransitionTable m_transitionTable;
 };
 
 class dmTransition
 {
     public:
-        dmTransition(const dmState* source, int eventId, dmState* target, const char* eventDesc="")
+        dmTransition(const dmState* source, intptr_t eventId, dmState* target, const char* eventDesc="")
             : m_source(source), m_eventId(eventId), m_target(target), m_eventDesc(eventDesc) {}
-        ~dmTransition() {}
+        virtual ~dmTransition() {}
 
         virtual bool transit() {return true;}
 
@@ -100,12 +101,12 @@ class dmTransition
         const dmState* target() const {return m_target;}
         dmState* target() {return m_target;};
 
-        int eventId() const {return m_eventId;}
+        intptr_t eventId() const {return m_eventId;}
 
         virtual char* getTransitionDesc(char* descOut, int maxlen);
     protected:
         const dmState* m_source;
-        int m_eventId;
+        intptr_t m_eventId;
         dmState* m_target;
         const char* m_eventDesc;
 };
@@ -123,7 +124,7 @@ class dmStateMachine : public dmNamedObj
         {
             return m_currentState;
         }
-        int currentStateId() const 
+        intptr_t currentStateId() const 
         {
             assert(currentState() != NULL);
             return currentState()->id();
@@ -131,16 +132,16 @@ class dmStateMachine : public dmNamedObj
 
         bool isStateChanged() {return m_stateChangedFlag;}
 
-        dmState* findState(int stateId);
+        dmState* findState(intptr_t stateId);
 
-        dmState* addState(const char* name, int id);
-        void addStateTable(const int* stateTable);
+        dmState* addState(const char* name, intptr_t id);
+        void addStateTable(const intptr_t* stateTable);
 
-        dmTransition* addTransition(dmState* source, int eventId, dmState* target,
+        dmTransition* addTransition(dmState* source, intptr_t eventId, dmState* target,
                 const char* eventDesc="");
-        dmTransition* addTransition(int sourceId, int eventId, int targetId, 
+        dmTransition* addTransition(intptr_t sourceId, intptr_t eventId, intptr_t targetId, 
                 const char* eventDesc="");
-        void addTransitionTable(const int* transitionTable);
+        void addTransitionTable(const intptr_t* transitionTable);
 
         void setInitState(dmState* state)
         {
@@ -149,12 +150,12 @@ class dmStateMachine : public dmNamedObj
             m_currentState = m_initState;
             m_stateChangedFlag = true;
         }
-        void setInitState(int id)
+        void setInitState(intptr_t id)
         {
             setInitState(findState(id));
         }
 
-        bool moveOn(int eventId);
+        bool moveOn(intptr_t eventId);
 
         void reset()
         {

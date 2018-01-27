@@ -24,7 +24,7 @@ class IPhoneDesktopController {
         ~IPhoneDesktopController();
 
         static IPhoneDesktopController *getControllerFromHwnd(HWND hwnd);
-        static int wndProcWrapper(HWND hwnd, int message, WPARAM wparam, LPARAM lparam);
+        static LRESULT wndProcWrapper(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
 
         Scene &getScene();
         IPhoneDesktopLayout &getLayout();

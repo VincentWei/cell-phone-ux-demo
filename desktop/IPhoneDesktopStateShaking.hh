@@ -21,7 +21,7 @@ public:
 private:
     void onEnter(const Event *event, const Transition *transition);
     void onLeave(const Event *event, const Transition *transition);
-    static void callSetItemStatus(MGEFF_ANIMATION, void *, int, void *);
+    static void callSetItemStatus(MGEFF_ANIMATION, void *, intptr_t, void *);
 public:
     enum {
         S51_Pickedup,

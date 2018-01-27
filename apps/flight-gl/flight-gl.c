@@ -9,6 +9,8 @@
 
 #include "global.h"
 
+#ifdef GPU_GLES1
+
 #define OPENGL_API_USE_ES2  0
 
 #include <EGL/egl.h>
@@ -668,3 +670,6 @@ void letmefly_sideslip(float d_angle)
 {
     sideslip_angle = d_angle;
 }
+
+#endif /* GPU_GLES1 */
+

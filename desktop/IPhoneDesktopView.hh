@@ -19,7 +19,7 @@ public:
     IPhoneDesktopView(Scene *scene, HWND hwnd);
     ~IPhoneDesktopView();
 
-    static void callRedraw(MGEFF_ANIMATION animation, void *target, int id, void *pValue);
+    static void callRedraw(MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue);
 
     void onDraw(HDC dc) { View::onDraw(dc); }
     void invalidateRect(const RECT *rc=NULL);

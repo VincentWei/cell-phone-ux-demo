@@ -10,6 +10,8 @@
 
 #include "global.h"
 
+#ifdef GPU_GLES1
+
 #define OPENGL_API_USE_ES2  0
 
 #include <EGL/egl.h>
@@ -486,3 +488,4 @@ void coverflow_deinit(void)
     itemLength = 0;
 }
 
+#endif /* GPU_GLES1 */

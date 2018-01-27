@@ -920,7 +920,7 @@ mContainerCtrl* PhoneCallActivity::endCallButtonCreate(HWND hwnd,RECT rect)
     return containerctrl;
 }
 
-static void act_onDraw (MGEFF_ANIMATION handle, void* target, int id, void* value)
+static void act_onDraw (MGEFF_ANIMATION handle, void* target, intptr_t id, void* value)
 {
     ANIMATION_INDEX index;
     mPanelPiece *self = (mPanelPiece *)target;
@@ -962,7 +962,7 @@ MGEFF_ANIMATION PhoneCallActivity::startImageMoveAnimation(mContainerCtrl *ctnr,
     MGEFF_ANIMATION animation1;
     MGEFF_ANIMATION animation2;
 
-    HWND main_hwnd;
+    //HWND main_hwnd;
     mPanelPiece *self;
 
     func_contain_piece *contain_piece = NULL;
@@ -1001,15 +1001,14 @@ MGEFF_ANIMATION PhoneCallActivity::startImageMoveAnimation(mContainerCtrl *ctnr,
         return contain_piece->animation_handle;
     }
     assert(ctnr);
-    main_hwnd = GetMainWindowHandle(ctnr->hwnd);
+    //main_hwnd = GetMainWindowHandle(ctnr->hwnd);
 
     animation = mGEffAnimationCreateGroup(MGEFF_SEQUENTIAL);
 	if (animation == NULL)
 		return NULL;
 
     if (idx) {
-        animation1 = mGEffAnimationCreate (self, act_onDraw, 
-                1, MGEFF_POINT);
+        animation1 = mGEffAnimationCreate (self, act_onDraw, 1, MGEFF_POINT);
         mGEffAnimationSetStartValue (animation1, &pts);
         mGEffAnimationSetEndValue (animation1, &pte);
         mGEffAnimationSetCurve (animation1,InQuad);
@@ -1192,7 +1191,7 @@ static void act_flip(mContainerCtrl *ctnr,PhoneCallActivity* act,int id,int pt)
         }
     }
 }
-static void act_pushflipCB (MGEFF_ANIMATION handle, void* target, int id, void* value)
+static void act_pushflipCB (MGEFF_ANIMATION handle, void* target, intptr_t id, void* value)
 {
     HWND main_hwnd;
     mContainerCtrl *ctnr = (mContainerCtrl *)target;

@@ -92,7 +92,7 @@ IPhoneDesktopItem::IPhoneDesktopItem(const std::string& name, const std::string&
     getPicturesName (iconPath.c_str());
     for (i=0; i<MAXICONSTATUS; ++i) {
         if (!m_icons[i].empty()) {
-            bmp = (BITMAP*) Load32Resource (m_icons[i].c_str(), RES_TYPE_IMAGE, HDC_SCREEN);
+            bmp = (BITMAP*) Load32Resource (m_icons[i].c_str(), RES_TYPE_IMAGE, (DWORD)HDC_SCREEN);
             if (!bmp) {
                 printf ("Load32Resource error, name: %s!\n", m_icons[i].c_str());
                 continue;

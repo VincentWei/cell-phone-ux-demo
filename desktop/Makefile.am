@@ -1,10 +1,8 @@
-AM_CPPFLAGS=../include/
+AM_CPPFLAGS=-I../include/ -I../ncs4pad/include -I../ncs4pad/include/pieces -I../ncs4pad/include/physics-animation
 
-noinst_LIBRARIES=libdesktop.a
+noinst_LTLIBRARIES=libdesktop.la
 
-libdesktop_a_SOURCES= \
-    ctivityDesktop.cc \
-    ActivityDesktop.hh \
+libdesktop_la_SOURCES= \
     DesktopCommonProc.cc \
     DesktopToolbar.cc \
     IPhoneDesktopController.cc \
@@ -52,4 +50,6 @@ libdesktop_a_SOURCES= \
     TransitionSpeedMeasure.cc \
     TransitionSpeedMeasure.hh \
     TransitionStandStillOnItem.cc \
-    TransitionStandStillOnItem.hh
+    TransitionStandStillOnItem.hh \
+    ActivityDesktop.cc \
+    ActivityDesktop.hh

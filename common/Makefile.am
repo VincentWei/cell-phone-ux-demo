@@ -1,8 +1,8 @@
 AM_CPPFLAGS=-I../include/
 
-noinst_LIBRARIES=libcommon.a
+noinst_LTLIBRARIES=libcommon.la
 
-libcommon_a_SOURCES= \
+libcommon_la_SOURCES= \
     Activity.cc \
     ActivityStack.cc \
     AppsInfoProvider.cc \

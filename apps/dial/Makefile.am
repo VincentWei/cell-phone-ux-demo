@@ -1,5 +1,7 @@
-noinst_LIBRARIES = libdial.a
+AM_CPPFLAGS = -I../../include -I../../ncs4pad/include -I../../ncs4pad/include/misc -I../../ncs4pad/include/physics-animation -I../../ncs4pad/include/pieces
 
-libdial_a_SOURCES = \
+noinst_LTLIBRARIES = libdial.la
+
+libdial_la_SOURCES = \
     DialPadActivity.cc \
     DialPadActivity.hh

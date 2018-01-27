@@ -86,7 +86,7 @@ void IPhoneDesktopStateShifting::createChildStates(State* returnState, State* ap
 
     EventTransition *trans;
     TransitionSpeedMeasure* transSpeed;
-    TransitionAnimationFinished* transAnimation;
+    //TransitionAnimationFinished* transAnimation;
     IPhoneDesktopStateDraging* stateDraging;
     IPhoneDesktopStateInertia* stateInertia;
 
@@ -115,7 +115,7 @@ void IPhoneDesktopStateShifting::createChildStates(State* returnState, State* ap
 
 
     name  = std::string("TransitionAnimationFinished::S42_Inertia->") + returnState->name(); 
-    transAnimation = new TransitionAnimationFinished(inertiaScrollParam.animation, 
+    /*transAnimation = */new TransitionAnimationFinished(inertiaScrollParam.animation, 
             stateInertia, returnState, name.c_str());
 
 

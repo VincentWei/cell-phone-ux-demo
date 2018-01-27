@@ -21,9 +21,9 @@ class IPhoneDesktopStateApp : public IPhoneDesktopState {
 
     private:
         static void animationFinishedCb(MGEFF_ANIMATION animation);
-        static void onStateItemAround(MGEFF_ANIMATION animation, void *target, int id, void *pValue);
-        static void onStateItemCenter(MGEFF_ANIMATION animation, void *target, int id, void *pValue);
-        static void onStateApp(MGEFF_ANIMATION animation, void *target, int id, void *pValue);
+        static void onStateItemAround(MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue);
+        static void onStateItemCenter(MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue);
+        static void onStateApp(MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue);
         void setAnimation(const Event *event, const Transition *_transition, int zoomout);
         inline void onEnter(const Event* event, const Transition *_transition) 
         {

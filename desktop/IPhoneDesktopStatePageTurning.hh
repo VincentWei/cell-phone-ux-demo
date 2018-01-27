@@ -18,10 +18,10 @@ class IPhoneDesktopStatePageTurning : public IPhoneDesktopState {
         IPhoneDesktopStatePageTurning(IPhoneDesktopController *controller, State *parentState, const char *name);
         ~IPhoneDesktopStatePageTurning() {}
     private:
-        static void animationCallback (MGEFF_ANIMATION handle, void* target, int id, void* value);
-        static void noAnimationCallback (MGEFF_ANIMATION handle, void* target, int id, void* value);
+        static void animationCallback (MGEFF_ANIMATION handle, void* target, intptr_t id, void* value);
+        static void noAnimationCallback (MGEFF_ANIMATION handle, void* target, intptr_t id, void* value);
     private:
-        //static void onTransposition(MGEFF_ANIMATION animation, void* target, int id, void *pValue);
+        //static void onTransposition(MGEFF_ANIMATION animation, void* target, intptr_t id, void *pValue);
         void onEnter(const Event* event, const Transition *_transition);
         void onLeave(const Event* event, const Transition *_transition);
 

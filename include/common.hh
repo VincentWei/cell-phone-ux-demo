@@ -9,8 +9,17 @@
 #ifndef  COMMON_INC
 #define  COMMON_INC
 
+#undef PACKAGE
+#undef VERSION
+#undef PACKAGE_BUGREPORT
+#undef PACKAGE_NAME
+#undef PACKAGE_STRING
+#undef PACKAGE_TARNAME
+#undef PACKAGE_VERSION
 #include "config.h"
+
 #include <string>
+
 std::string stringReplace(const std::string& str, const std::string& oldVal, const std::string& newVal);
 
 struct DeleteObject {

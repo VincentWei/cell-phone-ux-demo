@@ -1,6 +1,8 @@
-noinst_LIBRARIES = libsms.a
+AM_CPPFLAGS = -I../../include -I../../ncs4pad/include -I../../ncs4pad/include/misc -I../../ncs4pad/include/physics-animation -I../../ncs4pad/include/pieces
 
-libsms_a_SOURCES = \
+noinst_LTLIBRARIES = libsms.la
+
+libsms_la_SOURCES = \
     msmsdetailview.cc \
     msmsdetailview.h \
     SMSActivity.cc \

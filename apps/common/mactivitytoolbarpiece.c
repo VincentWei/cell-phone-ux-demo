@@ -139,9 +139,10 @@ void mActivityToolbarPiece_setButtonCallback(mActivityToolbarPiece *self, int wh
 void mActivityToolbarPiece_changeButtonImage(mActivityToolbarPiece *self, int which_btn, BITMAP *bmp)
 {
     mImagePiece* img_piece;
-    mButtonPanelPiece *button;
+    //mButtonPanelPiece *button;
     RECT rc;
-    button = self->buttons[which_btn];
+
+    //button = self->buttons[which_btn];
     img_piece = self->button_image[which_btn];
     _c(img_piece)->setProperty(img_piece, NCSP_IMAGEPIECE_IMAGE, (DWORD)bmp);
     _c(img_piece)->getRect(img_piece,&rc);

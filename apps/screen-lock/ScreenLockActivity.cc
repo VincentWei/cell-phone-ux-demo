@@ -221,10 +221,10 @@ END_TRANSITION_DELCARE
 
 
 // declare animation callback function
-static void shutterCallback(MGEFF_ANIMATION anim, void* target, int id, void* value);
+static void shutterCallback(MGEFF_ANIMATION anim, void* target, intptr_t id, void* value);
 static void shutterUp1EndCallback(MGEFF_ANIMATION anim);
 static void shutterUp2EndCallback(MGEFF_ANIMATION anim);
-static void highlightAnimCallback(MGEFF_ANIMATION anim, void* target, int id, void* value);
+static void highlightAnimCallback(MGEFF_ANIMATION anim, void* target, intptr_t id, void* value);
 static void hintbarAnimFinishCb(MGEFF_ANIMATION anim);
 static void toolbarAnimFinishCb(MGEFF_ANIMATION anim);
 
@@ -232,7 +232,7 @@ static void toolbarAnimFinishCb(MGEFF_ANIMATION anim);
 static int registerControlsAndPieces();
 static void startHighlight(HWND hwnd);
 static void updateTimeAndDate(HWND hwnd);
-static BOOL hintbar_onTimer(HWND hwnd, int id, DWORD count);
+static BOOL hintbar_onTimer(HWND hwnd, LINT id, DWORD count);
 static BOOL updateInfoBox(void* target, TimeService *ts, int eventId, DWORD param);
 
 static int randomInRange(int low, int high);
@@ -251,9 +251,6 @@ static BOOL evt_toolbar_call(mWidget* self, mHotPiece *piece,
         int event_id, DWORD param);
 static BOOL evt_toolbar_sms(mWidget* self, mHotPiece *piece,
         int event_id, DWORD param);
-
-static int app_key_hook(void* context, HWND dst_wnd, 
-                        int msg, WPARAM wparam, LPARAM lparam);
 
 // bubble's event handlers
 static const MGEFF_FINISHED_CB evt_bubble_switch_ok[] =
@@ -324,7 +321,7 @@ void ScreenLockActivity::evt_bubble2_switch_ok(MGEFF_ANIMATION anim)
 }
 
 // EVT_BUBBLE_IDLE
-BOOL ScreenLockActivity::evt_bubble_idle(HWND hwnd, int id, DWORD count)
+BOOL ScreenLockActivity::evt_bubble_idle(HWND hwnd, LINT id, DWORD count)
 {
     ScreenLockActivity* _this = thisActivity(GetMainWindowHandle(hwnd));
     ScreenLockActivity::bubble_idle(_this);
@@ -332,7 +329,7 @@ BOOL ScreenLockActivity::evt_bubble_idle(HWND hwnd, int id, DWORD count)
 }
 
 // EVT_PHONE_IDLE
-BOOL ScreenLockActivity::evt_phone_idle(HWND hwnd, int id, DWORD count)
+BOOL ScreenLockActivity::evt_phone_idle(HWND hwnd, LINT id, DWORD count)
 {
     ScreenLockActivity* _this = thisActivity(GetMainWindowHandle(hwnd));
     if (_this->m_stateMachine.moveOn(EVT_PHONE_IDLE)) {
@@ -693,7 +690,11 @@ int ScreenLockActivity::onResume()
         // add event listener
         //TIMESERVICE->addEventListener((void*)m_infoCtrl->hwnd, TimeService::MINUTE, updateInfoBox);
 
+#ifdef _MGRM_THREADS
         RegisterKeyMsgHook((void*)GetMainWindowHandle(self->hwnd), NULL);
+#else
+        RegisterKeyHookWindow(HWND_NULL, 0);
+#endif
 
         if (2 == m_intentFlag) {
             m_intentFlag = 0;
@@ -706,7 +707,7 @@ int ScreenLockActivity::onResume()
 }
 
 // animation callback---------------------------------------------------------
-static void shutterCallback(MGEFF_ANIMATION anim, void* target, int id, void* value)
+static void shutterCallback(MGEFF_ANIMATION anim, void* target, intptr_t id, void* value)
 {
     ScreenLockActivity* _this = (ScreenLockActivity*) mGEffAnimationGetTarget(anim);
     RECT* prc = (RECT*) value;
@@ -752,7 +753,7 @@ static void shutterUp2EndCallback(MGEFF_ANIMATION anim)
     ScreenLockActivity::shutter_down2(_this);
 }
 
-static void highlightAnimCallback(MGEFF_ANIMATION anim, void* target, int id, void* value)
+static void highlightAnimCallback(MGEFF_ANIMATION anim, void* target, intptr_t id, void* value)
 {
     ScreenLockActivity* _this = (ScreenLockActivity*) target;
     int highlight_x = *(int*)value;
@@ -819,10 +820,10 @@ void ScreenLockActivity::initStateMachine()
 
 void ScreenLockActivity::loadMyResource()
 {
-    m_bgBmp = (PBITMAP) Load32Resource(DESKTOP_IMG_PATH, RES_TYPE_IMAGE, HDC_SCREEN);
+    m_bgBmp = (PBITMAP) Load32Resource(DESKTOP_IMG_PATH, RES_TYPE_IMAGE, (DWORD)HDC_SCREEN);
 
     for (int i = 0; i < BUBBLE_NUM; ++i)
-        m_bubbleBmp[i] = (PBITMAP) Load32Resource(btn_img_path[i], RES_TYPE_IMAGE, HDC_SCREEN);
+        m_bubbleBmp[i] = (PBITMAP) Load32Resource(btn_img_path[i], RES_TYPE_IMAGE, (DWORD)HDC_SCREEN);
 
     m_timeFont = CreateLogFont ("ttf", "helvetica", "GB2312",
             FONT_WEIGHT_BOOK,
@@ -1502,6 +1503,7 @@ BOOL evt_toolbar_menu(mWidget* self, mHotPiece *piece,
     return FALSE;
 }
 
+#ifdef _MGRM_THREADS
 static int app_key_hook(void* context, HWND dst_wnd, 
                         int msg, WPARAM wparam, LPARAM lparam)
 {
@@ -1522,6 +1524,7 @@ static int app_key_hook(void* context, HWND dst_wnd,
     }
     return HOOK_STOP;
 }
+#endif
 
 BOOL evt_toolbar_call(mWidget* self, mHotPiece *piece,
                       int event_id, DWORD param)
@@ -1531,7 +1534,11 @@ BOOL evt_toolbar_call(mWidget* self, mHotPiece *piece,
     if (event_id == NCSN_ABP_CLICKED) {
         if (_this->m_stateMachine.moveOn(EVT_PAUSE)) {
             ActivityStack::singleton()->push("CallHistoryActivity",(Intent*)1);
+#ifdef _MGRM_THREADS
             RegisterKeyMsgHook((void*)GetMainWindowHandle(self->hwnd), app_key_hook);
+#else
+            RegisterKeyHookWindow(GetMainWindowHandle(self->hwnd), HOOK_GOON);
+#endif
         }
         return TRUE;
     }
@@ -1547,7 +1554,11 @@ BOOL evt_toolbar_sms(mWidget* self, mHotPiece *piece,
     if (event_id == NCSN_ABP_CLICKED) {
         if (_this->m_stateMachine.moveOn(EVT_PAUSE)) {
             ActivityStack::singleton()->switchTo("SMSActivity");
+#ifdef _MGRM_THREADS
             RegisterKeyMsgHook((void*)GetMainWindowHandle(self->hwnd), app_key_hook);
+#else
+            RegisterKeyHookWindow(GetMainWindowHandle(self->hwnd), HOOK_GOON);
+#endif
         }
         return TRUE;
     }
@@ -1664,7 +1675,7 @@ static int mainWnd_onUserReturnToStandby(mWidget* self, int message, WPARAM wPar
 
 
 // control's message handler-------------------------------------------------
-static BOOL hintbar_onTimer(HWND hwnd, int id, DWORD count)
+static BOOL hintbar_onTimer(HWND hwnd, LINT id, DWORD count)
 {
     printf("hintbar_onTimer\n");
     startHighlight(hwnd);
@@ -1688,7 +1699,7 @@ static NCS_EVENT_HANDLER mymain_handlers [] = {
 };
 
 static NCS_WND_TEMPLATE _ctrl_templ[] = {
-    {0, NULL}
+    {0, 0}
 };
 
 static NCS_MNWND_TEMPLATE mymain_templ = {

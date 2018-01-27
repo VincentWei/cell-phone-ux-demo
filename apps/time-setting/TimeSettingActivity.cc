@@ -1,7 +1,15 @@
-#include "TimeSettingActivity.hh"
+#include <string.h>
+#include <minigui/common.h>
+#include <minigui/minigui.h>
+#include <minigui/gdi.h>
+#include <minigui/window.h>
 
-#include <mgeff/mgeff.h>
 #include <mgplus/mgplus.h>
+#include <mgeff/mgeff.h>
+#include <mgncs/mgncs.h>
+#include <mgncs4touch/mgncs4touch.h>
+
+#include "TimeSettingActivity.hh"
 
 #include "TimeService.hh"
 
@@ -106,7 +114,7 @@ static BOOL evt_btnbar_date_down(mObject* self, mObject* piece,
 static BOOL evt_btnbar_time_down(mObject* self, mObject* piece,
         int event_id, DWORD param);
 
-static void moveWindowAnimCb(MGEFF_ANIMATION anim, void* target, int id, void* value)
+static void moveWindowAnimCb(MGEFF_ANIMATION anim, void* target, intptr_t id, void* value)
 {
     mWidget* widget = (mWidget*) target;
     RECT* pos = (RECT*)value;
@@ -272,7 +280,7 @@ void TimeSettingActivity::switchWidget(mWidget* from, mWidget* to)
     mGEffAnimationSetCurve(anim, curve);
     mGEffAnimationAddToGroup(group, anim);
 
-    mGEffAnimationSyncRun(group, 0);
+    mGEffAnimationSyncRun(group);
 }
 
 void TimeSettingActivity::enterSettings()

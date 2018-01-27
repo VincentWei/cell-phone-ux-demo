@@ -2,9 +2,9 @@ AM_CPPFLAGS = -I../../include -I../include -I../include/misc -I../include/physic
 
 SUBDIRS = misc physics-animation pieces
 
-noinst_LIBRARIES = libncs4pad.a
+noinst_LTLIBRARIES = libncs4pad.la
 
-libncs4pad_a_SOURCES = \
+libncs4pad_la_SOURCES = \
     mcenterhbox.c \
     mcontainerctrl.c \
     miconflow.c \
@@ -12,4 +12,4 @@ libncs4pad_a_SOURCES = \
     mlinevbox.c \
     museritem.c
 
-libncs4pad_a_LIBADD = misc/libmisc.a physics-animation/libphyanim.a pieces/libpieces.a
+libncs4pad_la_LIBADD = misc/libmisc.la physics-animation/libphyanim.la pieces/libpieces.la

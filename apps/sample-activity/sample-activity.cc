@@ -10,16 +10,15 @@ SampleActivity::SampleActivity() {
 SampleActivity::~SampleActivity() {
 }
 
-int SampleActivity::proc(HWND hWnd, int message, WPARAM wParam,LPARAM lParam) {
+LRESULT SampleActivity::proc(HWND hWnd, UINT message, WPARAM wParam,LPARAM lParam) {
     switch (message) {
         case MSG_CREATE:
             {
-                HWND title, body, button;
-                title = CreateWindow(CTRL_STATIC, "This is title", WS_VISIBLE | SS_CENTER, 100,
+                CreateWindow(CTRL_STATIC, "This is title", WS_VISIBLE | SS_CENTER, 100,
                         0, 0, ACTIVITY_W, 20, hWnd, 0);
-                body = CreateWindow(CTRL_STATIC, "This is body", WS_VISIBLE | SS_CENTER | SS_BLACKRECT, 101,
+                CreateWindow(CTRL_STATIC, "This is body", WS_VISIBLE | SS_CENTER | SS_BLACKRECT, 101,
                         0, 20, ACTIVITY_W, ACTIVITY_H - 20 - 20, hWnd, 0);
-                button = CreateWindow(CTRL_STATIC, "This is button", WS_VISIBLE | SS_CENTER, 102,
+                CreateWindow(CTRL_STATIC, "This is button", WS_VISIBLE | SS_CENTER, 102,
                         0, ACTIVITY_H - 20, ACTIVITY_W, 20, hWnd, 0);
             }
             break;

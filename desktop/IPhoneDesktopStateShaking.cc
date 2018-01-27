@@ -56,7 +56,7 @@ void IPhoneDesktopStateShaking::createChildStates() {
     }
 }
 
-void IPhoneDesktopStateShaking::callSetItemStatus(MGEFF_ANIMATION animation, void *target, int id, void *pValue) {
+void IPhoneDesktopStateShaking::callSetItemStatus(MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue) {
     static const int table[] = {
         1,
         0,

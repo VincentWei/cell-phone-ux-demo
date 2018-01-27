@@ -18,25 +18,25 @@ SUBDIRS = \
     flight-gl \
     coverflow-gl
 
-noinst_LIBRARIES = libapps.a
+noinst_LTLIBRARIES = libapps.la
 
-libapps_a_SOURCES =
-libapps_a_LIBADD = \
-    common/libcommon.a \
-    address-book/libaddress-book.a \
-    photo/libphoto.a \
-    sms/libsms.a \
-    calc/libcalc.a \
-    dial/libdial.a \
-    sample-activity/libsample-activity.a \
-    sys-setting/libsys-setting.a \
-    callhistory/libcallhistory.a \
-    eraser/liberaser.a \
-    music/libmusic.a \
-    sample-navigation/libsample-navigation.a \
-    time-setting/libtime-setting.a \
-    camera/libcamera.a \
-    phone-call/libphone-call.a \
-    screen-lock/libscreen-lock.a \
-    flight-gl/libflight-gl.a \
-    coverflow-gl/libcoverflow-gl.a
+libapps_la_SOURCES = foo.c
+libapps_la_LIBADD = \
+    common/libcommon.la \
+    address-book/libaddress-book.la \
+    photo/libphoto.la \
+    sms/libsms.la \
+    calc/libcalc.la \
+    dial/libdial.la \
+    sample-activity/libsample-activity.la \
+    sys-setting/libsys-setting.la \
+    callhistory/libcallhistory.la \
+    eraser/liberaser.la \
+    music/libmusic.la \
+    sample-navigation/libsample-navigation.la \
+    time-setting/libtime-setting.la \
+    camera/libcamera.la \
+    phone-call/libphone-call.la \
+    screen-lock/libscreen-lock.la \
+    flight-gl/libflight-gl.la \
+    coverflow-gl/libcoverflow-gl.la

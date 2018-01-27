@@ -1,5 +1,15 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
+#include <minigui/common.h>
+#include <minigui/minigui.h>
+#include <minigui/gdi.h>
+#include <minigui/window.h>
+#include <minigui/control.h>
 #include <mgeff/mgeff.h>
+#include <mgncs/mgncs.h>
+
 #include "TimeService.hh"
 #include "ActivityStack.hh"
 #include "ActivityDesktop.hh"
@@ -7,13 +17,6 @@
 #include "IPhoneDesktopController.hh"
 #include "IPhoneDesktopItem.hh"
 #include "DesktopCommonProc.hh"
-#include <minigui/common.h>
-#include <minigui/minigui.h>
-#include <minigui/gdi.h>
-#include <minigui/window.h>
-#include <minigui/control.h>
-#include <mgncs/mgncs.h>
-
 #include "mspeedmeter.h"
 
 #define BKGND_DC_COLORKEY RGBA2Pixel(g_background_dc, 0xff, 0, 0, 0)
@@ -46,7 +49,7 @@ ActivityDesktop::~ActivityDesktop() {
     delete m_toolbar;
 }
 
-int ActivityDesktop::DesktopProc(HWND hWnd, int message, WPARAM wParam, LPARAM lParam)
+LRESULT ActivityDesktop::DesktopProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message) {
         case MSG_CREATE:
@@ -54,7 +57,11 @@ int ActivityDesktop::DesktopProc(HWND hWnd, int message, WPARAM wParam, LPARAM l
                 HDC memDC;
                 s_desktop = g_desktop_hwnd = hWnd;
                 //                PostMessage(HWND_DESKTOP, MSG_REGISTERKEYHOOK, 0, (LPARAM)common_key_hook);
+#ifdef _MGRM_THREADS
                 RegisterKeyMsgHook(NULL, common_key_hook);
+#else
+                RegisterKeyHookWindow (hWnd, HOOK_GOON);
+#endif
 
                 memDC = CreateCompatibleDCEx(Get32MemDC(),SCREEN_W, SCREEN_H - ACTIVITY_Y);
                 assert(memDC);
@@ -99,6 +106,15 @@ int ActivityDesktop::DesktopProc(HWND hWnd, int message, WPARAM wParam, LPARAM l
                 }
             }
             break;
+
+        case MSG_KEYUP:
+        case MSG_KEYDOWN:
+            {
+                PostMessage(hWnd, (MSG_KEYUP == message)?MSG_USER_GIVENKEY_UP:MSG_USER_GIVENKEY_DOWN,
+                    wParam, lParam);
+            }
+            break;
+
         case MSG_LBUTTONDOWN:
         case MSG_LBUTTONUP:
         case MSG_MOUSEMOVE:
@@ -117,13 +133,18 @@ int ActivityDesktop::DesktopProc(HWND hWnd, int message, WPARAM wParam, LPARAM l
                 break;
             }
         case MSG_CLOSE:
+#ifdef _MGRM_THREADS
             RegisterKeyMsgHook(NULL, NULL);
+#else
+            RegisterKeyHookWindow(HWND_NULL, 0);
+#endif
             DestroyMainWindow(hWnd);
             break;
-    case MSG_USER_IDLE:
-        return 1;               // enable idle
-        break;
+
+        case MSG_USER_IDLE:
+            return 1;               // enable idle
     }
+
     return desktop_common_proc(hWnd, message, wParam, lParam);
 }
 
@@ -249,19 +270,19 @@ void ActivityDesktop::animationFinishedCb(MGEFF_ANIMATION animation)
     }
 }
 
-void ActivityDesktop::onStateItemAround(MGEFF_ANIMATION animation, void *target, int id, void *pValue)
+void ActivityDesktop::onStateItemAround(MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue)
 {
     IPhoneDesktopItem *item = (IPhoneDesktopItem *)target;
     item->moveTo(*(POINT *)pValue);
 }
 
-void ActivityDesktop::onStateItemCenter(MGEFF_ANIMATION animation, void *target, int id, void *pValue)
+void ActivityDesktop::onStateItemCenter(MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue)
 {
     IPhoneDesktopItem *item = (IPhoneDesktopItem *)target;
     item->setTransparency (*(int*)pValue);
 }
 
-void ActivityDesktop::onMoveToolBar(MGEFF_ANIMATION animation, void *target, int id, void *pValue)
+void ActivityDesktop::onMoveToolBar(MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue)
 {
     HWND hwnd = (HWND)target;
     RECT rc;
@@ -270,7 +291,7 @@ void ActivityDesktop::onMoveToolBar(MGEFF_ANIMATION animation, void *target, int
     MoveWindow(hwnd, pt->x, pt->y, RECTW(rc), RECTH(rc), TRUE);
 }
 
-void ActivityDesktop::onStateApp(MGEFF_ANIMATION animation, void *target, int id, void *pValue)
+void ActivityDesktop::onStateApp(MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue)
 {
     static RECT old_rc;
     HDC hsdc = (HDC)id;
@@ -286,7 +307,7 @@ void ActivityDesktop::onStateApp(MGEFF_ANIMATION animation, void *target, int id
     old_rc = *prc;
 }
 
-void ActivityDesktop::onStatePageBar(MGEFF_ANIMATION animation, void *target, int id, void *pValue)
+void ActivityDesktop::onStatePageBar(MGEFF_ANIMATION animation, void *target, intptr_t id, void *pValue)
 {
     IPhoneDesktopLayout* layout = (IPhoneDesktopLayout*)id;
     layout->setPageBarCircleDistance(*(int*)pValue);
@@ -299,7 +320,7 @@ MGEFF_ANIMATION ActivityDesktop::pageBarAnimationCreate(void *target, int durati
     /* draw the pagebar information */
     int value_s, value_e;
     IPhoneDesktopLayout* layout = &m_controller->getLayout();
-    anim = mGEffAnimationCreate(target, onStatePageBar, (int)layout, MGEFF_INT);
+    anim = mGEffAnimationCreate(target, onStatePageBar, (intptr_t)layout, MGEFF_INT);
     if (zoomout) {
         value_s = PAGEBAR_DISTANCE;
         value_e = PAGEBAR_DISTANCE * 2;
@@ -334,7 +355,7 @@ void ActivityDesktop::setAnimation(Activity* activity, HWND dst_hwnd, int zoomou
 
     /* add animation for item around */
     int i, j, k = 0;
-    float radians[] = {-PI_DEVIDE_4, PI_DEVIDE_4, PI_DEVIDE_4 * 3, PI_DEVIDE_4 * 5};
+    double radians[] = {-PI_DEVIDE_4, PI_DEVIDE_4, PI_DEVIDE_4 * 3, PI_DEVIDE_4 * 5};
     POINT pt_1, pt_2;
     POINT *ppt_s, *ppt_e;
     RECT rc_layout = m_controller->getView().getRect();
@@ -415,7 +436,7 @@ void ActivityDesktop::setAnimation(Activity* activity, HWND dst_hwnd, int zoomou
    // view.setEraseBackgroundCallback(erase_view_background, reinterpret_cast<void*>(&view));
     view.setEraseBackgroundCallback(erase_view_background, reinterpret_cast<void*>(&layout));
 
-    animation = mGEffAnimationCreate((void *)layout->getHwnd(), onStateApp, (int)dst_hdc, MGEFF_RECT);
+    animation = mGEffAnimationCreate((void *)layout->getHwnd(), onStateApp, (intptr_t)dst_hdc, MGEFF_RECT);
     mGEffAnimationSetStartValue(animation, prc_s);
     mGEffAnimationSetEndValue(animation, prc_e);
     mGEffAnimationSetDuration(animation, duration);

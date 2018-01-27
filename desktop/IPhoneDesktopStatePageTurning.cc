@@ -30,7 +30,7 @@ IPhoneDesktopStatePageTurning::IPhoneDesktopStatePageTurning(IPhoneDesktopContro
             "Transposition->PickedNormal");
 }
 
-void IPhoneDesktopStatePageTurning::animationCallback (MGEFF_ANIMATION handle, void* target, int id, void* value)
+void IPhoneDesktopStatePageTurning::animationCallback (MGEFF_ANIMATION handle, void* target, intptr_t id, void* value)
 {
     RECT view_rc, move_rc;
     IPhoneDesktopView* view;
@@ -62,14 +62,14 @@ void IPhoneDesktopStatePageTurning::animationCallback (MGEFF_ANIMATION handle, v
     view->invalidateRect(&view->getAnimationArea());
 }
 
-void IPhoneDesktopStatePageTurning::noAnimationCallback (MGEFF_ANIMATION handle, void* target, int id, void* value)
+void IPhoneDesktopStatePageTurning::noAnimationCallback (MGEFF_ANIMATION handle, void* target, intptr_t id, void* value)
 {
     //do nothing
 }
 
 void IPhoneDesktopStatePageTurning::onEnter(const Event *event, const Transition *_transition)
 {
-    int view_w, half_view;
+    int view_w;
     int index_noItemIn;
     int cur_page, expect_page, total_page;
     int startvalue, endvalue;
@@ -83,7 +83,6 @@ void IPhoneDesktopStatePageTurning::onEnter(const Event *event, const Transition
 
     cur_rc = view->getRect ();
     view_w = RECTW(cur_rc);
-    half_view = view_w / 2;
     cur_page = layout->currentPage ();
 
     /* scroll to prev page  */
