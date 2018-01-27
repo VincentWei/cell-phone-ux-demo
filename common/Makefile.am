@@ -1,4 +1,4 @@
-AM_CPPFLAGS=../include/
+AM_CPPFLAGS=-I../include/
 
 noinst_LIBRARIES=libcommon.a
 

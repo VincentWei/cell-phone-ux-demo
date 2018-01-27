@@ -3,9 +3,13 @@
 AC_PREREQ(2.61)
 AC_INIT(cellphone-ux-demo, 1.2.0)
 AC_CONFIG_SRCDIR(main.cc)
+AC_CONFIG_HEADER(config.h) 
 
 dnl needed for cross-compiling
 AC_CANONICAL_SYSTEM
+
+dnl Init automake
+AM_INIT_AUTOMAKE
 
 dnl checks for programs
 AC_PROG_CC
@@ -16,9 +20,6 @@ AC_PROG_LIBTOOL
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
-
-AM_INIT_AUTOMAKE
-AM_CONFIG_HEADER(config.h) 
 
 #user define macores
 devel_mode="no"
@@ -69,33 +70,31 @@ PKG_CHECK_MODULES([MINIGUI], [minigui >= 3.2.0])
 PKG_CHECK_MODULES([MGPLUS], [mgplus >= 1.4.0])
 PKG_CHECK_MODULES([MGEFF], [mgeff >= 1.2.0])
 PKG_CHECK_MODULES([MGNCS], [mgncs >= 1.2.0])
-
-PKG_CHECK_MODULES((SQLITE3], [sqlite3 >= 3.7.4])
-PKG_CHECK_MODULES((XML2], [xml2 >= 2.2.0])
+PKG_CHECK_MODULES([MGNCS4TOUCH], [mgncs4touch >= 1.2.0])
 
 DEP_LIBS="$DEP_LIBS $MINIGUI_LIBS"
-DEP_LIBS="$DEP_LIBS $MGUTILS_LIBS"
 DEP_LIBS="$DEP_LIBS $MGPLUS_LIBS"
 DEP_LIBS="$DEP_LIBS $MGEFF_LIBS"
 DEP_LIBS="$DEP_LIBS $MGNCS_LIBS"
-DEP_LIBS="$DEP_LIBS $MGNCS4TOUCH_LIBS"
 
 AC_CHECK_LIB(sqlite3, sqlite3_open_v2, DEP_LIBS="$DEP_LIBS -lsqlite3", sqlite3_installed=no)
 AC_CHECK_LIB(xml2, xmlFree, DEP_LIBS="$DEP_LIBS -lxml2", xml2_installed=no)
+AC_CHECK_LIB(chipmunk, cpInitChipmunk, DEP_LIBS="$DEP_LIBS -lchipmunk", chipmunk_installed=no)
 
 if test "x$devel_mode" = "xyes"; then
     if test "$ac_cv_prog_gcc" = "yes"; then
-        CPPFLAGS="$CPPFLAGS -Wall -Werror"
+        CPPFLAGS="$CPPFLAGS -Werror"
     fi
 fi
 
 if test "$ac_cv_prog_gcc" = "yes"; then
-    CFLAGS="$CFLAGS -D_GNU_SOURCE -Wstrict-prototypes -pipe"
+    CPPFLAGS="$CPPFLAGS -D_GNU_SOURCE -Wall -Wstrict-prototypes -pipe"
 fi
 
 AC_OUTPUT(
     Makefile
     m4/Makefile
+    etc/Makefile
     include/Makefile
     common/Makefile
     controls/Makefile

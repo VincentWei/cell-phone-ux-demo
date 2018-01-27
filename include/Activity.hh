@@ -18,10 +18,10 @@
 #include <minigui/minigui.h>
 #include <minigui/gdi.h>
 #include <minigui/window.h>
-#include <mgncs/mgncs.h>
 #include <mgeff/mgeff.h>
-#include <mgncs4pad/mpad.h>
 #include <mgplus/mgplus.h>
+#include <mgncs/mgncs.h>
+#include <mgncs4touch/mgncs4touch.h>
 
 #include "global.h"
 #include "utility.h"
