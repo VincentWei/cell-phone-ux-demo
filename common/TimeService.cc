@@ -132,10 +132,10 @@ TimeService::TimeService()
 
     INIT_LIST_HEAD(&m_eventHandler);
 
-    SetTimerEx((HWND)this, (int)this, TIME_PRECISION, timerProc);
+    SetTimerEx((HWND)this, (LINT)this, TIME_PRECISION, timerProc);
 }
 
-BOOL TimeService::timerProc(HWND hwnd, int id, DWORD count)
+BOOL TimeService::timerProc(HWND hwnd, LINT id, DWORD count)
 {
     TimeService* _this = (TimeService*) id;
 

@@ -26,7 +26,7 @@
 #include "mtableviewpiece.h"
 
 /* local function declaration */
-static void _piece_anim_cb(MGEFF_ANIMATION handle, void *target, int id, void *value);
+static void _piece_anim_cb(MGEFF_ANIMATION handle, void *target, intptr_t id, void *value);
 static BOOL onIndexLocatePieceTouched(mTableViewPiece *self,
 				      mHotPiece *sender, int event_id, DWORD param);
 static mPieceItem* nextItem(mTableViewPiece* self, mItemIterator* iter, mHotPiece* prev);
@@ -427,7 +427,7 @@ static void mTableViewPiece_rectForRowAtIndexPath(mTableViewPiece* self, const m
     
     piece = (mHotPiece*) _c(self)->indexPathToItem(self, indexpath);
 
-    printf("onIndexLocatePieceTouched piece: %x\n", (unsigned int) piece);
+    printf("onIndexLocatePieceTouched piece: %p\n", piece);
 
     if (!piece)
         return;
@@ -988,7 +988,7 @@ static BOOL onIndexLocatePieceTouched(mTableViewPiece *self,
     return TRUE;
 }
 
-static void _piece_anim_cb(MGEFF_ANIMATION handle, void *target, int id, void *value)
+static void _piece_anim_cb(MGEFF_ANIMATION handle, void *target, intptr_t id, void *value)
 {
     mHotPiece* child = (mHotPiece*)target;
     mPanelPiece* group = (mPanelPiece*) child->parent;

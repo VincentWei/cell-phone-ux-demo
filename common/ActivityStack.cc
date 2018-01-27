@@ -138,7 +138,7 @@ Activity* ActivityStack::innerPush(const char* appName, Intent* intentPtr)
     // push the new activity into stack
     m_activities.push_back(ActivityEntry(appName, next));
 #ifdef DEBUG
-    printf(">>>>>>>> push activity: %s 0x%x\n", appName, (unsigned int)top());
+    printf(">>>>>>>> push activity: %s %p\n", appName, top());
 #endif
     // send intend to the new activity
     //SendNotifyMessage(next->hwnd(), MSG_USER_APP_DATA, (DWORD)intentPtr, 0);
@@ -187,7 +187,7 @@ bool ActivityStack::innerPop()
         next->show();
     }
 #ifdef DEBUG
-    printf("<<<<<<<< pop activity: %s 0x%x\n", m_activities.back().first.c_str(), (unsigned int)top());
+    printf("<<<<<<<< pop activity: %s %p\n", m_activities.back().first.c_str(), top());
 #endif
 
     m_activities.pop_back();
@@ -223,7 +223,7 @@ int ActivityStack::popTo(Activity* which, Intent* intentPtr)
 
     while (!m_activities.empty() && top() != which) {
 #ifdef DEBUG
-        printf("<<<<<<<< pop activity: %s 0x%x\n", m_activities.back().first.c_str(), (unsigned int)top());
+        printf("<<<<<<<< pop activity: %s %p\n", m_activities.back().first.c_str(), top());
 #endif
 
         prev = top();

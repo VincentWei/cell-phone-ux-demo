@@ -11,6 +11,7 @@
 #define EVENT_HH
 
 #include <minigui/common.h>
+#include <minigui/minigui.h>
 #include <minigui/gdi.h>
 #include <minigui/window.h>
 #include <vector>

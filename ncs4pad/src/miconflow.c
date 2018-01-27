@@ -205,7 +205,7 @@ mIconFlow_onKeyDown (mIconFlow* self, int scancode, int state)
             break;
         case SCANCODE_KEYPADENTER:
         case SCANCODE_ENTER:
-            ncsNotifyParentEx ((mWidget*)self, NCSN_ITEMV_ENTER, _c(self)->getHilight (self));
+            ncsNotifyParentEx ((mWidget*)self, NCSN_ITEMV_ENTER, (DWORD)_c(self)->getHilight (self));
             return 0;
     }
 
@@ -471,7 +471,7 @@ _finished_cb (MGEFF_ANIMATION animation)
     g_finalFrame = 1;
 }
 
-static void call_draw (MGEFF_ANIMATION anim, void *target, int id, void *value)
+static void call_draw (MGEFF_ANIMATION anim, void *target, intptr_t id, void *value)
 {
     UpdateWindow ((HWND)target, TRUE);
 }
@@ -593,11 +593,11 @@ mIconFlow_wndProc (mIconFlow *self, int message, WPARAM wParam, LPARAM lParam)
             return 0;
         case MSG_LBUTTONUP:
             {
-                HITEM hItem;
+                HITEM hItem = 0;
+#if 0
                 int index;
-                index = _c(self)->inItem (self,
-                        self->mouse.x, self->mouse.y,
-                        &hItem, NULL);
+                index = _c(self)->inItem (self, self->mouse.x, self->mouse.y, &hItem, NULL);
+#endif
 
                 if (self->key - self->prevIndex < 0.5) {
                     _c(self)->beginAnimation (self, self->key, self->prevIndex);
@@ -606,7 +606,7 @@ mIconFlow_wndProc (mIconFlow *self, int message, WPARAM wParam, LPARAM lParam)
                 }
 
                 if (hItem == _c(self)->getHilight (self) && !mouse_down_and_move)
-                    ncsNotifyParentEx ((mWidget*)self, NCSN_ICONFLOW_CLICKED, hItem);
+                    ncsNotifyParentEx ((mWidget*)self, NCSN_ICONFLOW_CLICKED, (DWORD)hItem);
 
                 //TODO: delete this if KS_LEFTBUTTON's bug is fixed
                 lbuttondown = 0;

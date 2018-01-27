@@ -1,3 +1,5 @@
+AM_CPPFLAGS = -I../../include -I../include -I../include/misc -I../include/physics-animation -I../include/pieces
+
 SUBDIRS = misc physics-animation pieces
 
 noinst_LIBRARIES = libncs4pad.a

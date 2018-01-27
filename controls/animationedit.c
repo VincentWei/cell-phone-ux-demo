@@ -69,7 +69,7 @@ static void animation_set_content (mAnimationEdit *self, const char *effectornam
     DeleteMemDC (src2_dc);
 }
 
-static void cb_display_string (MGEFF_ANIMATION handle, void* target, int id, void* value)
+static void cb_display_string (MGEFF_ANIMATION handle, void* target, intptr_t id, void* value)
 {
     mAnimationEdit *self= (mAnimationEdit *)target;
 

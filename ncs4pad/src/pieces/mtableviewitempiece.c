@@ -24,7 +24,7 @@
 #define DEL_BTN_W (DEL_W - 10)
 #define DEL_BTN_H DEL_H
 
-static void userPieceZoomAnimationCb(MGEFF_ANIMATION handle, void *target, int id, void *value)
+static void userPieceZoomAnimationCb(MGEFF_ANIMATION handle, void *target, intptr_t id, void *value)
 {
     mButtonPanelPiece *userPiece = (mButtonPanelPiece*)target;
     _c(userPiece)->setRect(userPiece, (RECT*)value);

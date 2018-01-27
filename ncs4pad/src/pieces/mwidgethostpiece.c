@@ -205,7 +205,7 @@ static mWidget *createHostedWindow(mWidgetHostPiece *self, NCS_WND_TEMPLATE *ctr
 	self->tmpl = tmpl;
 
 	tmpl->class_name = NCSCTRL_DIALOGBOX;
-	tmpl->id = (int)tmpl;
+	tmpl->id = (intptr_t)tmpl;
 	tmpl->x = -ctrl_tmpl->w;
 	tmpl->y = -ctrl_tmpl->h;
 	tmpl->w = ctrl_tmpl->w;

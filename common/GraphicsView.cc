@@ -1,7 +1,12 @@
 #include <string.h>
-#include "GraphicsView.hh"
+
+#include <minigui/common.h>
+#include <minigui/minigui.h>
 #include <minigui/gdi.h>
 #include <minigui/window.h>
+
+#include "GraphicsView.hh"
+
 using namespace GraphicsView;
 
 /*
@@ -97,7 +102,7 @@ Item *Scene::itemAt(const POINT &pos) const {
 View::View(Scene *scene, HWND hwnd, bool doubleBuffer)
     : m_scene(scene), m_hwnd(hwnd), m_doubleBuffer(doubleBuffer), m_eraseBackgroundCallback(NULL), m_eraseBackgroundParam(NULL)
 {
-    printf("%s hwnd=%x\n", __FUNCTION__, m_hwnd);
+    printf("%s hwnd=%p\n", __FUNCTION__, m_hwnd);
     m_bgColor = RGBA2Pixel(HDC_SCREEN, 0x00, 0x00, 0x00, 0xff);
 }
 
@@ -158,7 +163,7 @@ void View::onDraw(HDC dst_dc, const RECT &rc) {
     POINT scene_pt, view_pt;
     Scene::ItemList::iterator i;
     Scene::ItemList &items = m_scene->items();
-    HDC memdc, dc;
+    HDC memdc = HDC_INVALID, dc;
     Item *focus = m_scene->getFocusItem();
 
     if (m_doubleBuffer) {

@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <assert.h>
 #include "mfillboxex.h"
 
@@ -67,7 +68,7 @@ void fillspan_multigradient(HDC hdc, void *context, const RECT *rc) {
 }
 
 void fillspan_simple(HDC hdc, void *context, const RECT *rc) {
-    unsigned int rgba = (unsigned int)context;
+    unsigned int rgba = (unsigned int)(intptr_t)context;
 
     SetBrushColor(hdc, RGBA2Pixel(hdc, GetRValue(rgba), GetGValue(rgba), GetBValue(rgba), GetAValue(rgba)));
     FillBox(hdc, rc->left, rc->top, RECTWP(rc), RECTHP(rc));

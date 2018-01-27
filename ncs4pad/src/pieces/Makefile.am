@@ -1,3 +1,5 @@
+AM_CPPFLAGS = -I../../../include -I../../include -I../../include/misc -I../../include/physics-animation -I../../include/pieces
+
 noinst_LIBRARIES = libpieces.a
 
 libpieces_a_SOURCES = \

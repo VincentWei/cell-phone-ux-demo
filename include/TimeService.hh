@@ -89,7 +89,7 @@ public:
     HWND getHost() { return m_hwnd; }
 
 private:
-    static BOOL timerProc(HWND hwnd, int id, DWORD count);
+    static BOOL timerProc(HWND hwnd, LINT id, DWORD count);
 
     TimeService();
     virtual ~TimeService() { }

@@ -16,7 +16,7 @@
 #define TEXT_BUFFER_LENGTH 15
 #define TEXT_ZOOM_NO 3
 
-static void cb_display_string (MGEFF_ANIMATION handle, void* target, int id, void* value)
+static void cb_display_string (MGEFF_ANIMATION handle, void* target, intptr_t id, void* value)
 {
     mAnimationEditPiece *self= (mAnimationEditPiece *)target;
     HWND hwnd = (HWND)id;
@@ -98,7 +98,7 @@ static void animation_modify_string (HWND hwnd,mAnimationEditPiece *self,
     move_distance = calculate_string_width (hwnd,self, key_str);
 
     /* create animation */
-    animation_handle = mGEffAnimationCreate(self, cb_display_string,hwnd, MGEFF_INT);
+    animation_handle = mGEffAnimationCreate(self, cb_display_string, (intptr_t)hwnd, MGEFF_INT);
 
     /* start val */
     _c(self)->getRect(self,&rc);

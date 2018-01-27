@@ -253,10 +253,10 @@ static void s_autoHideScrollbar(mScrollViewPiece *self, int hide) {
     }
 }
 
-static BOOL s_hideScrollBar(HWND _self, int id, DWORD tickCount) {
+static BOOL s_hideScrollBar(HWND _self, LINT id, DWORD tickCount) {
     mScrollViewPiece *self = (mScrollViewPiece *)_self;
     s_autoHideScrollbar(self, TRUE);
-    KillTimer((HWND)self, ((int)self) + 1);
+    KillTimer((HWND)self, ((LINT)self) + 1);
     return TRUE;
 }
 
@@ -272,7 +272,7 @@ static void s_finish_cb(MGEFF_ANIMATION handle) {
     phyanim_destroy(handle);
     self->m_animation = NULL;
     self->m_phy_ctx = NULL;
-    SetTimerEx((HWND)self, ((int)self) + 1, SCROLLBAR_TIMEOUT_MS / 10, s_hideScrollBar);
+    SetTimerEx((HWND)self, ((LINT)self) + 1, SCROLLBAR_TIMEOUT_MS / 10, s_hideScrollBar);
 }
 
 static int s_viewOnMouseRelease(mHotPiece *_self, int message, WPARAM wParam, LPARAM lParam, mObject *owner){
@@ -336,10 +336,10 @@ static void s_checkTimeout(mScrollViewPiece *self, mObject *owner) {
             _c(piece)->processMessage(piece, MSG_LBUTTONDOWN, 0, lParam, owner);
         }
     }
-    KillTimer((HWND)self, (int)self);
+    KillTimer((HWND)self, (LINT)self);
 }
 
-static BOOL s_onTimer(HWND _self, int id, DWORD tickCount) {
+static BOOL s_onTimer(HWND _self, LINT id, DWORD tickCount) {
     mScrollViewPiece *self = (mScrollViewPiece *)_self;
     // printf("Timer=%u\n", tickCount);
     s_checkTimeout(self, (mObject *)_c(self)->getOwner(self));
@@ -362,9 +362,9 @@ static int s_onMousePress(mHotPiece *_self, int message, WPARAM wParam, LPARAM l
         self->m_animation = NULL;
         self->m_mouseFlag |= 0x02;
     }else{
-        KillTimer((HWND)self, (int)self);
+        KillTimer((HWND)self, (LINT)self);
         // printf("Pressed=%u\n", self->m_timePressed);
-        SetTimerEx((HWND)self, (int)self, PRESS_TIMEOUT, s_onTimer);
+        SetTimerEx((HWND)self, (LINT)self, PRESS_TIMEOUT, s_onTimer);
     }
     return 0;
 }
@@ -408,7 +408,7 @@ static int s_onMouseRelease(mHotPiece *_self, int message, WPARAM wParam, LPARAM
             }else{
                 flag = 1;
             }
-            printf("***** release-press=%d, movement=%d\n",
+            printf("***** release-press=%lu, movement=%d\n",
                     GetTickCount() - self->m_timePressed, 
                     ABS(LOSWORD(lParam) - self->m_pressMousePos.x) + ABS(HISWORD(lParam) - self->m_pressMousePos.y));
         }
@@ -456,7 +456,7 @@ static int s_onMouseMoveIn(mHotPiece *_self, int message, WPARAM wParam, LPARAM 
         mScrollViewPiece *self = (mScrollViewPiece *)_self;
         s_onMouseRelease(_self, MSG_LBUTTONUP, 0, 0, owner);
         //self->m_bMoved = FALSE;
-        KillTimer((HWND)self, (int)self);
+        KillTimer((HWND)self, (LINT)self);
     }
     return 0;
 }
@@ -519,8 +519,8 @@ static void mScrollViewPiece_destroy(mScrollViewPiece *self) {
     }
     assert(self->m_phy_ctx == NULL);
 
-    KillTimer((HWND)self, (int)self);
-    KillTimer((HWND)self, ((int)self)+1);
+    KillTimer((HWND)self, (LINT)self);
+    KillTimer((HWND)self, ((LINT)self)+1);
 
     s_removeCache(self);
 

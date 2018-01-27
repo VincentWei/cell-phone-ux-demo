@@ -54,7 +54,7 @@ static void mRotateSwitchPiece_destroy(mRotateSwitchPiece *self)
     Class(mStaticPiece).destroy((mStaticPiece*)self);
 }
 
-static void rollingAnimationCb(MGEFF_ANIMATION handle, void *target, int id, void *value)
+static void rollingAnimationCb(MGEFF_ANIMATION handle, void *target, intptr_t id, void *value)
 {
     RECT rc;
     mRotateSwitchPiece *self = (mRotateSwitchPiece*)target;
@@ -81,7 +81,7 @@ static void rollingAnimation(mRotateSwitchPiece *self, int startValue, int endVa
         mGEffAnimationStop(self->rotate_animation);
         self->rotate_animation = NULL;
     }
-    anim = mGEffAnimationCreate(self, rollingAnimationCb, (int)topPanel, MGEFF_INT);
+    anim = mGEffAnimationCreate(self, rollingAnimationCb, (intptr_t)topPanel, MGEFF_INT);
     
     mGEffAnimationSetStartValue(anim, &startValue);
     mGEffAnimationSetEndValue(anim, &endValue);
@@ -175,7 +175,7 @@ static void mRotateSwitchPiece_paint(mRotateSwitchPiece *self, HDC hdc, mObject 
 
 }
 
-static BOOL mRotateSwitchPiece_setProperty(mRotateSwitchPiece *self, int id, DWORD value)
+static BOOL mRotateSwitchPiece_setProperty(mRotateSwitchPiece *self, intptr_t id, DWORD value)
 {
     switch(id) {
         case NCSP_ROTATESWITCH_RADIUS:
@@ -187,7 +187,7 @@ static BOOL mRotateSwitchPiece_setProperty(mRotateSwitchPiece *self, int id, DWO
     return TRUE;
 }
 
-static DWORD mRotateSwitchPiece_getProperty(mRotateSwitchPiece *self, int id)
+static DWORD mRotateSwitchPiece_getProperty(mRotateSwitchPiece *self, intptr_t id)
 {
     switch(id) {
         case NCSP_ROTATESWITCH_RADIUS:

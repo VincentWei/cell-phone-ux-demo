@@ -213,7 +213,7 @@ static MGEFF_ANIMATION create_bar_animation (mNavigationPanelPiece* self,
 static MGEFF_ANIMATION create_view_animation (mNavigationPanelPiece* self, 
         mNavigationItem* src_item, mNavigationItem* target_item, BOOL push)
 {
-    int src_start, src_end;
+    int /*src_start, */src_end;
     int target_start, target_end;
     RECT panel_rc;
     RECT src_content_rc;
@@ -231,13 +231,13 @@ static MGEFF_ANIMATION create_view_animation (mNavigationPanelPiece* self,
 
     /* animation direct */
     if (push) {
-        src_start = 0;
+        //src_start = 0;
         src_end = 0 - RECTW(panel_rc);
         target_start = 0 + RECTW(panel_rc);
         target_end = 0;
     }
     else {
-        src_start = 0;
+        //src_start = 0;
         src_end = 0 + RECTW(panel_rc);
         target_start = 0 - RECTW(panel_rc);
         target_end = 0;

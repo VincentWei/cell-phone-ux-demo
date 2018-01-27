@@ -7,6 +7,9 @@
  */
 
 #include "common.hh"
+
+#ifdef GPU_GLES1
+
 #include "GLActivity.hh"
 
 #ifdef __ARCH_X86__
@@ -100,3 +103,5 @@ void GLActivity::EGLRelease (void)
     eglTerminate (m_display);
     return;
 }
+
+#endif  /* GPU_GLES1 */

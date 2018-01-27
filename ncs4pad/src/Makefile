@@ -231,9 +231,9 @@ AUTOMAKE = ${SHELL} /home/weiym/devel/minilinux/cell-phone-ux-demo/missing autom
 AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g -O2
+CFLAGS = -g -O2 -Wstrict-prototypes
 CPP = gcc -E
-CPPFLAGS =  -DENABLE_ANIM_FPS_TEST -Werror -D_GNU_SOURCE -Wall -Wstrict-prototypes -pipe
+CPPFLAGS =  -I/usr/include/libxml2 -Werror -D_GNU_SOURCE -Wall -pipe
 CXX = g++
 CXXDEPMODE = depmode=gcc3
 CXXFLAGS = -g -O2
@@ -343,6 +343,7 @@ target_vendor = pc
 top_build_prefix = ../../
 top_builddir = ../..
 top_srcdir = ../..
+AM_CPPFLAGS = -I../../include -I../include -I../include/misc -I../include/physics-animation -I../include/pieces
 SUBDIRS = misc physics-animation pieces
 noinst_LIBRARIES = libncs4pad.a
 libncs4pad_a_SOURCES = \
@@ -367,9 +368,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu ncs4pad/src/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign ncs4pad/src/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu ncs4pad/src/Makefile
+	  $(AUTOMAKE) --foreign ncs4pad/src/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \

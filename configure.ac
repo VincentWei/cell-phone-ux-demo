@@ -39,28 +39,41 @@ AC_ARG_WITH(with_target,
 AC_ARG_WITH(with_gpu,
 [  --with-gpu=[none/gles1/gles2]  GPU support <none/gles1/gles2>])
 
+AC_ARG_WITH(xml2_includes,
+[  --with-xml2-includes=DIR  where the LibXML2 includes are])
+
 if test "x$devel_mode" = "xyes"; then
     build_testcase="yes"
     build_anim_fps_test="yes"
 fi
 
-#user define macores
+case "$with_gpu" in
+  gles1)
+    AC_DEFINE(GPU_GLES1, 1, [Define if use OpenGL ES V1.1])
+    ;;
+  gles2)
+    AC_DEFINE(GPU_GLES2, 1, [Define if use OpenGL ES V2.0])
+    ;;
+  *)
+    AC_DEFINE(GPU_NONE, 1, [Define if do not use GPU])
+    ;;
+esac
+
 if test "x$build_anim_fps_test" = "xyes" ; then
-    CPPFLAGS="$CPPFLAGS -DENABLE_ANIM_FPS_TEST"
+    AC_DEFINE(ENABLE_ANIM_FPS_TEST, 1, [Define if animation FPS test enabled])
 fi
 
-# Checks for libraries.
+dnl Checks for libraries.
 
-# Checks for header files.
+dnl Checks for header files.
 AC_HEADER_STDC
 AC_CHECK_HEADERS(stdlib.h stdint.h string.h unistd.h)
 
-# Checks for typedefs, structures, and compiler characteristics.
+dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
 AC_TYPE_PID_T
 
-# Checks for library functions.
-#AC_FUNC_MALLOC
+dnl Checks for library functions.
 AC_CHECK_FUNCS([memset])
 
 dnl ========================================
@@ -78,8 +91,26 @@ DEP_LIBS="$DEP_LIBS $MGEFF_LIBS"
 DEP_LIBS="$DEP_LIBS $MGNCS_LIBS"
 
 AC_CHECK_LIB(sqlite3, sqlite3_open_v2, DEP_LIBS="$DEP_LIBS -lsqlite3", sqlite3_installed=no)
+if test "x$sqlite3_installed" = "xno"; then
+    AC_MSG_ERROR([[SQLite3 is not installed! Run "sudo apt install libsqlite3-dev" to install it if you are using Ubuntu.]])
+fi
+
 AC_CHECK_LIB(xml2, xmlFree, DEP_LIBS="$DEP_LIBS -lxml2", xml2_installed=no)
+if test "x$xml2_installed" = "xno"; then
+    AC_MSG_ERROR([[LibXML2 is not installed! Run "sudo apt install libxml2-dev" to install it if you are using Ubuntu.]])
+else
+    if test "x$with_xml2_includes" = "x"; then
+        XML2_INC_DIR="-I/usr/include/libxml2"
+    else
+        XML2_INC_DIR="-I$with_xml2_includes"
+    fi
+fi
+CPPFLAGS="$CPPFLAGS $XML2_INC_DIR"
+
 AC_CHECK_LIB(chipmunk, cpInitChipmunk, DEP_LIBS="$DEP_LIBS -lchipmunk", chipmunk_installed=no)
+if test "x$chipmunk_installed" = "xno"; then
+    AC_MSG_ERROR([[Chipmunk is not installed! Run "sudo apt install chipmunk-dev" to install it if you are using Ubuntu.]])
+fi
 
 if test "x$devel_mode" = "xyes"; then
     if test "$ac_cv_prog_gcc" = "yes"; then
@@ -88,7 +119,8 @@ if test "x$devel_mode" = "xyes"; then
 fi
 
 if test "$ac_cv_prog_gcc" = "yes"; then
-    CPPFLAGS="$CPPFLAGS -D_GNU_SOURCE -Wall -Wstrict-prototypes -pipe"
+    CPPFLAGS="$CPPFLAGS -D_GNU_SOURCE -Wall -pipe"
+    CFLAGS="$CFLAGS -Wstrict-prototypes"
 fi
 
 AC_OUTPUT(
@@ -100,7 +132,13 @@ AC_OUTPUT(
     controls/Makefile
     ncs4pad/Makefile
     ncs4pad/include/Makefile
+    ncs4pad/include/misc/Makefile
+    ncs4pad/include/pieces/Makefile
+    ncs4pad/include/physics-animation/Makefile
     ncs4pad/src/Makefile
+    ncs4pad/src/misc/Makefile
+    ncs4pad/src/pieces/Makefile
+    ncs4pad/src/physics-animation/Makefile
     apps/Makefile
     apps/address-book/Makefile
     apps/calc/Makefile

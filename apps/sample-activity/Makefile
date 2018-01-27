@@ -205,9 +205,9 @@ AUTOMAKE = ${SHELL} /home/weiym/devel/minilinux/cell-phone-ux-demo/missing autom
 AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g -O2
+CFLAGS = -g -O2 -Wstrict-prototypes
 CPP = gcc -E
-CPPFLAGS =  -DENABLE_ANIM_FPS_TEST -Werror -D_GNU_SOURCE -Wall -Wstrict-prototypes -pipe
+CPPFLAGS =  -I/usr/include/libxml2 -Werror -D_GNU_SOURCE -Wall -pipe
 CXX = g++
 CXXDEPMODE = depmode=gcc3
 CXXFLAGS = -g -O2
@@ -343,9 +343,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu apps/sample-activity/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign apps/sample-activity/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu apps/sample-activity/Makefile
+	  $(AUTOMAKE) --foreign apps/sample-activity/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \

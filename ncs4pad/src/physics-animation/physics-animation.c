@@ -188,7 +188,7 @@ static void _phyanim_debug(cpSpace *space) {
 #   define _phyanim_debug(x) /* NULL */
 #endif /* PHYANIM_DEBUG */
 
-static void s_step(MGEFF_ANIMATION handle, void* target, int id_notused, void* value) {
+static void s_step(MGEFF_ANIMATION handle, void* target, intptr_t id_notused, void* value) {
     phyanim_t *phy = (phyanim_t *)target;
     int now = *((int *)value);
     int i;

@@ -31,7 +31,7 @@
 
 #define HAVE_PAGESCROLL
 
-static inline unsigned int MyGetTickCount() {
+static inline unsigned int MyGetTickCount(void) {
 #ifdef WIN32
     unsigned int GetTickCount(void);
     return GetTickCount();

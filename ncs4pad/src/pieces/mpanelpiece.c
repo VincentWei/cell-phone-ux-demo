@@ -540,7 +540,7 @@ static BOOL mPanelPiece_updateChildCache(mPanelPiece *self, mHotPiece* child)
     else
         itempiece = (mPanelPiece*)item->piece;
 
-    fprintf(stderr, "%s:%d update panel child:%p, cache: %d.\n", 
+    fprintf(stderr, "%s:%d update panel child:%p, cache: %p.\n", 
             __FUNCTION__, __LINE__, child, item->cacheDC);
 
     set_transroundpiece_paintmode(item, TRANROUND_PAINTMODE_GRAPHICSAVE);
@@ -555,7 +555,7 @@ static BOOL mPanelPiece_updateChildCache(mPanelPiece *self, mHotPiece* child)
     return TRUE;
 }
 
-static BOOL mPanelPiece_setProperty(mPanelPiece* self, int id, DWORD value)
+static BOOL mPanelPiece_setProperty(mPanelPiece* self, intptr_t id, DWORD value)
 {
     switch (id) {
         case NCSP_PANEL_CLIPRECT:
@@ -770,7 +770,7 @@ enum {
     ANIM_ALPHA,
 };
 
-static void _piece_anim_cb(MGEFF_ANIMATION handle, void *target, int id, void *value)
+static void _piece_anim_cb(MGEFF_ANIMATION handle, void *target, intptr_t id, void *value)
 {
     mHotPiece* child = (mHotPiece*)target;
     mPanelPiece* self = (mPanelPiece*) child->parent;
@@ -1142,7 +1142,7 @@ static int mPanelPiece_processMessage(mPanelPiece *self, int message, WPARAM wPa
     return 0;
 }
 
-static void _update_callback(MGEFF_ANIMATION handle, void *target, int id, void *value)
+static void _update_callback(MGEFF_ANIMATION handle, void *target, intptr_t id, void *value)
 {
     mPanelPiece *self = (mPanelPiece*)target;
     assert (self && self->owner);
@@ -1204,7 +1204,7 @@ static void mPanelPiece_animationAsyncRun(mPanelPiece *self, MGEFF_ANIMATION ani
     if (self->update_anim)
         mGEffAnimationStop(self->update_anim);
     // create a new update animation
-    self->update_anim = mGEffAnimationCreate(self, _update_callback, (int)self+1, MGEFF_INT);
+    self->update_anim = mGEffAnimationCreate(self, _update_callback, (intptr_t)(self+1), MGEFF_INT);
     mGEffAnimationSetProperty(self->update_anim, MGEFF_PROP_LOOPCOUNT, MGEFF_INFINITE);
     mGEffAnimationSetFinishedCb(self->update_anim, _update_finished_cb);
     mGEffAnimationSetContext(self->update_anim, self);
@@ -1226,7 +1226,7 @@ static void mPanelPiece_animationAsyncRun(mPanelPiece *self, MGEFF_ANIMATION ani
 static void mPanelPiece_animationSyncRunAndDelete(mPanelPiece *self, MGEFF_ANIMATION anim)
 {
     // get loopcount & duration from user's animation
-    int loopcount;
+    //int loopcount;
     int duration;
 
     /* assert(PanelPiece_isTopPanel(self)); */
@@ -1235,14 +1235,14 @@ static void mPanelPiece_animationSyncRunAndDelete(mPanelPiece *self, MGEFF_ANIMA
     if (anim == NULL)
         return;
 
-    loopcount = mGEffAnimationGetProperty(anim, MGEFF_PROP_LOOPCOUNT);
+    //loopcount = mGEffAnimationGetProperty(anim, MGEFF_PROP_LOOPCOUNT);
     duration = mGEffAnimationGetDuration(anim);
 
     // stop current update animation if exists
     if (self->update_anim)
         mGEffAnimationStop(self->update_anim);
     // create a new update animation
-    self->update_anim = mGEffAnimationCreate(self, _update_callback, (int)self+1, MGEFF_INT);
+    self->update_anim = mGEffAnimationCreate(self, _update_callback, (intptr_t)(self+1), MGEFF_INT);
 #if 1
     mGEffAnimationSetProperty(self->update_anim, MGEFF_PROP_LOOPCOUNT, MGEFF_INFINITE);
 #else

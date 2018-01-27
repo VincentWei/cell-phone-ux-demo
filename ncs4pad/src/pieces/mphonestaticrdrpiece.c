@@ -50,7 +50,6 @@ static void mPhoneStaticRDRPiece_paint(mPhoneStaticRDRPiece *self,
 {
     DWORD uFormat = DT_CENTER|DT_SINGLELINE|DT_VCENTER;
     DWORD uFormat1 = DT_CENTER|DT_SINGLELINE|DT_TOP;
-	gal_pixel old_color;
     ARGB color1 = self->main_font_color;
     ARGB color2 = self->sub_font_color;
 
@@ -63,7 +62,7 @@ static void mPhoneStaticRDRPiece_paint(mPhoneStaticRDRPiece *self,
 
         if (self->main_font_color != 0)
         {
-    	    old_color = SetTextColor(hdc, RGBA2Pixel(hdc, 
+    	    SetTextColor(hdc, RGBA2Pixel(hdc, 
                         color1>>16&0xff,color1>>8&0xff, color1&0xff, color1>>24&0xff));
         }
         SetBkMode(hdc, BM_TRANSPARENT);
@@ -82,7 +81,7 @@ static void mPhoneStaticRDRPiece_paint(mPhoneStaticRDRPiece *self,
     
         if (self->sub_font_color != 0)
         {
-    	    old_color = SetTextColor(hdc, RGBA2Pixel(hdc, 
+    	    SetTextColor(hdc, RGBA2Pixel(hdc, 
                         color2>>16&0xff,color2>>8&0xff, color2&0xff, color2>>24&0xff));
         }
         SetBkMode(hdc, BM_TRANSPARENT);

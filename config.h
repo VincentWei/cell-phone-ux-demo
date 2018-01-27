@@ -1,6 +1,18 @@
 /* config.h.  Generated from config.h.in by configure.  */
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
+/* Define if animation FPS test enabled */
+#define ENABLE_ANIM_FPS_TEST 1
+
+/* Define if use OpenGL ES V1.1 */
+/* #undef GPU_GLES1 */
+
+/* Define if use OpenGL ES V2.0 */
+/* #undef GPU_GLES2 */
+
+/* Define if do not use GPU */
+#define GPU_NONE 1
+
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #define HAVE_DLFCN_H 1
 
