@@ -102,9 +102,9 @@ else
 fi
 CPPFLAGS="$CPPFLAGS $XML2_INC_DIR"
 
-AC_CHECK_LIB(chipmunk, cpInitChipmunk, DEP_LIBS="$DEP_LIBS -lchipmunk", chipmunk_installed=no)
+AC_CHECK_LIB(chipmunk, cpInitChipmunk, DEP_LIBS="$DEP_LIBS -lchipmunk", chipmunk_installed=no, "-lm")
 if test "x$chipmunk_installed" = "xno"; then
-    AC_MSG_ERROR([[Chipmunk is not installed! Run "sudo apt install chipmunk-dev" to install it if you are using Ubuntu.]])
+    AC_MSG_ERROR([[Chipmunk V5.3.x is not installed! Please make and install it from 3rd-party/ directory.]])
 fi
 
 if test "x$devel_mode" = "xyes"; then
