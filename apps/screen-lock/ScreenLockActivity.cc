@@ -1505,7 +1505,7 @@ BOOL evt_toolbar_menu(mWidget* self, mHotPiece *piece,
 
 #ifdef _MGRM_THREADS
 static int app_key_hook(void* context, HWND dst_wnd, 
-                        int msg, WPARAM wparam, LPARAM lparam)
+                        UINT msg, WPARAM wparam, LPARAM lparam)
 {
     int scancode = (int)wparam;
     
