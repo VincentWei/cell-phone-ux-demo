@@ -4,6 +4,7 @@
 *.al
 *.a
 *.so
+Makefile
 Makefile.in
 .deps/
 .libs/
