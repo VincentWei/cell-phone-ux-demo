@@ -630,7 +630,7 @@ int main (int argc, const char* argv[])
         return 1;
     }
 
-
+    DO_REGISTER_ACTIVITY (ActivityDesktop);
     DO_REGISTER_ACTIVITY (PhoneContactsActivity);
     DO_REGISTER_ACTIVITY (CalcActivity);
     DO_REGISTER_ACTIVITY (CallHistoryActivity);

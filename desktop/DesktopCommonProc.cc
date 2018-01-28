@@ -15,8 +15,7 @@
 
 HWND g_desktop_hwnd = HWND_INVALID;
 
-int common_key_hook(void* context, HWND dst_wnd, 
-                int msg, WPARAM wparam, LPARAM lparam)
+int common_key_hook(void* context, HWND dst_wnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
     switch (msg) {
         case MSG_KEYUP:
