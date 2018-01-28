@@ -244,8 +244,9 @@ public:
     }
 
     void list(void) {
+        printf("All registered activities (total %ld):\n", m_activities.size());
         for (std::vector<ActivityInfo *>::const_iterator i=m_activities.begin(); i!=m_activities.end(); ++i) {
-            printf("  %s\n", (*i)->name);
+            printf("  %s (%p)\n", (*i)->name, (*i)->create);
         }
     }
 
@@ -267,6 +268,20 @@ private:
 };
 
 #define REGISTER_ACTIVITY(_class) \
+static Activity * my_create() \
+{ \
+    return new _class(); \
+} \
+void realRegister##_class (void) \
+{ \
+    ActivityFactory::singleton()->registerActivity(#_class, my_create); \
+}
+
+#define DO_REGISTER_ACTIVITY(_class) \
+    extern void realRegister##_class (void); \
+    realRegister##_class ()
+
+#define AUTO_REGISTER_ACTIVITY(_class) \
     static struct _ActivityFactory_##_class { \
         static Activity *create() { \
             return new _class(); \

@@ -16,7 +16,6 @@
 
 #include "ResourceManager.hh"
 #define DESKTOP_IMG_PATH    "res/lockscreen/background.png"
-#define DEBUG
 
 #ifdef DEBUG
 #   define dbg() printf("%s %d\n", __FUNCTION__, __LINE__)

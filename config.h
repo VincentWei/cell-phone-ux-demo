@@ -2,7 +2,10 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* Define if animation FPS test enabled */
-#define ENABLE_ANIM_FPS_TEST 1
+/* #undef ENABLE_ANIM_FPS_TEST */
+
+/* Define if ScrollView enabled */
+#define ENABLE_SCROLLVIEW 1
 
 /* Define if use OpenGL ES V1.1 */
 /* #undef GPU_GLES1 */
@@ -66,6 +69,9 @@
 
 /* Define to the version of this package. */
 #define PACKAGE_VERSION "1.2.0"
+
+/* Define if debug ScrollView enabled */
+/* #undef PHYANIM_DEBUG */
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1

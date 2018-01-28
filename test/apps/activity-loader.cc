@@ -10,9 +10,13 @@
 #include "global.h"
 #include "Activity.hh"
 #include <mgeff/mgeff.h>
+#include <mgncs/mgncs.h>
+#include <mgncs4touch/mgncs4touch.h>
+
 #include "register.h"
 #include "ContentResolver.hh"
 #include "SimpleProviderFactory.hh"
+#include "apps/screen-lock/ScreenLockActivity.hh"
 
 #define BACK_GROUND_IMAGE   "res/common/toptitle.png"
 #define IDC_STATIC_TIME         100
@@ -48,7 +52,7 @@ void SetTopBarInfo(HWND hWnd)
     struct timeval tv;
     gettimeofday(&tv, NULL);
     struct tm *tm = localtime(&tv.tv_sec);
-    char time[8];
+    char time[10];
     memset(time, 0, 8);
     if(tm->tm_hour >= 12) {
         sprintf(time, "%02d:%02d PM", tm->tm_hour, tm->tm_min);
@@ -62,7 +66,7 @@ void SetTopBarInfo(HWND hWnd)
 }
 
 Activity *activity;
-static int InfoBarProc(HWND hWnd, int message, WPARAM wParam, LPARAM lParam)
+static LRESULT InfoBarProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message) {
         case MSG_CREATE:
@@ -165,7 +169,7 @@ static int MyMiniGUIMain(const char *activity_name) {
     
     Init32MemDC();
     ncsInitialize();
-    ncs4PadInitialize();
+    ncs4TouchInitialize();
     REGISTER_NCS();
 
     hMainWnd = CreateMainWindow (&CreateInfo);
@@ -188,9 +192,13 @@ static int MyMiniGUIMain(const char *activity_name) {
     GET_CONTENT_RESOLVER()->registerContentProvider(
             ProviderFactory::CreateSystemProvider(APPSINFO_PROVIDER));
 
-    activity = ActivityFactory::singleton()->create(activity_name);
+    ActivityFactory* tmp = ActivityFactory::singleton();
+
+    activity = tmp->create(activity_name);
     if (! activity) {
         fprintf(stderr, "Failed to create %s\n", activity_name);
+        tmp->list ();
+        assert (0);
         exit(1);
     }
     activity->onStart();
@@ -211,7 +219,7 @@ static int MyMiniGUIMain(const char *activity_name) {
     MGNCS_UNREG_COMPONENT(mContainerCtrl);
     MGNCS_UNREG_COMPONENT(mIconFlow);
     Release32MemDC();
-    ncs4PadInitialize();
+    ncs4TouchInitialize();
     ncsUninitialize();
 
     //delete activity;
@@ -243,7 +251,9 @@ int main(int argc, const char *argv[]) {
             for (i=names.begin(); i!=names.end(); ++i) {
                 printf("mklink %s\n", i->c_str());
 #ifndef WIN32
-                symlink(argv[0], i->c_str());
+                if (symlink(argv[0], i->c_str()) < 0) {
+                    printf("error on mklink %s\n", i->c_str());
+                }
 #endif
             }
             exit(0);
@@ -259,9 +269,12 @@ int main(int argc, const char *argv[]) {
 
     InitGUI(argc, argv);
 
+    DO_REGISTER_ACTIVITY (ScreenLockActivity);
+
     ret = MyMiniGUIMain(activity_name.c_str());
 
     TerminateGUI(0);
 
     return ret;
 }
+

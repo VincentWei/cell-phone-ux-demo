@@ -87,7 +87,7 @@ effshooteffector_finalize (MGEFF_EFFECTOR effector)
 
 void
 effshooteffector_ondraw (MGEFF_ANIMATION anim, MGEFF_EFFECTOR effector,
-        HDC sink_dc, int id, void *value)
+        HDC sink_dc, intptr_t id, void *value)
 {
     EffME2Ctxt *context = (EffME2Ctxt *)mGEffEffectorGetContext (effector);
     MGEFF_SOURCE src1 = mGEffEffectorGetSource (effector, 0);

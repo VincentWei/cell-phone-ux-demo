@@ -820,6 +820,8 @@ void ScreenLockActivity::initStateMachine()
 
 void ScreenLockActivity::loadMyResource()
 {
+    printf ("ScreenLockActivity::loadMyResource called\n");
+
     m_bgBmp = (PBITMAP) Load32Resource(DESKTOP_IMG_PATH, RES_TYPE_IMAGE, (DWORD)HDC_SCREEN);
 
     for (int i = 0; i < BUBBLE_NUM; ++i)

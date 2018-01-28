@@ -1,6 +1,6 @@
 AUTOMAKE_OPTIONS = subdir-objects
 
-AM_CPPFLAGS=../../apps/address-book
+AM_CPPFLAGS=-I../../
 
 noinst_PROGRAMS=test_ContactsLoadHelper
 

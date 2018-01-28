@@ -630,6 +630,35 @@ int main (int argc, const char* argv[])
         return 1;
     }
 
+
+    DO_REGISTER_ACTIVITY (PhoneContactsActivity);
+    DO_REGISTER_ACTIVITY (CalcActivity);
+    DO_REGISTER_ACTIVITY (CallHistoryActivity);
+    DO_REGISTER_ACTIVITY (ActivityCamera);
+#ifdef GPU_GLES1
+    DO_REGISTER_ACTIVITY (CoverFlowActivity);
+#endif
+    DO_REGISTER_ACTIVITY (DialPadActivity);
+    DO_REGISTER_ACTIVITY (EraserActivity);
+#ifdef GPU_GLES1
+    DO_REGISTER_ACTIVITY (FlightActivity);
+#endif
+    DO_REGISTER_ACTIVITY (PhoneAlbumActivity);
+    DO_REGISTER_ACTIVITY (ActivityMusicPlayer);
+    DO_REGISTER_ACTIVITY (PhoneCallActivity);
+    DO_REGISTER_ACTIVITY (ActivityPicturePlayer);
+    DO_REGISTER_ACTIVITY (ActivityPicturePreviewer);
+    DO_REGISTER_ACTIVITY (TransActivity);
+    DO_REGISTER_ACTIVITY (Ncs4padActivity);
+    DO_REGISTER_ACTIVITY (PieceAnimationActivity);
+    DO_REGISTER_ACTIVITY (SampleActivity);
+    DO_REGISTER_ACTIVITY (SampleNCSActivity);
+    DO_REGISTER_ACTIVITY (SampleNavigation);
+    DO_REGISTER_ACTIVITY (ScreenLockActivity);
+    DO_REGISTER_ACTIVITY (SMSActivity);
+    DO_REGISTER_ACTIVITY (SettingActivity);
+    DO_REGISTER_ACTIVITY (TimeSettingActivity);
+
 #ifdef _MGINCORE_RES
     CellPhoneInitInnerResource ();
 #endif

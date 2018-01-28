@@ -36,6 +36,17 @@ devel_mode=$enableval)
 AC_ARG_WITH(with_target,
 [  --with-target=[x86/r16]  target <x86/r16>])
 
+case "$with_target" in
+  x86)
+    CPPFLAGS="$CPPFLAGS -D__ARCH_X86__"
+    ;;
+  r16)
+    CPPFLAGS="$CPPFLAGS -D__ARCH_R16__"
+    ;;
+  *)
+    ;;
+esac
+
 AC_ARG_WITH(with_gpu,
 [  --with-gpu=[none/gles1/gles2]  GPU support <none/gles1/gles2>])
 
@@ -44,7 +55,6 @@ AC_ARG_WITH(xml2_includes,
 
 if test "x$devel_mode" = "xyes"; then
     build_testcase="yes"
-    build_anim_fps_test="yes"
 fi
 
 case "$with_gpu" in
@@ -59,9 +69,7 @@ case "$with_gpu" in
     ;;
 esac
 
-if test "x$build_anim_fps_test" = "xyes" ; then
-    AC_DEFINE(ENABLE_ANIM_FPS_TEST, 1, [Define if animation FPS test enabled])
-fi
+AC_DEFINE(ENABLE_SCROLLVIEW, 1, [Define if ScrollView enabled])
 
 dnl Checks for libraries.
 
@@ -114,12 +122,14 @@ if test "x$chipmunk_installed" = "xno"; then
 fi
 
 if test "x$devel_mode" = "xyes"; then
-    CPPFLAGS="$CPPFLAGS -D_DEBUG"
+    CPPFLAGS="$CPPFLAGS -DDEBUG -D_DEBUG"
     if test "$ac_cv_prog_gcc" = "yes"; then
         CPPFLAGS="$CPPFLAGS -Werror"
     fi
 else
     CPPFLAGS="$CPPFLAGS -DNDEBUG"
+    AC_DEFINE(PHYANIM_DEBUG, 1, [Define if debug ScrollView enabled])
+    AC_DEFINE(ENABLE_ANIM_FPS_TEST, 1, [Define if animation FPS test enabled])
 fi
 
 if test "$ac_cv_prog_gcc" = "yes"; then

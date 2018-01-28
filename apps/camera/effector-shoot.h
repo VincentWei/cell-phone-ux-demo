@@ -25,7 +25,7 @@ typedef struct _EffME2Ctxt {
 MGEFF_EFFECTOR effshooteffector_init (MGEFF_EFFECTOR _effector);
 void effshooteffector_finalize (MGEFF_EFFECTOR _effector);
 void effshooteffector_ondraw(MGEFF_ANIMATION animation, MGEFF_EFFECTOR _effector, 
-        HDC sink_dc, int id, void* value);
+        HDC sink_dc, intptr_t id, void* value);
 void effshooteffector_begindraw(MGEFF_ANIMATION animation, MGEFF_EFFECTOR _effector);
 
 extern MGEFF_EFFECTOROPS shoot;

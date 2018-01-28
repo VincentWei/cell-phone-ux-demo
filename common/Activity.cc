@@ -63,7 +63,15 @@ void Activity::deleteHWNDSecondaryDC()
 // create this activity, including creating window, setting additional data, etc.
 int Activity::create() 
 {
+#ifdef DEBUG
+    fprintf(stderr, "Activity::create called!\n");
+#endif
+
     m_hwnd = createHWND();
+
+#ifdef DEBUG
+    fprintf(stderr, "created window by createHWND: %p!\n", m_hwnd);
+#endif
 
     if (m_hwnd == HWND_INVALID || m_hwnd == HWND_NULL) {
         fprintf(stderr, "Create Window failed!\n");
