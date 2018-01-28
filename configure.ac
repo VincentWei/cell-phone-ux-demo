@@ -114,9 +114,12 @@ if test "x$chipmunk_installed" = "xno"; then
 fi
 
 if test "x$devel_mode" = "xyes"; then
+    CPPFLAGS="$CPPFLAGS -D_DEBUG"
     if test "$ac_cv_prog_gcc" = "yes"; then
         CPPFLAGS="$CPPFLAGS -Werror"
     fi
+else
+    CPPFLAGS="$CPPFLAGS -DNDEBUG"
 fi
 
 if test "$ac_cv_prog_gcc" = "yes"; then
