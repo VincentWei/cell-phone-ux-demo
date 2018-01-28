@@ -4,6 +4,8 @@ SUBDIRS = misc physics-animation pieces
 
 noinst_LTLIBRARIES = libncs4pad.la
 
+SUBLIBS = misc/libmisc.la physics-animation/libphyanim.la pieces/libpieces.la
+
 libncs4pad_la_SOURCES = \
     mcenterhbox.c \
     mcontainerctrl.c \
@@ -12,4 +14,5 @@ libncs4pad_la_SOURCES = \
     mlinevbox.c \
     museritem.c
 
-libncs4pad_la_LIBADD = misc/libmisc.la physics-animation/libphyanim.la pieces/libpieces.la
+libncs4pad_la_LIBADD = $(SUBLIBS)
+libncs4pad_la_DEPENDENCIES = $(SUBLIBS)

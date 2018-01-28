@@ -118,7 +118,8 @@ static void updateConstraint(cpConstraint *constraint, void *data) {
     }
 }
 
-static int ChipmunkWinProc(HWND hWnd, int message, WPARAM wParam, LPARAM lParam) {
+static LRESULT ChipmunkWinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
     switch (message) {
         case MSG_USER_CHIPMUNK:
             {

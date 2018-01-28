@@ -74,12 +74,6 @@ cpShape *create_floor(cpSpace *space, int y_baseline, int x1, int x2) {
 
 void destroy_static_shape(cpSpace *space, cpShape *shape) {
     cpBody *body = shape->body;
-    if (cpSpaceContainsBody (space, body)) {
-        cpSpaceRemoveBody(space, body);
-    }
-    else {
-        printf ("destroy_static_shape: Space does not contain the specified body.\n");
-    }
     cpSpaceRemoveStaticShape(space, shape);
 
     cpShapeFree(shape);
@@ -102,12 +96,6 @@ cpShape *create_ball(cpSpace *space, int x, int y, int r, int m) {
 
 void destroy_shape(cpSpace *space, cpShape *shape) {
     cpBody *body = shape->body;
-    if (cpSpaceContainsBody (space, body)) {
-        cpSpaceRemoveBody(space, body);
-    }
-    else {
-        printf ("destroy_static_shape: Space does not contain the specified body.\n");
-    }
     cpSpaceRemoveShape(space, shape);
 
     cpShapeFree(shape);

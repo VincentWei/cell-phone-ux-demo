@@ -57,20 +57,6 @@ if test "x$devel_mode" = "xyes"; then
     build_testcase="yes"
 fi
 
-case "$with_gpu" in
-  gles1)
-    AC_DEFINE(GPU_GLES1, 1, [Define if use OpenGL ES V1.1])
-    ;;
-  gles2)
-    AC_DEFINE(GPU_GLES2, 1, [Define if use OpenGL ES V2.0])
-    ;;
-  *)
-    AC_DEFINE(GPU_NONE, 1, [Define if do not use GPU])
-    ;;
-esac
-
-AC_DEFINE(ENABLE_SCROLLVIEW, 1, [Define if ScrollView enabled])
-
 dnl Checks for libraries.
 
 dnl Checks for header files.
@@ -122,20 +108,38 @@ if test "x$chipmunk_installed" = "xno"; then
 fi
 
 if test "x$devel_mode" = "xyes"; then
-    CPPFLAGS="$CPPFLAGS -DDEBUG -D_DEBUG"
+    CPPFLAGS="$CPPFLAGS -DDEBUG -D_DEBUG -DPHYANIM_DEBUG -DENABLE_ANIM_FPS_TEST"
+    dnl AC_DEFINE(PHYANIM_DEBUG, 1, [Define if debug ScrollView enabled])
+    dnl AC_DEFINE(ENABLE_ANIM_FPS_TEST, 1, [Define if animation FPS test enabled])
     if test "$ac_cv_prog_gcc" = "yes"; then
         CPPFLAGS="$CPPFLAGS -Werror"
     fi
 else
     CPPFLAGS="$CPPFLAGS -DNDEBUG"
-    AC_DEFINE(PHYANIM_DEBUG, 1, [Define if debug ScrollView enabled])
-    AC_DEFINE(ENABLE_ANIM_FPS_TEST, 1, [Define if animation FPS test enabled])
 fi
 
 if test "$ac_cv_prog_gcc" = "yes"; then
     CPPFLAGS="$CPPFLAGS -D_GNU_SOURCE -Wall -pipe"
     CFLAGS="$CFLAGS -Wstrict-prototypes"
 fi
+
+case "$with_gpu" in
+  gles1)
+    CPPFLAGS="$CPPFLAGS -DGPU_GLES1"
+    dnl AC_DEFINE(GPU_GLES1, 1, [Define if use OpenGL ES V1.1])
+    ;;
+  gles2)
+    CPPFLAGS="$CPPFLAGS -DGPU_GLES2"
+    dnl AC_DEFINE(GPU_GLES2, 1, [Define if use OpenGL ES V2.0])
+    ;;
+  *)
+    CPPFLAGS="$CPPFLAGS -DGPU_NONE"
+    dnl AC_DEFINE(GPU_NONE, 1, [Define if do not use GPU])
+    ;;
+esac
+
+CPPFLAGS="$CPPFLAGS -DENABLE_SCROLLVIEW"
+dnl AC_DEFINE(ENABLE_SCROLLVIEW, 1, [Define if ScrollView enabled])
 
 AC_SUBST(DEP_LIBS)
 
