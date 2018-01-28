@@ -167,5 +167,20 @@ AC_OUTPUT(
     desktop/Makefile
     inner-res/Makefile
     res/Makefile
+    res/address-book/Makefile
+    res/camera/Makefile
+    res/common/Makefile
+    res/desktop/Makefile
+    res/dial/Makefile
+    res/flight-gl/Makefile
+    res/font/Makefile
+    res/gvfb/Makefile
+    res/lockscreen/Makefile
+    res/musicplayer/Makefile
+    res/musicplayer/Album/Makefile
+    res/musicplayer/player/Makefile
+    res/phone-call/Makefile
+    res/pictureviewer/Makefile
+    res/sample-activity/Makefile
 )
 

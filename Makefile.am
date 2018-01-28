@@ -18,3 +18,7 @@ mguxdemo_LDADD = common/libcommon.la \
 
 EXTRA_DIST = LICENSE README.md
 
+install-data-local:
+	$(INSTALL_DATA) MiniGUI.cfg $(prefix)/bin/MiniGUI.cfg
+	$(INSTALL_DATA) mgncs.cfg $(prefix)/bin/mgncs.cfg
+	$(INSTALL_DATA) mgncs4touch.cfg $(prefix)/bin/mgncs4touch.cfg

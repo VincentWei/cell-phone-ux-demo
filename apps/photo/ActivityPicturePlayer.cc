@@ -18,15 +18,15 @@ REGISTER_ACTIVITY(ActivityPicturePlayer);
 #define thisActivity(hwnd)  ((ActivityPicturePlayer*)Activity::getActivityFromHWND(hwnd))
 
 static const char *gPic[] ={
-    "res/pictureviewer/picplayer/1.png",
-    "res/pictureviewer/picplayer/2.png",
-    "res/pictureviewer/picplayer/3.png",
-    "res/pictureviewer/picplayer/4.png",
-    "res/pictureviewer/picplayer/5.png",
-    "res/pictureviewer/picplayer/6.png",
-    "res/pictureviewer/picplayer/7.png",
-    "res/pictureviewer/picplayer/8.png",
-    "res/pictureviewer/picplayer/9.png",
+    "res/pictureviewer/1.png",
+    "res/pictureviewer/2.png",
+    "res/pictureviewer/3.png",
+    "res/pictureviewer/4.png",
+    "res/pictureviewer/5.png",
+    "res/pictureviewer/6.png",
+    "res/pictureviewer/7.png",
+    "res/pictureviewer/8.png",
+    "res/pictureviewer/9.png",
 };
 
 static DWORD title_gradient_color[] = {
@@ -861,19 +861,19 @@ void ActivityPicturePlayer::initRes(){
 int ActivityPicturePlayer::loadRes(void){
     mPic = (BITMAP *)Load32Resource (gPic[mIndex], RES_TYPE_IMAGE, (DWORD)HDC_SCREEN);
 
-    mNextPic = (BITMAP *)Load32Resource("res/pictureviewer/picplayer/pic_next.png",
+    mNextPic = (BITMAP *)Load32Resource("res/pictureviewer/pic_next.png",
             RES_TYPE_IMAGE, (DWORD)HDC_SCREEN);
-    mPlayPic = (BITMAP *)Load32Resource("res/pictureviewer/picplayer/pic_pause_play.png",
+    mPlayPic = (BITMAP *)Load32Resource("res/pictureviewer/pic_pause_play.png",
             RES_TYPE_IMAGE, (DWORD)HDC_SCREEN);
-    mPrevPic = (BITMAP *)Load32Resource("res/pictureviewer/picplayer/pic_prev.png",
+    mPrevPic = (BITMAP *)Load32Resource("res/pictureviewer/pic_prev.png",
             RES_TYPE_IMAGE, (DWORD)HDC_SCREEN);
     return 0;
 }
 int ActivityPicturePlayer::releaseRes(void){
     ReleaseRes(Str2Key(gPic[mIndex]));
-    ReleaseRes(Str2Key("res/pictureviewer/picplayer/pic_next.png"));
-    ReleaseRes(Str2Key("res/pictureviewer/picplayer/pic_pause_play.png"));
-    ReleaseRes(Str2Key("res/pictureviewer/picplayer/pic_prev.png"));
+    ReleaseRes(Str2Key("res/pictureviewer/pic_next.png"));
+    ReleaseRes(Str2Key("res/pictureviewer/pic_pause_play.png"));
+    ReleaseRes(Str2Key("res/pictureviewer/pic_prev.png"));
 
     DestroyLogFont(m_titleFont);
     DestroyLogFont(m_playFont);

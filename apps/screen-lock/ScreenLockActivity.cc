@@ -1570,6 +1570,7 @@ BOOL evt_toolbar_sms(mWidget* self, mHotPiece *piece,
 // main window's message handler---------------------------------------------
 static BOOL mainWnd_onCreate(mWidget* self, DWORD add_data)
 {
+    printf("ScreenLockActivity onCreate\n");
     ScreenLockActivity* _this = thisActivity(self->hwnd);
     assert(_this);
 //    PostMessage(self->hwnd, MSG_REGISTERKEYHOOK, 0, (LPARAM)common_key_hook);
@@ -1595,14 +1596,14 @@ static BOOL mainWnd_onCreate(mWidget* self, DWORD add_data)
 }
 static void mainWnd_onPaint(mWidget *self, HDC hdc, const CLIPRGN* inv)
 {
+    printf("ScreenLockActivity onPaint\n");
     FillBoxWithBitmap(hdc, 0, 0, ACTIVITY_W, ACTIVITY_H, thisActivity(self->hwnd)->m_bgBmp);
 //    FillBitmapPartInBox(hdc,0, 0, 0, 0, thisActivity(self->hwnd)->m_bgBmp, 0, 0, 0, 0);
 }
 
 static void mainWnd_onClose(mWidget* self, int message)
 {
-    printf("stopHighlight onClose\n");
-    
+    printf("ScreenLockActivity onClose\n");
     return;
 }
 

@@ -40,15 +40,15 @@ static RECT PLAY_BTN_RECT = {10, (PHOTO_TITLE_H - PHOTO_BTN_H)>>1,
 static ARGB COLORS_ICONFLOW_BK[] = {0xff646873, 0xff2e2f32};
 
 static const char *PICTURES[] = {
-    "res/pictureviewer/picplayer/1.png",
-    "res/pictureviewer/picplayer/2.png",
-    "res/pictureviewer/picplayer/3.png",
-    "res/pictureviewer/picplayer/4.png",
-    "res/pictureviewer/picplayer/5.png",
-    "res/pictureviewer/picplayer/6.png",
-    "res/pictureviewer/picplayer/7.png",
-    "res/pictureviewer/picplayer/8.png",
-    "res/pictureviewer/picplayer/9.png",
+    "res/pictureviewer/1.png",
+    "res/pictureviewer/2.png",
+    "res/pictureviewer/3.png",
+    "res/pictureviewer/4.png",
+    "res/pictureviewer/5.png",
+    "res/pictureviewer/6.png",
+    "res/pictureviewer/7.png",
+    "res/pictureviewer/8.png",
+    "res/pictureviewer/9.png",
 };
 
 static BOOL iconv_init(mDialogBox* self)

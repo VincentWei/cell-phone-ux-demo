@@ -1,4 +1,4 @@
-DIST_SUBDIRS = \
+SUBDIRS = \
     address-book \
     camera \
     common \

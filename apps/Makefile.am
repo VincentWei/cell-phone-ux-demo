@@ -20,8 +20,7 @@ SUBDIRS = \
 
 noinst_LTLIBRARIES = libapps.la
 
-libapps_la_SOURCES = foo.c
-libapps_la_LIBADD = \
+SUBLIBS = \
     common/libcommon.la \
     address-book/libaddress-book.la \
     photo/libphoto.la \
@@ -40,3 +39,7 @@ libapps_la_LIBADD = \
     screen-lock/libscreen-lock.la \
     flight-gl/libflight-gl.la \
     coverflow-gl/libcoverflow-gl.la
+
+libapps_la_SOURCES = foo.c
+libapps_la_LIBADD = $(SUBLIBS)
+libapps_la_DEPENDENCIES = $(SUBLIBS)
