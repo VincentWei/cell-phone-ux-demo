@@ -168,8 +168,8 @@ END_MINI_CLASS
 static int onEditStateChange(mHotPiece *self, int message, WPARAM wParam, LPARAM lParam, mObject *owner)
 {
     if (message == MSG_BTNPANELPIECE_STATE_CHANGED) {
-        enum mButtonPanelPieceState state = (enum mButtonPanelPieceState)wParam;
-        if (state == NCSN_ABP_CLICKED) {
+        int state = (int)wParam;
+        if (state == (int)NCSN_ABP_CLICKED) {
 	    _c(table)->changeMode(table);
         }
     }

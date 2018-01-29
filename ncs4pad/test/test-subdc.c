@@ -48,7 +48,7 @@ static void read_subdc(HDC windc) {
     DeleteMemDC(memdc);
 }
 
-static int HelloWinProc(HWND hWnd, int message, WPARAM wParam, LPARAM lParam) {
+static LRESULT HelloWinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 
     switch (message) {
         case MSG_CREATE:

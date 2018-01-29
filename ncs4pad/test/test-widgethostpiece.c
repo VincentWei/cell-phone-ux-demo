@@ -8,12 +8,13 @@
 
 #include <mgncs/mgncs.h>
 #include <mgeff/mgeff.h>
-#include <mgncs4pad/mpad.h>
+#include <mgncs4touch/mgncs4touch.h>
 #include <mgplus/mgplus.h>
 #include "register.h"
 
 #define hostdbg
 #ifdef hostdbg
+#undef dbg
 #define dbg() printf("[%s]:%d\n", __FUNCTION__, __LINE__)
 #else 
 #define dbg()
@@ -188,8 +189,8 @@ static BOOL mymain_onCreate(mWidget *self, DWORD add_data)
     mWidgetHostPiece *datehost;
     mWidgetHostPiece *timehost;
     mWidgetHostPiece *btn;
-    mWidgetHostPiece *label;
-    mWidgetHostPiece *edit;
+    //mWidgetHostPiece *label;
+    //mWidgetHostPiece *edit;
     mShapeTransRoundPiece *bk;
 #if 0
     mTextPiece *newtrkbar;
@@ -232,10 +233,10 @@ static BOOL mymain_onCreate(mWidget *self, DWORD add_data)
 	ncsAddEventListener((mObject*)btn, (mObject*)self, on_btn_pushed, NCSN_BUTTON_PUSHED);
 
     //label
-    label = createHostPiece(self, panel, &hosted_tmpl[4], PIECE_LABEL_X, PIECE_LABEL_Y);
+    /*label = */createHostPiece(self, panel, &hosted_tmpl[4], PIECE_LABEL_X, PIECE_LABEL_Y);
 
     //edit
-    edit = createHostPiece(self, panel, &hosted_tmpl[5], PIECE_EDIT_X, PIECE_EDIT_Y);
+    /*edit = */createHostPiece(self, panel, &hosted_tmpl[5], PIECE_EDIT_X, PIECE_EDIT_Y);
     
 #if 0
     //text
@@ -309,7 +310,7 @@ static NCS_MNWND_TEMPLATE mymain_templ = {
 int MiniGUIMain(int argc, const char* argv[])
 {
     ncsInitialize();
-    ncs4PadInitialize();
+    ncs4TouchInitialize();
     REGISTER_NCS();
 
     mDialogBox* mydlg = (mDialogBox *)ncsCreateMainWindowIndirect
@@ -319,7 +320,7 @@ int MiniGUIMain(int argc, const char* argv[])
     MainWindowThreadCleanup(mydlg->hwnd);
 
     MGNCS_UNREG_COMPONENT(mContainerCtrl);
-    ncs4PadUninitialize();
+    ncs4TouchUninitialize();
     ncsUninitialize ();
 
     return 0;

@@ -102,7 +102,7 @@ int gauss_blur(HDC hdc, unsigned char *data, int width, int height, int pitch, d
     return 0;   
 }  
 
-static int HelloWinProc(HWND hWnd, int message, WPARAM wParam, LPARAM lParam)
+static LRESULT HelloWinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     HDC hdc;
 

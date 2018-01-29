@@ -30,13 +30,13 @@ static mButtonPanelPiece *btn_layout_or_not;
 
 static BOOL g_buttonRunIsOn = FALSE;
 
-static void drawOneFrame(MGEFF_ANIMATION handler, void *target, int id, void *value)
+static void drawOneFrame(MGEFF_ANIMATION handler, void *target, intptr_t id, void *value)
 {
     mWidget *self = (mWidget*)target;
     UpdateWindow(self->hwnd, TRUE);
 }
 
-static void buttonAnimCb(MGEFF_ANIMATION handle, void *target, int id, void *value)
+static void buttonAnimCb(MGEFF_ANIMATION handle, void *target, intptr_t id, void *value)
 {
     static char str[5];
     mPanelPiece *self = (mPanelPiece*)target;

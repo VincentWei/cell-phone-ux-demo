@@ -21,7 +21,7 @@ static int container_event_handler(mHotPiece *_self, int message, WPARAM wParam,
     int x, y;
     x = LOSWORD(lParam);
     y = HISWORD(lParam);
-    printf("container_event_handler(message=%d, WPARAM=%d, LPARAM=(%d,%d))\n",
+    printf("container_event_handler(message=%u, WPARAM=%lu, LPARAM=(%d,%d))\n",
             message, wParam, x, y);
 
     {

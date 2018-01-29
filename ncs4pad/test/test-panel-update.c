@@ -48,16 +48,16 @@ static int s_piece_xy[][2] =
 
 static BOOL s_roll_flag = TRUE;
 
-static void rollLabel();
+static void rollLabel(void);
 static void scaleObj(int id, BOOL isInflate);
 
-static void loadMyResource()
+static void loadMyResource(void)
 {
     s_bubbleBmp = (PBITMAP) LoadResource(bubble_img_path, RES_TYPE_IMAGE, 0);
     mGEffInit();
 }
 
-static void unloadMyResource()
+static void unloadMyResource(void)
 {
     ReleaseRes(Str2Key(bubble_img_path));
     mGEffDeinit();

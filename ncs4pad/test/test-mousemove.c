@@ -54,7 +54,7 @@ static int deal_with_noise(HWND hwnd, int *x, int *y) {
     }
 }
 
-static int HelloWinProc(HWND hWnd, int message, WPARAM wParam, LPARAM lParam)
+static LRESULT HelloWinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 
     switch (message) {
@@ -62,7 +62,7 @@ static int HelloWinProc(HWND hWnd, int message, WPARAM wParam, LPARAM lParam)
             break;
         case MSG_RBUTTONDOWN:
             {
-                SetBrushColor(g_memdc, -1);
+                SetBrushColor(g_memdc, 0xFFFFFFFF);
                 FillBox(g_memdc, 0, 0, 1000, 1000);
                 InvalidateRect(hWnd, NULL, FALSE);
             }
