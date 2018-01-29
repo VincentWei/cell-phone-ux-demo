@@ -1,3 +1,1 @@
-SUBDIRS = include src
-
-DIST_SUBDIRS = test
+SUBDIRS = include src test
