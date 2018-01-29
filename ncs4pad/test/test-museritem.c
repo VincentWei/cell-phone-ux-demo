@@ -31,7 +31,7 @@ static char sms[2][255]=
 "    xxxxxx  ccccccc"
 };
 
-BOOL itemsetrect ( HWND hwnd, int id, DWORD data)
+BOOL itemsetrect ( HWND hwnd, LINT id, DWORD data)
 {
     RECT rect;
 

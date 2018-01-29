@@ -159,6 +159,7 @@ AC_OUTPUT(
     ncs4pad/src/misc/Makefile
     ncs4pad/src/pieces/Makefile
     ncs4pad/src/physics-animation/Makefile
+    ncs4pad/test/Makefile
     apps/Makefile
     apps/address-book/Makefile
     apps/calc/Makefile
@@ -197,4 +198,5 @@ AC_OUTPUT(
     res/pictureviewer/Makefile
     res/sample-activity/Makefile
 )
+
 

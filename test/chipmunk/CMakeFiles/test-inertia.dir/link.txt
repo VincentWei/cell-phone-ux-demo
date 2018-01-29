@@ -1,1 +1,0 @@
-/usr/bin/cc   -Wall -g   CMakeFiles/test-inertia.dir/__/__/ncs4pad/src/physics-animation/mspeedmeter.c.o CMakeFiles/test-inertia.dir/test-framework.c.o CMakeFiles/test-inertia.dir/test-inertia.c.o  -o test-inertia  -L/usr/local/lib -rdynamic -lminigui_ths -ljpeg -lpng -ldl -lm -lpthread -lchipmunk -Wl,-rpath,/usr/local/lib 

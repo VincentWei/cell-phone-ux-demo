@@ -66,7 +66,7 @@ static BOOL mymain_onCreate(mMainWnd* self, DWORD dwAddData )
 
         const int DEFAULT_PIECE_SIZE=40;
         int i,j=0;
-        ARGB colors[] = {0xfff10000, 0xfff51000, 0xffffe100, 0xfffff300, 0xfffffee0, 0xffffffff};
+        ARGB colors[10] = {0xfff10000, 0xfff51000, 0xffffe100, 0xfffff300, 0xfffffee0, 0xffffffff};
         for (i=0; i<TABLESIZE(g_font); ++i) {
             int g_fontsize = 10+i*5;
 

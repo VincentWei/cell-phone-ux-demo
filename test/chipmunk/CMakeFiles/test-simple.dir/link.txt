@@ -1,1 +1,0 @@
-/usr/bin/cc   -Wall -g   CMakeFiles/test-simple.dir/test-simple.c.o  -o test-simple  -L/usr/local/lib -rdynamic -lminigui_ths -ljpeg -lpng -ldl -lm -lpthread -lchipmunk -Wl,-rpath,/usr/local/lib 

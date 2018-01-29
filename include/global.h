@@ -52,7 +52,9 @@ static inline unsigned int MyGetTickCount(void) {
 #define TITLE_W        SCREEN_W
 #define ACTIVITY_X     0
 #define ACTIVITY_Y     22
+#undef ACTIVITY_W
 #define ACTIVITY_W     SCREEN_W
+#undef ACTIVITY_H
 #define ACTIVITY_H     (SCREEN_H - TITLE_H)
 
 #define SCREEN_IDLE_TIMER	(30*100)

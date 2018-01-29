@@ -46,7 +46,7 @@ static  BOOL mainwnd_onChar (mWidget* _this, int message, int ch, DWORD key_flag
     _c(mypiece)->getContent(mypiece, tmpstr, sizeof(tmpstr));
     return TRUE;
 }
-static void willdrawit(MGEFF_ANIMATION handle, void *target, int id, void *value)
+static void willdrawit(MGEFF_ANIMATION handle, void *target, intptr_t id, void *value)
 {
     mContainerCtrl *ctnr = (mContainerCtrl *)target;
     UpdateWindow(ctnr->hwnd, TRUE);

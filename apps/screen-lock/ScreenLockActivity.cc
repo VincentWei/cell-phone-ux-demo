@@ -1598,7 +1598,6 @@ static BOOL mainWnd_onCreate(mWidget* self, DWORD add_data)
 }
 static void mainWnd_onPaint(mWidget *self, HDC hdc, const CLIPRGN* inv)
 {
-    printf("ScreenLockActivity onPaint\n");
     FillBoxWithBitmap(hdc, 0, 0, ACTIVITY_W, ACTIVITY_H, thisActivity(self->hwnd)->m_bgBmp);
 //    FillBitmapPartInBox(hdc,0, 0, 0, 0, thisActivity(self->hwnd)->m_bgBmp, 0, 0, 0, 0);
 }
@@ -1680,7 +1679,6 @@ static int mainWnd_onUserReturnToStandby(mWidget* self, int message, WPARAM wPar
 // control's message handler-------------------------------------------------
 static BOOL hintbar_onTimer(HWND hwnd, LINT id, DWORD count)
 {
-    printf("hintbar_onTimer\n");
     startHighlight(hwnd);
     return FALSE;
 }

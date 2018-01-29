@@ -10,7 +10,7 @@
 
 #include <mgncs/mgncs.h>
 #include <mgeff/mgeff.h>
-#include <mgncs4pad/mpad.h>
+#include <mgncs4touch/mgncs4touch.h>
 #include <mgplus/mgplus.h>
 #include "register.h"
 
@@ -273,7 +273,7 @@ int MiniGUIMain(int argc, const char *argv[]) {
     ShowCursor(FALSE);
 
     ncsInitialize();
-    ncs4PadInitialize();
+    ncs4TouchInitialize();
     REGISTER_NCS();
     MGNCS_INIT_CLASS(mSimpleTableView);
     MGNCS_INIT_CLASS(mIndexLocatePiece);
@@ -285,7 +285,7 @@ int MiniGUIMain(int argc, const char *argv[]) {
     MainWindowThreadCleanup(mydlg->hwnd);
 
     MGNCS_UNREG_COMPONENT(mContainerCtrl);
-    ncs4PadUninitialize();
+    ncs4TouchUninitialize();
     ncsUninitialize ();
 
     return 0;
