@@ -199,3 +199,4 @@ AC_OUTPUT(
     res/sample-activity/Makefile
 )
 
+
