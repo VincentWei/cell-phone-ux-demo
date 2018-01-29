@@ -54,3 +54,4 @@ test_mousemove_SOURCES = test-mousemove.c
 test_subdc_SOURCES = test-subdc.c
 test_scrollview_SOURCES = test-scrollview.c
 
+DIST_SUBDIRS=res
