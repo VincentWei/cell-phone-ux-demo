@@ -1,4 +1,4 @@
-AM_CPPFLAGS=-I../include/ -I../ncs4pad/include -I../ncs4pad/include/pieces -I../ncs4pad/include/physics-animation
+AM_CPPFLAGS=-I../include/ -I../ncs4pad/include
 
 noinst_LTLIBRARIES=libdesktop.la
 

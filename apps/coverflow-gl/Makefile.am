@@ -1,4 +1,4 @@
-AM_CPPFLAGS = -I../../include -I../../ncs4pad/include -I../../ncs4pad/include/misc -I../../ncs4pad/include/physics-animation -I../../ncs4pad/include/pieces
+AM_CPPFLAGS = -I../../include -I../../ncs4pad/include
 
 noinst_LTLIBRARIES = libcoverflow-gl.la
 
