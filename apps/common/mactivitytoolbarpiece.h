@@ -6,8 +6,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include "mpanelpiece.h"
-#include "mtextpiece.h"
 
 enum _ButtonPosition{
     ACTIVITYTOOLBAR_LEFT,

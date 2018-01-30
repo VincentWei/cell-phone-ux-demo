@@ -1,8 +1,6 @@
+#include "global.h"
+
 #include "pieceanimation-activity.hh"
-#include "mcontainerctrl.h"
-#include "mlayout_manager.h"
-#include "mpanelpiece.h"
-#include "mtransroundpiece.h"
 
 REGISTER_ACTIVITY(PieceAnimationActivity);
 

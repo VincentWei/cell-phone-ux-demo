@@ -2,7 +2,7 @@
 #ifndef _NCSCTRL_ANIMATINEDIT_H
 #define _NCSCTRL_ANIMATINEDIT_H
 
-#include "mtransroundpiece.h"
+#include <mgncs4touch/mgncs4touch.h>
 
 #define NCSCTRL_ANIMATIONEDIT   NCSCLASSNAME("animationedit")
 

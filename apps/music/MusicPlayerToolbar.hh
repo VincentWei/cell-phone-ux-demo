@@ -10,22 +10,9 @@
 #ifndef MUSICPLAYERTOOLBAR_HH
 #define MUSICPLAYERTOOLBAR_HH
 
+#include "global.h"
+
 #include <cstring>
-
-#include <minigui/common.h>
-#include <minigui/minigui.h>
-#include <minigui/gdi.h>
-#include <minigui/window.h>
-#include <mgncs/mgncs.h>
-#include <mgplus/mgplus.h>
-
-#include "mcontainerctrl.h"
-#include "mpanelpiece.h"
-#include "mtransroundpiece.h"
-#include "mtextpiece.h"
-#include "mlayout_manager.h"
-#include "mcenterhbox.h"
-#include "mbuttonpanelpiece.h" 
 
 class MusicPlayerToolbar {
     public:

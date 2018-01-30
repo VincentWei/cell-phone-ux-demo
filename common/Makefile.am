@@ -1,4 +1,4 @@
-AM_CPPFLAGS=-I../include/
+AM_CPPFLAGS=-I../include -I../ncs4pad/include
 
 noinst_LTLIBRARIES=libcommon.la
 

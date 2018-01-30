@@ -5,13 +5,6 @@
 extern "C" {
 #endif
 
-#include "mpanelpiece.h"
-#include "mtransroundpiece.h"
-#include "mtextpiece.h"
-#include "mbuttonpanelpiece.h"
-#include "m3dbuttonpiece.h"
-
-
 typedef struct _mNavigationItemClass mNavigationItemClass;
 typedef struct _mNavigationItem mNavigationItem;
 

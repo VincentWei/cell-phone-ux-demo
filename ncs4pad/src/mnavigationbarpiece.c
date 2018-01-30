@@ -10,9 +10,11 @@
 #include <mgplus/mgplus.h>
 #include <mgeff/mgeff.h>
 
+#include "global.h"
+
+#include "mnavigationitem.h"
+#include "mnavigationpanelpiece.h"
 #include "mnavigationbarpiece.h"
-
-
 
 static void mNavigationBarPiece_construct (mNavigationBarPiece *self, DWORD param)
 {

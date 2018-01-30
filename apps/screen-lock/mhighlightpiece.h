@@ -1,8 +1,6 @@
 #ifndef MHIGHLIGHTPIECE_H
 #define MHIGHLIGHTPIECE_H
 
-#include "mtextpiece.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif

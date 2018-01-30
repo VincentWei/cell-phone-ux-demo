@@ -5,8 +5,6 @@
 extern "C" {
 #endif
 
-#include "mtableviewpiece.h"
-
 typedef struct _mDetailTableViewPieceClass mDetailTableViewPieceClass;
 typedef struct _mDetailTableViewPiece mDetailTableViewPiece;
 

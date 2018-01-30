@@ -1,8 +1,11 @@
+#include <assert.h>
+
+#include "global.h"
+
+#include "eraser.hh"
+
 #define dbg() printf("%s %d\n", __FUNCTION__, __LINE__)
 
-#include <assert.h>
-#include "physics-animation.h"
-#include "eraser.hh"
 using namespace eraser;
 
 CpObject::CpObject() {

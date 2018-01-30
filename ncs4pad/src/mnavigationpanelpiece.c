@@ -11,12 +11,9 @@
 #include <mgeff/mgeff.h>
 
 #include "global.h"
-#include "mnavigationpanelpiece.h"
+#include "mnavigationitem.h"
 #include "mnavigationbarpiece.h"
-#include "mpanelpiece.h"
-#include "mtransroundpiece.h"
-#include "mbuttonpanelpiece.h"
-
+#include "mnavigationpanelpiece.h"
 
 #define NAVIGATIONPANELPIECE_OPAQUE                      255
 #define NAVIGATIONPANELPIECE_TRANSPARENT                 128

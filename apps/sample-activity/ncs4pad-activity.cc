@@ -1,7 +1,6 @@
+#include "global.h"
+
 #include "ncs4pad-activity.hh"
-#include "mcontainerctrl.h"
-#include "mlayout_manager.h"
-#include "mpanelpiece.h"
 
 REGISTER_ACTIVITY(Ncs4padActivity);
 

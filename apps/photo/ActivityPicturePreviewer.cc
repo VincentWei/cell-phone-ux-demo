@@ -2,18 +2,6 @@
 
 REGISTER_ACTIVITY(ActivityPicturePreviewer);
 
-#include <minigui/common.h>
-#include <minigui/minigui.h>
-#include <minigui/gdi.h>
-#include <minigui/window.h>
-
-#include <mgeff/mgeff.h>
-#include <mgncs/mgncs.h>
-#include "mcontainerctrl.h"
-#include "miconflow.h"
-#include "mtextpiece.h"
-#include "mtransroundpiece.h"
-
 #define thisActivity(hwnd)  ((ActivityPicturePreviewer*)Activity::getActivityFromHWND(hwnd))
 
 #define IDC_ICONFLOW    200

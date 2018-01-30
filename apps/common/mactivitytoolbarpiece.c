@@ -5,12 +5,7 @@
 #include <minigui/gdi.h>
 #include <minigui/window.h>
 
-#include <mgncs/mgncs.h>
-
 #include "global.h"
-#include "mcontainerctrl.h"
-#include "mpanelpiece.h"
-#include "mbuttonpanelpiece.h"
 #include "mactivitytoolbarpiece.h"
 
 #define TOOLBAR_SPACE_W 16

@@ -7,25 +7,17 @@
  *  Company: Beijing Feynman Software Technology Co., Ltd.
  */
 
-#ifndef SCREENLOCKACTIVITY_HH
-#define SCREENLOCKACTIVITY_HH
-
 #include "NCSActivity.hh"
 
-#include "mgncs/mgncs.h"
-#include "mgeff/mgeff.h"
-
-#include "mcontainerctrl.h"
-#include "mpanelpiece.h"
-
-#include "mshutterpiece.h"
+#include "global.h"
 #include "mhighlightpiece.h"
-#include "mtextpiece.h"
 
 #include "DesktopToolbar.hh"
 
 #include "dmStateMachine.hh"
 
+#ifndef SCREENLOCKACTIVITY_HH
+#define SCREENLOCKACTIVITY_HH
 
 // bubble number
 #define BUBBLE_NUM      2

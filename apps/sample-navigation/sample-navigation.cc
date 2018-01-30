@@ -1,11 +1,7 @@
-#include "sample-navigation.hh"
+#include "global.h"
 #include <minigui/control.h>
 
-#include "mnavigationitem.h"
-#include "mnavigationbarpiece.h"
-#include "mnavigationpanelpiece.h"
-#include "mcontainerctrl.h"
-
+#include "sample-navigation.hh"
 
 REGISTER_ACTIVITY(SampleNavigation);
 

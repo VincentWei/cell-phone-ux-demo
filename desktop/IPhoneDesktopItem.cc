@@ -7,8 +7,11 @@
 #include <minigui/minigui.h>
 #include <minigui/window.h>
 #include <minigui/control.h>
+
+#include <mgeff/mgeff.h>
 #include <mgncs/mgncs.h>
-#include "mtransroundpiece.h"
+#include <mgncs4touch/mgncs4touch.h>
+
 #include "ResourceManager.hh"
 
 #define SUBSCRIPT_RISE_LEN 20

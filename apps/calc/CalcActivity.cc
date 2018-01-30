@@ -2,26 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <minigui/common.h>
-#include <minigui/minigui.h>
-#include <minigui/gdi.h>
-#include <minigui/window.h>
-#include <minigui/control.h>
-
-#include <mgncs/mgncs.h>
-#include <mgeff/mgeff.h>
-
-#include "mcontainerctrl.h"
-#include "mpanelpiece.h"
-#include "mscrollviewpiece.h"
-#include "mtransroundpiece.h"
-#include "mlayout_manager.h"
-#include "mcenterhbox.h"
-#include "manimationeditpiece.h"
-#include "mbuttonpanelpiece.h"
-#include "mtextpiece.h"
+#include "global.h"
 
 #include "CalcActivity.hh"
+
 #define MSG_CALC_USERAPP 13098
 #define PRESS_TIMEOUT   10
 

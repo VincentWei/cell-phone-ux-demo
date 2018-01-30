@@ -11,12 +11,6 @@
 
 #define SPEEDMEASURE_TIMERID  2000
 
-#ifdef SPEEDTEST_NEW
-#include "mspeedmeter.h"
-#include "physics-animation.h"
-#include "chipmunk-utils.h"
-#endif
-
 TransitionSpeedMeasure::TransitionSpeedMeasure(State* source, State* target, IPhoneDesktopController* controller, const char* name)
 #ifndef SPEEDTEST_NEW
     : EventTransition(Event::MouseEvent | Event::TimerEvent | Event::MoveEvent, source, target, name)

@@ -2,10 +2,6 @@
 #ifndef _ACTIVITYALBUM_HH
 #define _ACTIVITYALBUM_HH
 
-#include "mpanelpiece.h"
-#include "mnavigationitem.h"
-#include "mnavigationpanelpiece.h"
-#include "mnavigationbarpiece.h"
 #include "NCSActivity.hh"
 
 #define DEFAULT_ALBUM_PHOTO  "res/musicplayer/Album/default.png"

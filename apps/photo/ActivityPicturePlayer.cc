@@ -1,11 +1,9 @@
 #include <cassert>
 #include <sstream>
+
+#include "global.h"
+
 #include "ActivityPicturePlayer.hh"
-#include "mlayout_manager.h"
-#include "mcenterhbox.h"
-#include "mpanelpiece.h"
-#include "mbuttonpanelpiece.h"
-#include "mtextpiece.h"
 
 REGISTER_ACTIVITY(ActivityPicturePlayer);
 

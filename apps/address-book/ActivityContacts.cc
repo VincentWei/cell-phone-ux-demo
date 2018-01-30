@@ -4,18 +4,9 @@
 #include <minigui/gdi.h>
 #include <minigui/window.h>
 
-#include <mgncs/mgncs.h>
-#include "mcontainerctrl.h"
-#include "mpanelpiece.h"
-#include "mtableviewpiece.h"
-#include "mtableviewitempiece.h"
-#include "mbuttonpanelpiece.h"
+#include "global.h"
 
-#include "museritem.h"
 #include "ContactsLoadHelper.hh"
-
-#include "mspeedmeter.h"
-
 #include "Activity.hh"
 #include "ActivityContacts.hh"
 #include "ContactsTableViewPiece.hh"

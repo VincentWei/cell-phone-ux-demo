@@ -17,17 +17,10 @@
 #include <minigui/gdi.h>
 #include <minigui/window.h>
 #include <mgplus/mgplus.h>
-#include <mgncs/mgncs.h>
 #include <mgeff/mgeff.h>
 
-#include "mcontainerctrl.h"
-#include "mpanelpiece.h"
-#include "mtransroundpiece.h"
-#include "mtextpiece.h"
-
-#include "mlayout_manager.h"
-#include "mcenterhbox.h"
-#include "mbuttonpanelpiece.h"
+#include <mgncs/mgncs.h>
+#include <mgncs4touch/mgncs4touch.h>
 
 #define DESKTOP_TOOLBAR_HEIGHT 49
 #define DESKTOP_TOOLBAR_WIDTH  ACTIVITY_W

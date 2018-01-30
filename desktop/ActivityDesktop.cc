@@ -9,6 +9,7 @@
 #include <minigui/control.h>
 #include <mgeff/mgeff.h>
 #include <mgncs/mgncs.h>
+#include <mgncs4touch/mgncs4touch.h>
 
 #include "TimeService.hh"
 #include "ActivityStack.hh"
@@ -17,7 +18,6 @@
 #include "IPhoneDesktopController.hh"
 #include "IPhoneDesktopItem.hh"
 #include "DesktopCommonProc.hh"
-#include "mspeedmeter.h"
 
 #define BKGND_DC_COLORKEY RGBA2Pixel(g_background_dc, 0xff, 0, 0, 0)
 

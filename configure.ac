@@ -78,12 +78,14 @@ PKG_CHECK_MODULES([MGPLUS], [mgplus >= 1.4.0])
 PKG_CHECK_MODULES([MGEFF], [mgeff >= 1.2.0])
 PKG_CHECK_MODULES([MGNCS], [mgncs >= 1.2.0])
 PKG_CHECK_MODULES([MGNCS4TOUCH], [mgncs4touch >= 1.2.0])
+PKG_CHECK_MODULES([CHIPMUNK], [chipmunk >= 5.3.1])
 
 DEP_LIBS="$DEP_LIBS $MINIGUI_LIBS"
 DEP_LIBS="$DEP_LIBS $MGPLUS_LIBS"
 DEP_LIBS="$DEP_LIBS $MGEFF_LIBS"
 DEP_LIBS="$DEP_LIBS $MGNCS_LIBS"
 DEP_LIBS="$DEP_LIBS $MGNCS4TOUCH_LIBS"
+DEP_LIBS="$DEP_LIBS $CHIPMUNK_LIBS"
 
 AC_CHECK_LIB(sqlite3, sqlite3_open_v2, DEP_LIBS="$DEP_LIBS -lsqlite3", sqlite3_installed=no)
 if test "x$sqlite3_installed" = "xno"; then
@@ -102,13 +104,8 @@ else
 fi
 CPPFLAGS="$CPPFLAGS $XML2_INC_DIR"
 
-AC_CHECK_LIB(chipmunk, cpInitChipmunk, DEP_LIBS="$DEP_LIBS -lchipmunk", chipmunk_installed=no, "-lm")
-if test "x$chipmunk_installed" = "xno"; then
-    AC_MSG_ERROR([[Chipmunk is not installed! Please make and install chipmunk from 3rd-directory.]])
-fi
-
 if test "x$devel_mode" = "xyes"; then
-    CPPFLAGS="$CPPFLAGS -DDEBUG -D_DEBUG -DPHYANIM_DEBUG -DENABLE_ANIM_FPS_TEST"
+    CPPFLAGS="$CPPFLAGS -DDEBUG -D_DEBUG"
     dnl AC_DEFINE(PHYANIM_DEBUG, 1, [Define if debug ScrollView enabled])
     dnl AC_DEFINE(ENABLE_ANIM_FPS_TEST, 1, [Define if animation FPS test enabled])
     if test "$ac_cv_prog_gcc" = "yes"; then
@@ -152,14 +149,7 @@ AC_OUTPUT(
     controls/Makefile
     ncs4pad/Makefile
     ncs4pad/include/Makefile
-    ncs4pad/include/misc/Makefile
-    ncs4pad/include/pieces/Makefile
-    ncs4pad/include/physics-animation/Makefile
     ncs4pad/src/Makefile
-    ncs4pad/src/misc/Makefile
-    ncs4pad/src/pieces/Makefile
-    ncs4pad/src/physics-animation/Makefile
-    ncs4pad/test/Makefile
     apps/Makefile
     apps/address-book/Makefile
     apps/calc/Makefile

@@ -3,12 +3,8 @@
 #include <string.h>
 #include <assert.h>
 
-#include <minigui/common.h>
-#include <minigui/minigui.h>
-#include <minigui/gdi.h>
-#include <minigui/window.h>
-#include <mgncs/mgncs.h>
-#include "museritem.h"
+#include "global.h"
+
 #include "ContactsLoadHelper.hh"
 #include "ActivityContacts.hh"
 #include "DetailTableViewPiece.hh"
