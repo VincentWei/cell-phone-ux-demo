@@ -7,11 +7,12 @@
 #include <minigui/gdi.h>
 #include <minigui/window.h>
 
+#include <mgeff/mgeff.h>
 #include <mgncs/mgncs.h>
+#include <mgncs4touch/mgncs4touch.h>
 
 #include "register.h"
 #include "mwidgethostpiece.h"
-#include "ResourceManager.hh"
 
 //#define HOSTDBG
 

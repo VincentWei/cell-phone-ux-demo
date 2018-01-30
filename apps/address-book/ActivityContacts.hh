@@ -3,10 +3,6 @@
 #define _ACTIVITYCONTACTS_HH
 
 #include "ContactsLoadHelper.hh"
-#include "mpanelpiece.h"
-#include "mnavigationitem.h"
-#include "mnavigationpanelpiece.h"
-#include "mnavigationbarpiece.h"
 #include "DetailTableViewPiece.hh"
 #include "NCSActivity.hh"
 #include "../common/mactivitytoolbarpiece.h"

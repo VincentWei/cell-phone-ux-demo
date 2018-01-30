@@ -1,3 +1,9 @@
-SUBDIRS = misc physics-animation pieces
+noinst_HEADERS = \
+    museritem.h \
+    mnavigationbarpiece.h \
+    mnavigationitem.h \
+    mnavigationpanelpiece.h \
+    mphoneseparatorpiece.h \
+    mphonestaticrdrpiece.h \
+    mwidgethostpiece.h
 
-noinst_HEADERS = mcenterhbox.h mcontainerctrl.h miconflow.h mlayout_manager.h mlinevbox.h museritem.h

@@ -6,7 +6,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include "mtableviewpiece.h"
 
 typedef struct _mAlbumTableViewPieceClass mAlbumTableViewPieceClass;
 typedef struct _mAlbumTableViewPiece mAlbumTableViewPiece;

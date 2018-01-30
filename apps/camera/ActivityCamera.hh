@@ -2,10 +2,8 @@
 #define ACTIVITYCAMERA_HH
 
 #include "global.h"
+
 #include "NCSActivity.hh"
-#include "mtransroundpiece.h"
-#include "mpanelpiece.h"
-#include "mbuttonpanelpiece.h"
 
 class ActivityCamera : public NCSActivity {
     public:

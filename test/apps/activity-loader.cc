@@ -8,12 +8,10 @@
 #define protected public
 
 #include "global.h"
-#include "Activity.hh"
-#include <mgeff/mgeff.h>
-#include <mgncs/mgncs.h>
-#include <mgncs4touch/mgncs4touch.h>
-
 #include "register.h"
+#include "apps/screen-lock/mshutterpiece.h"
+
+#include "Activity.hh"
 #include "ContentResolver.hh"
 #include "SimpleProviderFactory.hh"
 #include "apps/screen-lock/ScreenLockActivity.hh"

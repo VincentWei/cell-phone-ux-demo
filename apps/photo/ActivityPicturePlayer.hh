@@ -3,9 +3,6 @@
 #define _ACTIVITYPICTUREPLAYER_H_
 
 #include "NCSActivity.hh"
-#include "mcontainerctrl.h"
-#include "mpanelpiece.h"
-#include "mtransroundpiece.h"
 
 //dialogbox
 #define PP_X 0

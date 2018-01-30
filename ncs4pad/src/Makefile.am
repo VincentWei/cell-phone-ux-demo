@@ -1,18 +1,12 @@
-AM_CPPFLAGS = -I../../include -I../include -I../include/misc -I../include/physics-animation -I../include/pieces
-
-SUBDIRS = misc physics-animation pieces
+AM_CPPFLAGS = -I../../include -I../include 
 
 noinst_LTLIBRARIES = libncs4pad.la
 
-SUBLIBS = misc/libmisc.la physics-animation/libphyanim.la pieces/libpieces.la
-
 libncs4pad_la_SOURCES = \
-    mcenterhbox.c \
-    mcontainerctrl.c \
-    miconflow.c \
-    mlayout_manager.c \
-    mlinevbox.c \
-    museritem.c
-
-libncs4pad_la_LIBADD = $(SUBLIBS)
-libncs4pad_la_DEPENDENCIES = $(SUBLIBS)
+    museritem.c \
+    mnavigationbarpiece.c \
+    mnavigationitem.c \
+    mnavigationpanelpiece.c \
+    mphoneseparatorpiece.c \
+    mphonestaticrdrpiece.c \
+    mwidgethostpiece.c

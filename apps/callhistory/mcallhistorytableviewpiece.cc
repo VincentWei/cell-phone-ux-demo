@@ -3,15 +3,9 @@
 #include <string.h>
 #include <assert.h>
 
-#include <minigui/common.h>
-#include <minigui/minigui.h>
-#include <minigui/gdi.h>
-#include <minigui/window.h>
-#include <mgncs/mgncs.h>
+#include "global.h"
 #include "register.h"
 
-#include "museritem.h"
-#include "mnavigationpanelpiece.h"
 
 #include "CallLogService.hh"
 #include "ContactService.hh"
@@ -134,8 +128,6 @@ static void mCallHistoryTableViewPiece_destroy(mCallHistoryTableViewPiece *self)
     Class(mTableViewPiece).destroy((mTableViewPiece*)self);
 }
 
-#include "mspeedmeter.h"
-#include "physics-animation.h"
 static int mCallHistoryTableViewPiece_processMessage(mCallHistoryTableViewPiece* self, int message, WPARAM wParam, LPARAM lParam, mObject *owner)
 {
     if (message >= MSG_FIRSTMOUSEMSG && message <= MSG_RBUTTONDBLCLK) {

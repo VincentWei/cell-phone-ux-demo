@@ -3,18 +3,11 @@
 #include <string.h>
 #include <assert.h>
 
-#include <minigui/common.h>
-#include <minigui/minigui.h>
-#include <minigui/gdi.h>
-#include <minigui/window.h>
-#include <mgncs/mgncs.h>
+#include "global.h"
 #include "register.h"
 
 #include "SettingActivity.hh"
 #include "SettingMainWinPiece.hh"
-#include "museritem.h"
-#include "mnavigationpanelpiece.h"
-
 #include "SettingSubWinPiece.hh"
 #include "TimeService.hh"
 

@@ -2,20 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <minigui/common.h>
-#include <minigui/minigui.h>
-#include <minigui/gdi.h>
-#include <minigui/window.h>
-#include <minigui/control.h>
-
-#include <mgncs/mgncs.h>
-#include <mgeff/mgeff.h>
-
+#include "global.h"
 #include "register.h"
 
 #include "trans-activity.hh"
-
-#include "mfillboxex.h"
 
 REGISTER_ACTIVITY(TransActivity);
 

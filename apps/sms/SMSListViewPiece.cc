@@ -3,16 +3,10 @@
 #include <string.h>
 #include <assert.h>
 
-#include <minigui/common.h>
-#include <minigui/minigui.h>
-#include <minigui/gdi.h>
-#include <minigui/window.h>
-#include <mgncs/mgncs.h>
+#include "global.h"
 #include "register.h"
 
 #include "SMSActivity.hh"
-#include "museritem.h"
-#include "mnavigationpanelpiece.h"
 
 #include "SMSListViewPiece.hh"
 #include "TimeService.hh"
@@ -109,8 +103,6 @@ static BOOL mSMSListPiece_willSelectRowAtIndexPath(mSMSListPiece* self, const mI
     }
 }
 
-#include "mspeedmeter.h"
-#include "physics-animation.h"
 static int mSMSListPiece_processMessage(mSMSListPiece *self, int message, WPARAM wParam, LPARAM lParam, mObject *owner)
 {
     if (message >= MSG_FIRSTMOUSEMSG && message <= MSG_RBUTTONDBLCLK) {

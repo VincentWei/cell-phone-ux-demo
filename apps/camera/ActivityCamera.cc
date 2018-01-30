@@ -1,17 +1,9 @@
+#include "global.h"
+#include "effector-shoot.h"
+
 #include "ActivityCamera.hh"
 
 REGISTER_ACTIVITY(ActivityCamera);
-
-#include <minigui/common.h>
-#include <minigui/minigui.h>
-#include <minigui/gdi.h>
-#include <minigui/window.h>
-
-#include <mgeff/mgeff.h>
-#include <mgncs/mgncs.h>
-#include "mcontainerctrl.h"
-#include "effector-shoot.h"
-#include "ActivityCamera.hh"
 
 #define IDC_VIEW        200
 #define IDC_TOOLBAR     201

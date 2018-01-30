@@ -1,9 +1,7 @@
-#include "ScreenLockActivity.hh"
-#include <mgplus/mgplus.h>
-
-#include "mtransroundpiece.h"
-
 #include "global.h"
+#include "mshutterpiece.h"
+
+#include "ScreenLockActivity.hh"
 #include "TimeService.hh"
 #include "PanelManager.hh"
 //#include "DesktopCommonProc.hh"

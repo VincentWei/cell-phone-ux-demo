@@ -1,20 +1,6 @@
 #include <string.h>
-#include <minigui/common.h>
-#include <minigui/minigui.h>
-#include <minigui/gdi.h>
-#include <minigui/window.h>
 
-#include <mgeff/mgeff.h>
-#include <mgncs/mgncs.h>
-#include <mgncs4touch/mgncs4touch.h>
-
-#include "mcontainerctrl.h"
-#include "mpanelpiece.h"
-#include "mtableviewpiece.h"
-#include "mtableviewitempiece.h"
-#include "mbuttonpanelpiece.h"
-#include "museritem.h"
-#include "mspeedmeter.h"
+#include "global.h"
 
 #include "Activity.hh"
 #include "ActivityAlbum.hh"

@@ -13,14 +13,6 @@
 
 #include "NCSActivity.hh"
 
-#include "mcontainerctrl.h"
-#include "mpanelpiece.h"
-#include "mtextpiece.h"
-
-#include "mtransroundpiece.h"
-#include "mbuttonpanelpiece.h" 
-
-
 class TimeSettingActivity : public NCSActivity {
 
     public:

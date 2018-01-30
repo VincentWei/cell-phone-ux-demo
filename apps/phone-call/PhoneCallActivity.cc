@@ -2,26 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <minigui/common.h>
-#include <minigui/minigui.h>
-#include <minigui/gdi.h>
-#include <minigui/window.h>
-#include <minigui/control.h>
+#include "global.h"
 
-#include <mgncs/mgncs.h>
-#include <mgeff/mgeff.h>
-
-#include "mcontainerctrl.h"
-#include "mpanelpiece.h"
-#include "mscrollviewpiece.h"
-#include "mphonestaticrdrpiece.h"
-#include "mphoneseparatorpiece.h"
-#include "mtransroundpiece.h"
-
-#include "mlayout_manager.h"
-#include "mcenterhbox.h"
-#include "manimationeditpiece.h"
-#include "mbuttonpanelpiece.h" 
 #include "PhoneCallActivity.hh"
 
 static PBITMAP desktopbmp;

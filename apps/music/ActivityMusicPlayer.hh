@@ -3,10 +3,6 @@
 #define  ACTIVITYMUSICPALYER_INC
 
 #include "NCSActivity.hh"
-
-#include "mcontainerctrl.h"
-#include "mpanelpiece.h"
-
 #include "MusicPlayerToolbar.hh"
 
 //dialogbox

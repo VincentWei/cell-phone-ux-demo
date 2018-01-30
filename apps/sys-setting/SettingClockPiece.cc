@@ -2,22 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <minigui/common.h>
-#include <minigui/minigui.h>
-#include <minigui/gdi.h>
-#include <minigui/window.h>
-#include <minigui/control.h>
-
-#include <mgeff/mgeff.h>
-#include <mgncs/mgncs.h>
-#include <mgncs4touch/mgncs4touch.h>
-
-#include "mcontainerctrl.h"
-#include "mpanelpiece.h"
-#include "mtextpiece.h"
+#include "global.h"
 #include "register.h"
-
-#include "mtransroundpiece.h"
 
 #include "SettingActivity.hh"
 #include "TimeService.hh"

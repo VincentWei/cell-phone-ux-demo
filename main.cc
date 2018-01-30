@@ -6,24 +6,8 @@
 #endif
 #include <time.h>
 
-#include <minigui/common.h>
-#include <minigui/minigui.h>
-#include <minigui/gdi.h>
-#include <minigui/window.h>
-#include <minigui/control.h>
-
-#include <mgeff/mgeff.h>
-#include <mgeff/mgeff-effector.h>
-#include <mgncs/mgncs.h>
-
-#include <mgncs4touch/mgncs4touch.h>
-
 #include "global.h"
 #include "register.h"
-#include "mcontainerctrl.h"
-#include "mpanelpiece.h"
-#include "mtransroundpiece.h"
-#include "mtextpiece.h"
 
 #include "Activity.hh"
 #include "ActivityStack.hh"

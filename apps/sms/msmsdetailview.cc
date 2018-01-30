@@ -3,20 +3,8 @@
 #include <string.h>
 #include <assert.h>
 
-#include <minigui/common.h>
-#include <minigui/minigui.h>
-#include <minigui/gdi.h>
-#include <minigui/window.h>
-
-#include <mgncs/mgncs.h>
-#include <mgeff/mgeff.h>
-
+#include "global.h"
 #include "register.h"
-
-#include "mspeedmeter.h"
-
-#include "msmsdetailview.h"
-#include "museritem.h"
 
 #include "SMSActivity.hh"
 #include <SmsService.hh>

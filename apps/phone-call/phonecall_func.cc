@@ -2,27 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <minigui/common.h>
-#include <minigui/minigui.h>
-#include <minigui/gdi.h>
-#include <minigui/window.h>
-#include <minigui/control.h>
-
-#include <mgncs/mgncs.h>
-#include <mgeff/mgeff.h>
+#include "global.h"
 
 #include "ActivityStack.hh"
-
-#include "mcontainerctrl.h"
-#include "mpanelpiece.h"
-#include "mscrollviewpiece.h"
-#include "mphonestaticrdrpiece.h"
-#include "mphoneseparatorpiece.h"
-#include "mtransroundpiece.h"
-#include "manimationeditpiece.h"
-#include "mbuttonpanelpiece.h" 
-#include "mtextpiece.h"
 #include "PhoneCallActivity.hh"
+
 #define SEPARATOR_DARKER_COLOR 0xffb3b7a5
 #define SEPARATOR_LIGHTER_COLOR 0xffffffff
 #define PHONE_PNG_INDEX 3

@@ -14,6 +14,18 @@
 #include <minigui/window.h>
 #include <minigui/control.h>
 
+#include <mgeff/mgeff.h>
+#include <mgncs/mgncs.h>
+#include <mgncs4touch/mgncs4touch.h>
+
+#include "mnavigationitem.h"
+#include "mnavigationbarpiece.h"
+#include "mnavigationpanelpiece.h"
+#include "mphoneseparatorpiece.h"
+#include "mphonestaticrdrpiece.h"
+#include "museritem.h"
+#include "mwidgethostpiece.h"
+
 #include "ResourceManager.hh"
 #define DESKTOP_IMG_PATH    "res/lockscreen/background.png"
 

@@ -1,12 +1,9 @@
 #ifndef  MSIMPLETABLEVIEW_INC
 #define  MSIMPLETABLEVIEW_INC
 
-#include "mtableviewpiece.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 
 typedef struct _mSmsDetailView mSmsDetailView;
 typedef struct _mSmsDetailViewClass mSmsDetailViewClass;

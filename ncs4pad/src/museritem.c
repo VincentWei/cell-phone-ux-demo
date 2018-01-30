@@ -1,7 +1,6 @@
 #include <string.h>
 
 #include "global.h"
-#include "museritem.h"
 #include "ResourceManager.hh"
 
 #define TITLEFONT_COLOR       0xFF192952
