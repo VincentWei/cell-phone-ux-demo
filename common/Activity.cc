@@ -9,8 +9,10 @@
 #include <cassert>
 #include <sstream>
 
-#include "ContentResolver.hh"
+#include "global.h"
 #include "utility.h"
+
+#include "ContentResolver.hh"
 #include "Activity.hh"
 
 ActivityFactory *ActivityFactory::s_single = NULL;
