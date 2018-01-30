@@ -244,7 +244,7 @@ public:
     }
 
     void list(void) {
-        printf("All registered activities (total %u):\n", m_activities.size());
+        printf("All registered activities (total %lu):\n", (unsigned long)m_activities.size());
         for (std::vector<ActivityInfo *>::const_iterator i=m_activities.begin(); i!=m_activities.end(); ++i) {
             printf("  %s (%p)\n", (*i)->name, (*i)->create);
         }
