@@ -57,10 +57,10 @@ LRESULT ActivityDesktop::DesktopProc(HWND hWnd, UINT message, WPARAM wParam, LPA
                 HDC memDC;
                 s_desktop = g_desktop_hwnd = hWnd;
                 //                PostMessage(HWND_DESKTOP, MSG_REGISTERKEYHOOK, 0, (LPARAM)common_key_hook);
-#ifdef _MGRM_THREADS
-                RegisterKeyMsgHook(NULL, common_key_hook);
-#else
+#ifdef _MGRM_PROCESSES
                 RegisterKeyHookWindow (hWnd, HOOK_GOON);
+#else
+                RegisterKeyMsgHook(NULL, common_key_hook);
 #endif
 
                 memDC = CreateCompatibleDCEx(Get32MemDC(),SCREEN_W, SCREEN_H - ACTIVITY_Y);
@@ -133,10 +133,10 @@ LRESULT ActivityDesktop::DesktopProc(HWND hWnd, UINT message, WPARAM wParam, LPA
                 break;
             }
         case MSG_CLOSE:
-#ifdef _MGRM_THREADS
-            RegisterKeyMsgHook(NULL, NULL);
-#else
+#ifdef _MGRM_PROCESSES
             RegisterKeyHookWindow(HWND_NULL, 0);
+#else
+            RegisterKeyMsgHook(NULL, NULL);
 #endif
             DestroyMainWindow(hWnd);
             break;

@@ -688,10 +688,10 @@ int ScreenLockActivity::onResume()
         // add event listener
         //TIMESERVICE->addEventListener((void*)m_infoCtrl->hwnd, TimeService::MINUTE, updateInfoBox);
 
-#ifdef _MGRM_THREADS
-        RegisterKeyMsgHook((void*)GetMainWindowHandle(self->hwnd), NULL);
-#else
+#ifdef _MGRM_PROCESSES
         RegisterKeyHookWindow(HWND_NULL, 0);
+#else
+        RegisterKeyMsgHook((void*)GetMainWindowHandle(self->hwnd), NULL);
 #endif
 
         if (2 == m_intentFlag) {
@@ -1503,7 +1503,7 @@ BOOL evt_toolbar_menu(mWidget* self, mHotPiece *piece,
     return FALSE;
 }
 
-#ifdef _MGRM_THREADS
+#if !defined(_MGRM_PROCESSES)
 static int app_key_hook(void* context, HWND dst_wnd, 
                         UINT msg, WPARAM wparam, LPARAM lparam)
 {
@@ -1534,10 +1534,10 @@ BOOL evt_toolbar_call(mWidget* self, mHotPiece *piece,
     if (event_id == NCSN_ABP_CLICKED) {
         if (_this->m_stateMachine.moveOn(EVT_PAUSE)) {
             ActivityStack::singleton()->push("CallHistoryActivity",(Intent*)1);
-#ifdef _MGRM_THREADS
-            RegisterKeyMsgHook((void*)GetMainWindowHandle(self->hwnd), app_key_hook);
-#else
+#ifdef _MGRM_PROCESSES
             RegisterKeyHookWindow(GetMainWindowHandle(self->hwnd), HOOK_GOON);
+#else
+            RegisterKeyMsgHook((void*)GetMainWindowHandle(self->hwnd), app_key_hook);
 #endif
         }
         return TRUE;
@@ -1554,10 +1554,10 @@ BOOL evt_toolbar_sms(mWidget* self, mHotPiece *piece,
     if (event_id == NCSN_ABP_CLICKED) {
         if (_this->m_stateMachine.moveOn(EVT_PAUSE)) {
             ActivityStack::singleton()->switchTo("SMSActivity");
-#ifdef _MGRM_THREADS
-            RegisterKeyMsgHook((void*)GetMainWindowHandle(self->hwnd), app_key_hook);
-#else
+#ifdef _MGRM_PROCESSES
             RegisterKeyHookWindow(GetMainWindowHandle(self->hwnd), HOOK_GOON);
+#else
+            RegisterKeyMsgHook((void*)GetMainWindowHandle(self->hwnd), app_key_hook);
 #endif
         }
         return TRUE;
