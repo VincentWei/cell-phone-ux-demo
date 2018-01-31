@@ -1,96 +1,58 @@
-Acording to follow sequence to compile and install packages. SOURCEDIR is every source directory.
+# UXDemo for MiniGUI v3.2.x
 
-(1)zlib compile
-cd SOURCEDIR
-make && sudo make install
+This is a comprehensive demonstration of MiniGUI and its key components,
+including mGEff, mGPlus, mGNCS, and mGNCS4Touch.
 
-(2)jpeg compile
-cd SOURCEDIR 
-./configure &&make && sudo make install
+UXDemo implements a set user interfaces with special effects, which are 
+similar to the popular modern smart phones. 
 
-(3)libxml2 compile
-cd SOURCEDIR
-./configure &&make && sudo make install
+## Prerequisites
 
-compile error and solution：
-Question：
-/usr/include/bits/fcntl2.h:51: error: call to '__open_missing_mode' declared with attribute error: open with O_CREAT in second argument needs 3 arguments
-make[2]: *** [nanohttp.lo] 错误 1
-Solve Method：
-Modify nanohttp.c中的fd = open(filename, O_CREAT | O_WRONLY); to fd = open(filename, O_CREAT | O_WRONLY,0777);， recompile it。
+  * MiniGUI: v3.2.0 or later
+  * MiniGUI Resource: v3.0.12 or later
+  * mGPlus: v1.4.0 or later
+  * mGEff: v1.2.0 or later
+  * mGNCS: V1.2.0 or later
+  * mGNCS4Touch: V1.2.0 or later
 
-(4)freetype compile
-cd SOURCEDIR
-./configure &&make && sudo make install
+  * System library dependencies:
+    * sqlite3-dev
+    * libxml2-dev
 
-(5)libpng compile
-cd SOURDIR
-./autogen.sh && ./configure && make && sudo make install 
+  * 3rd-party libraries:
+    * chipmunk-5.3.1 (included in `3rd-party` directory in miniLinux)
 
-(6)tslib compile
-cd SOURCEDIR
-./autogen.sh && ./configure && make && sudo make install
+## Building
 
-(7)MiniGUI compile
-cd SOURCEDIR
-mkdir build_cmake && cd build_cmake
-cmake .. && make && sudo make install 
+We strongly recommend you to build this demo by using the fetching and building
+scripts of miniLinux:
 
-(8)MiniGUI-res compile
-cd SOURCEDIR
-./autogen.sh && ./configure && make && sudo make install
+    https://github.com/VincenWei/minilinux
 
-(9)mgplus compile
-cd SOURCEDIR
-mkdir build_cmake && cd build_cmake
-cmake .. && make && sudo make install 
+Or you can use the following commands to configure, make, install, and run it,
+if you have installed the dependent libraries listed above.
 
-(10)mgutils compile
-cd SOURCEDIR
-mkdir build_cmake && cd build_cmake
-cmake .. && make && sudo make install 
+Run
 
-(11)mgncs compile
-cd SOURCEDIR
-mkdir build_cmake && cd build_cmake
-cmake .. && make && sudo make install 
+    $ ./autogen.sh; ./configure;
+    $ make
+    $ sudo make install
+    $ cd /usr/local/bin
+    $ ./mguxdemo
 
-(12)mgeff compile
-cd SOURCEDIR
-mkdir build_cmake && cd build_cmake
-cmake .. && make && sudo make install 
+## Copying
 
-(13)mgncs4pad compile
-cd SOURCEDIR
-mkdir build_cmake && cd build_cmake
-cmake .. && make && sudo make install 
+    Copyright (C) 2018, Beijing FMSoft Technologies Co., Ltd.
 
-(14)libpciaccess compile
-cd SOURCEDIR
-./configure && make && sudo make install
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
-(15)gvfb compile
-	cd SOURCEDIR
-	mkdir build_cmake && cd build_cmake
-	cmake .. && make && sudo make install 
+       http://www.apache.org/licenses/LICENSE-2.0
 
-(16)uxdemo compile
-
-chipmunk compile
-	cd SOURCEDIR
-	mkdir build_cmake && cd build_cmake
-	cmake .. && make && sudo make install 
-sqlite compile
-	cd SOURCEDIR
-	mkdir build_cmake && cd build_cmake
-	cmake .. && make && sudo make install 
-uxdemo compile
-	cd SOURCEDIR
-	mkdir build_cmake && cd build_cmake
-	cmake .. && make && sudo make install 　
-
-
-(17)uxdemo run
-cd /usr/local/bin
-./run_cellphone.sh
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
 
