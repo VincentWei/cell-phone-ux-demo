@@ -11,6 +11,7 @@
 #include <mgncs/mgncs.h>
 #include <mgncs4touch/mgncs4touch.h>
 
+#include "global.h"
 #include "register.h"
 #include "mwidgethostpiece.h"
 

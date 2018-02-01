@@ -18,9 +18,6 @@
 #include <mgncs/mgncs.h>
 #include <mgncs4touch/mgncs4touch.h>
 
-#include "mnavigationitem.h"
-#include "mnavigationbarpiece.h"
-#include "mnavigationpanelpiece.h"
 #include "mphoneseparatorpiece.h"
 #include "mphonestaticrdrpiece.h"
 #include "museritem.h"
