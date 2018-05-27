@@ -127,7 +127,7 @@ PhoneContactsActivity::~PhoneContactsActivity()
     for (i=0; i<NAVITEM_MAX; ++i) {
         UNREFPIECE(m_viewPiece[i]);
         UNREF(m_navItems[i]);
-        DestroyNavigationItem(m_navItems[i]);
+        ncsDestroyNavigationItem(m_navItems[i]);
     }
 }
 
@@ -300,15 +300,15 @@ int PhoneContactsActivity::createNavigation (HWND ctrl_hwnd)
     ADDREFPIECE(m_viewPiece[NAVITEM_CONTACT]);
     ADDREFPIECE(m_viewPiece[NAVITEM_DETAIL]);
 
-    m_navItems[NAVITEM_CONTACT] = CreateNavigationItem (
+    m_navItems[NAVITEM_CONTACT] = ncsCreateNavigationItem (
             (mHotPiece*)m_viewPiece[NAVITEM_CONTACT], "All Contacts", 0);
-    m_navItems[NAVITEM_DETAIL] = CreateNavigationItem(
+    m_navItems[NAVITEM_DETAIL] = ncsCreateNavigationItem(
             (mHotPiece*)m_viewPiece[NAVITEM_DETAIL], "Brief Intro", 0);
 
     ADDREF(m_navItems[NAVITEM_CONTACT]);
     ADDREF(m_navItems[NAVITEM_DETAIL]);
 
-    m_nav = CreateNavigationPanelPieceWithRootView (m_navItems[NAVITEM_CONTACT]);
+    m_nav = ncsCreateNavigationPanelPieceWithRootView (m_navItems[NAVITEM_CONTACT]);
     SetRect(&rc, 0, 0, ACTIVITY_W, ACTIVITY_H);
     _c(m_nav)->setRect(m_nav, &rc);
 

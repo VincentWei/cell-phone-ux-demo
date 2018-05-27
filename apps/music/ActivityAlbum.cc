@@ -308,8 +308,8 @@ int PhoneAlbumActivity::createNavigation (HWND ctrl_hwnd, int root_item)
 
     printf ("######m_navViewsAlbum: %p, SongList: %p\n", m_navViews[NAVITEM_ALBUMLIST], m_navViews[NAVITEM_SONGLIST]);
 
-    m_navItems[NAVITEM_ALBUMLIST] = CreateNavigationItem(m_navViews[NAVITEM_ALBUMLIST], "Album", 0);
-    m_navItems[NAVITEM_SONGLIST] = CreateNavigationItem(m_navViews[NAVITEM_SONGLIST], "Song", 0);
+    m_navItems[NAVITEM_ALBUMLIST] = ncsCreateNavigationItem(m_navViews[NAVITEM_ALBUMLIST], "Album", 0);
+    m_navItems[NAVITEM_SONGLIST] = ncsCreateNavigationItem(m_navViews[NAVITEM_SONGLIST], "Song", 0);
 
     mButtonPanelPiece *playall_btn_album = createNavRightButton (
             m_navItems[NAVITEM_ALBUMLIST],"Play All", playall_btn_album_event_handler);
@@ -321,7 +321,7 @@ int PhoneAlbumActivity::createNavigation (HWND ctrl_hwnd, int root_item)
     _c(m_navItems[NAVITEM_SONGLIST])->setProperty(m_navItems[NAVITEM_SONGLIST],
                             NCSP_NAVIGATIONITEM_RIGHT_BUTTON, (DWORD)playall_btn_song);
 
-    m_nav = CreateNavigationPanelPieceWithRootView (m_navItems[root_item]);
+    m_nav = ncsCreateNavigationPanelPieceWithRootView (m_navItems[root_item]);
     SetRect(&rc, 0, 0, ACTIVITY_W, ACTIVITY_H);
     _c(m_nav)->setRect(m_nav, &rc);
 
@@ -804,7 +804,7 @@ void PhoneAlbumActivity::createSongPlayItem(const char *name)
     assert(play_piece);
 
 
-    m_navItems[NAVITEM_SONGPLAY] = CreateNavigationItem(
+    m_navItems[NAVITEM_SONGPLAY] = ncsCreateNavigationItem(
             (mHotPiece *)play_piece, name, NAVIGATION_STYLE_NORMAL);
 
     assert(m_navItems[NAVITEM_SONGPLAY]);
@@ -1013,9 +1013,9 @@ int PhoneAlbumActivity::deinitAlbumActivity()
     {
         UNREF(m_navItems[NAVITEM_SONGPLAY]);
     }
-    DestroyNavigationItem(m_navItems[NAVITEM_ALBUMLIST]);
-    DestroyNavigationItem(m_navItems[NAVITEM_SONGLIST]);
-    DestroyNavigationItem(m_navItems[NAVITEM_SONGPLAY]);
+    ncsDestroyNavigationItem(m_navItems[NAVITEM_ALBUMLIST]);
+    ncsDestroyNavigationItem(m_navItems[NAVITEM_SONGLIST]);
+    ncsDestroyNavigationItem(m_navItems[NAVITEM_SONGPLAY]);
 
     return 0;
 }

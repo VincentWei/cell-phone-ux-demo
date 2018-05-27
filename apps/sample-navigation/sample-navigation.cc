@@ -168,11 +168,11 @@ LRESULT SampleNavigation::proc(HWND hWnd, UINT message, WPARAM wParam,LPARAM lPa
             _c(bar_bk_piece2)->setProperty(bar_bk_piece2, NCSP_TRANROUND_BKCOLOR, (DWORD)SAMPLE_BAR_COLOR2);
             _c(bar_bk_piece2)->setProperty(bar_bk_piece2, NCSP_TRANROUND_CORNERFLAG, (DWORD)0);
 
-            item1 = CreateNavigationItem ((mHotPiece*)item_piece1, 
+            item1 = ncsCreateNavigationItem ((mHotPiece*)item_piece1, 
                     (const char*)"view1",  NAVIGATION_STYLE_NORMAL);
 
             button_piece1 = (mButtonPanelPiece*)_c(item1)->createDefaultButton(item1, "goto 2", 0);
-            AdjustNavigationItemRectWithTitle((mHotPiece*)button_piece1, "goto 2", item1->default_button_font);
+            ncsAdjustNavigationItemRectWithTitle((mHotPiece*)button_piece1, "goto 2", item1->default_button_font);
             bk_piece = _c(button_piece1)->getBkgndPiece(button_piece1);
             _c(bk_piece)->setProperty(bk_piece, NCSP_TRANROUND_SHARPFLAG, TRANROUND_SHARPFLAG_RIGHT);
 
@@ -181,12 +181,12 @@ LRESULT SampleNavigation::proc(HWND hWnd, UINT message, WPARAM wParam,LPARAM lPa
             _c(item1)->setProperty(item1, NCSP_NAVIGATIONITEM_RIGHT_BUTTON, (DWORD)button_piece1);
             _c(item1)->setProperty(item1, NCSP_NAVIGATIONITEM_BACKGROUND, (DWORD)bar_bk_piece1);
 
-            item2 = CreateNavigationItem ((mHotPiece*)item_piece2, 
+            item2 = ncsCreateNavigationItem ((mHotPiece*)item_piece2, 
             //        (const char*)"view2", NAVIGATION_STYLE_NORMAL);
                     (const char*)"view2", NAVIGATION_STYLE_FULLSCREEN);
             _c(item2)->setProperty(item2, NCSP_NAVIGATIONITEM_BACKGROUND, (DWORD)bar_bk_piece2);
 
-            body = CreateNavigationPanelPieceWithRootView (item1);
+            body = ncsCreateNavigationPanelPieceWithRootView (item1);
             SetRect(&rect, 0, 0, ACTIVITY_W, ACTIVITY_H);
             _c(body)->setRect(body, (const RECT*)&rect);
 
@@ -211,8 +211,8 @@ LRESULT SampleNavigation::proc(HWND hWnd, UINT message, WPARAM wParam,LPARAM lPa
         case MSG_DESTROY:
             UNREFPIECE(item_piece1);
             UNREFPIECE(item_piece2);
-            DestroyNavigationItem (item1);
-            DestroyNavigationItem (item2);
+            ncsDestroyNavigationItem (item1);
+            ncsDestroyNavigationItem (item2);
 
             DestroyLogFont(font);
             return 0;

@@ -245,7 +245,7 @@ void SMSActivity::createCtnrBody(mContainerCtrl* ctnr,mNavigationItem *rootItem)
     _c(m_navItems[SMS_LIST_ITEM])->setProperty(m_navItems[SMS_LIST_ITEM], 
             NCSP_NAVIGATIONITEM_BACKGROUND, (DWORD)m_barBack);
 #endif
-    m_nav = CreateNavigationPanelPieceWithRootView(rootItem);
+    m_nav = ncsCreateNavigationPanelPieceWithRootView(rootItem);
     SetRect(&rc, 0, 0, ACTIVITY_W, ACTIVITY_H);
     _c(m_nav)->setRect(m_nav, (const RECT*)&rc);
     _c(m_nav)->setProperty(m_nav, NCSP_NAVIGATIONPANELPIECE_BAR_BKG, (DWORD)m_barBack);
@@ -262,7 +262,7 @@ void SMSActivity::createSMSListWin()
 
     _c(SMSListPiece)->reloadData(SMSListPiece);
 
-    m_navItems[SMS_LIST_ITEM] = CreateNavigationItem(
+    m_navItems[SMS_LIST_ITEM] = ncsCreateNavigationItem(
             (mHotPiece *)SMSListPiece, "SMS", NAVIGATION_STYLE_NORMAL);
 
     assert(m_navItems[SMS_LIST_ITEM]);
@@ -287,7 +287,7 @@ void SMSActivity::createSMSDetailWin(char *name)
     subWinPiece = (mSmsDetailView *)createSMSDetailView();
     _c(subWinPiece)->setRect(subWinPiece, &rc);
     
-    m_navItems[SMS_DETAIL_ITEM] = CreateNavigationItem(
+    m_navItems[SMS_DETAIL_ITEM] = ncsCreateNavigationItem(
             (mHotPiece *)subWinPiece,name, NAVIGATION_STYLE_NORMAL);
 
     ADDREF(m_navItems[SMS_DETAIL_ITEM]);
@@ -483,8 +483,8 @@ static BOOL main_onDestroy(mWidget* self, int message)
         UNREF(activity->getNavItem(SMS_DETAIL_ITEM));
     }
     
-    DestroyNavigationItem(activity->getNavItem(SMS_LIST_ITEM));
-    DestroyNavigationItem(activity->getNavItem(SMS_DETAIL_ITEM));
+    ncsDestroyNavigationItem(activity->getNavItem(SMS_LIST_ITEM));
+    ncsDestroyNavigationItem(activity->getNavItem(SMS_DETAIL_ITEM));
     return TRUE;
 }
 static BOOL main_onEraseBk(mWidget *self, HDC hdc, const PRECT clip){

@@ -94,7 +94,7 @@ void SettingActivity::createCtnrBody(mContainerCtrl* ctnr,mNavigationItem *rootI
     _c(m_barBack)->setProperty (m_barBack, NCSP_TRANROUND_CORNERFLAG,0);
     setting_gradient_color((mShapeTransRoundPiece *)m_barBack,
             title_gradient_color,title_gradient_pos,TABLESIZE(title_gradient_color));
-    m_nav = CreateNavigationPanelPieceWithRootView(rootItem);
+    m_nav = ncsCreateNavigationPanelPieceWithRootView(rootItem);
     SetRect(&rc, 0, 0, ACTIVITY_W, ACTIVITY_H);
     _c(m_nav)->setRect(m_nav, (const RECT*)&rc);
     _c(m_nav)->setProperty(m_nav, NCSP_NAVIGATIONPANELPIECE_BAR_BKG, (DWORD)m_barBack);
@@ -111,7 +111,7 @@ void SettingActivity::createUIMainWin(HWND hwnd)
 
     _c(mainWinPiece)->myreloadData(mainWinPiece,TYPE_ALL);
 
-    m_navItems[TYPE_MAIN_WIN_UI] = CreateNavigationItem(
+    m_navItems[TYPE_MAIN_WIN_UI] = ncsCreateNavigationItem(
             (mHotPiece *)mainWinPiece, "Settings", NAVIGATION_STYLE_NORMAL);
 
     assert(m_navItems[TYPE_MAIN_WIN_UI]);
@@ -137,7 +137,7 @@ void SettingActivity::createUIClockWin(HWND hwnd)
     assert(clockPiece);
     _c(clockPiece)->setRect(clockPiece, &rc);
 
-    m_navItems[TYPE_CLOCK_WIN_UI] = CreateNavigationItem(
+    m_navItems[TYPE_CLOCK_WIN_UI] = ncsCreateNavigationItem(
             (mHotPiece *)clockPiece, "Clock", NAVIGATION_STYLE_NORMAL);
 
     assert(m_navItems[TYPE_CLOCK_WIN_UI]);
@@ -160,7 +160,7 @@ void SettingActivity::createUISubWin(const char* name)
     _c(subWinPiece)->setRect(subWinPiece, &rc);
 
     
-    m_navItems[TYPE_SUB_WIN_UI] = CreateNavigationItem(
+    m_navItems[TYPE_SUB_WIN_UI] = ncsCreateNavigationItem(
             (mHotPiece *)subWinPiece, name, NAVIGATION_STYLE_NORMAL);
 
     assert(m_navItems[TYPE_SUB_WIN_UI]);
@@ -267,9 +267,9 @@ static void main_onDestroy(mWidget* self, int message)
     {
         UNREF(activity->getNavItem(TYPE_CLOCK_WIN_UI));
     }
-    DestroyNavigationItem(activity->getNavItem(TYPE_MAIN_WIN_UI));
-    DestroyNavigationItem(activity->getNavItem(TYPE_SUB_WIN_UI));
-    DestroyNavigationItem(activity->getNavItem(TYPE_CLOCK_WIN_UI));
+    ncsDestroyNavigationItem(activity->getNavItem(TYPE_MAIN_WIN_UI));
+    ncsDestroyNavigationItem(activity->getNavItem(TYPE_SUB_WIN_UI));
+    ncsDestroyNavigationItem(activity->getNavItem(TYPE_CLOCK_WIN_UI));
     return ;
 }
 static BOOL main_onEraseBk(mWidget *self, HDC hdc, const PRECT clip){
