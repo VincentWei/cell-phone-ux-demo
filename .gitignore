@@ -4,6 +4,7 @@
 *.al
 *.a
 *.so
+.dirstamp
 Makefile
 Makefile.in
 .deps/
