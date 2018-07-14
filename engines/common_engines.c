@@ -85,16 +85,16 @@ struct commlcd_info {
 /* all methods for COMMLCD engine should return zero for success */
 
 #define SRV_PATH    "/var/tmp/mg-remote-server"
-#define CLI_PATH    "/var/tmp/mg-remote-client"
+#define CLI_PATH    "/var/tmp/mg-remote-client-%d"
 #define CLI_PERM    S_IRWXU            /* rwx for user only */
 
-#define FT_ECHO         0
-#define FT_PING         1
-#define FT_PONG         2
-#define FT_MODE         3
+#define FT_MODE         1
     #define MAX_MODE        15
+#define FT_IPCID        2
 
-#define FT_IPCID        4
+#define FT_PING         3
+#define FT_PONG         4
+
 #define FT_EVENT        5
 
 #define FT_DIRTY        6
@@ -149,7 +149,7 @@ int __commlcd_drv_init (void)
     /* fill socket address structure w/our address */
     memset (&unix_addr, 0, sizeof (unix_addr));
     unix_addr.sun_family = AF_UNIX;
-    sprintf (unix_addr.sun_path, "%s-%d", CLI_PATH, getpid());
+    sprintf (unix_addr.sun_path, CLI_PATH, getpid());
     len = sizeof (unix_addr.sun_family) + strlen (unix_addr.sun_path);
 
     unlink (unix_addr.sun_path);        /* in case it already exists */
@@ -271,14 +271,19 @@ int __commlcd_drv_update (const RECT* rc_dirty)
     struct _frame_header header;
 
     pthread_mutex_lock (&_lock_socket);
-    _sysvipc_sem_op (_semid_vfb, 0, -1);
+    //_sysvipc_sem_op (_semid_vfb, 0, -1);
 
     header.type = FT_DIRTY;
     header.payload_len = sizeof (RECT);
     n = write (_fd_socket, &header, sizeof (struct _frame_header));
     n = write (_fd_socket, rc_dirty, sizeof (RECT));
 
-    _sysvipc_sem_op (_semid_vfb, 0, 1);
+    n = read (_fd_socket, &header, sizeof (struct _frame_header));
+    if (header.type != FT_ACK) {
+        _ERR_PRINTF ("__commlcd_drv_update: ACK expected, but got type %d.\n", header.type);
+    }
+
+    //_sysvipc_sem_op (_semid_vfb, 0, 1);
     pthread_mutex_unlock (&_lock_socket);
     return 0;
 }
@@ -309,16 +314,67 @@ int __comminput_init (void)
     return 0;
 }
 
+#define EVENT_NULL          0
+#define EVENT_MOUSEMOVE     1
+#define EVENT_LBUTTONDOWN   2
+#define EVENT_LBUTTONUP     3
+
+#define EVENT_KEYDOWN       11
+#define EVENT_KEYUP         12
+
+struct _remote_event {
+    int type;
+    int value1;
+    int value2;
+}
+
+static struct _remote_event _last_event;
+
 /* return 0 when there is really a touch event */
 int __comminput_ts_getdata (short *x, short *y, short *button)
 {
+    switch (_last_event.type) {
+    case EVENT_MOUSEMOVE:
+        *x = _last_event.value1;
+        *y = _last_event.value2;
+        break;
+
+    case EVENT_LBUTTONDOWN:
+        *button = COMM_MOUSELBUTTON;
+        break;
+
+    case EVENT_LBUTTONUP:
+        *button = 0;
+        break;
+
+    default:
+        return -1;
+    }
+
+    memset (&_last_event, 0, sizeof (struct _remote_event));
     return 0;
 }
 
 /* return 0 when there is really a key event */
 int __comminput_kb_getdata (short *key, short *status)
 {
-    return -1;
+    switch (_last_event.type) {
+    case EVENT_KEYDOWN:
+        *key = (short)value1;
+        *status = 1;
+        break;
+
+    case EVENT_KEYUP:
+        *key = (short)value1;
+        *status = 0;
+        break;
+
+    default:
+        return -1;
+    }
+
+    memset (&_last_event, 0, sizeof (struct _remote_event));
+    return 0;
 }
 
 int __comminput_wait_for_input (struct timeval *timeout)
@@ -330,15 +386,51 @@ int __comminput_wait_for_input (struct timeval *timeout)
     FD_ZERO (&rfds);
     FD_SET (_fd_socket, &rfds);
 
+    pthread_mutex_lock (&_lock_socket);
     retval = select (_fd_socket + 1, &rfds, NULL, NULL, timeout);
 
     if (retval > 0 && FD_ISSET (_fd_socket, &rfds)) {
-        event_flag |= COMM_KBINPUT;
+        ssize_t n;
+        struct _frame_header header;
+
+        n = read (_fd_socket, &header, sizeof (struct _frame_header));
+        switch (header.type) {
+        case FT_PING:
+            header.type = FT_PONG;
+            header.payload_len = 0;
+            n = write (_fd_socket, &header, sizeof (struct _frame_header));
+            break;
+
+        case FT_EVENT: {
+            if (header.payload_len != sizeof (struct _remote_event)) {
+                _ERR_PRINTF ("__comminput_wait_for_input: payload length does not matched the frame type: %d.\n", header.payload_len);
+                break;
+            }
+
+            n = read (_fd_socket, &_last_event, sizeof (struct _remote_event));
+            switch (_last_event.type) {
+            case EVENT_MOUSEMOVE:
+            case EVENT_LBUTTONDOWN:
+            case EVENT_LBUTTONUP:
+                event_flag |= COMM_MOUSEINPUT;
+                break;
+            case EVENT_KEYDOWN:
+            case EVENT_KEYUP:
+                event_flag |= COMM_KBINPUT;
+                break;
+            }
+            break;
+        }
+        default:
+            _ERR_PRINTF ("__comminput_wait_for_input: FT_PING or FT_EVENT expected, but got type %d.\n", header.type);
+            break;
+        }
     }
     else if (retval < 0) {
         event_flag = -1;
     }
 
+    pthread_mutex_unklock (&_lock_socket);
     return event_flag;
 }
 
