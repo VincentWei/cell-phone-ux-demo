@@ -146,6 +146,7 @@ AC_OUTPUT(
     etc/Makefile
     include/Makefile
     common/Makefile
+    engines/Makefile
     controls/Makefile
     ncs4pad/Makefile
     ncs4pad/include/Makefile

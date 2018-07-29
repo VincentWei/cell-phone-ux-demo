@@ -8,7 +8,7 @@
 
     This file defines the external methods for MiniGUI COMMONLCD NEWGAL engine  
     and the COMM IAL engine. These two engines implement the communicate with 
-    the MiniGUI remote server in the following manner:
+    the Web Display Server in the following manner:
 
     1. A websocket client connects to the server, tells the server the demo it want to run.
        It will also tell the server the resolution (width and height in pixels) to show the demo.
@@ -55,90 +55,54 @@
 #include <unistd.h>
 #include <sys/mman.h>
 #include <sys/types.h>
-#include <sys/ipc.h>
-#include <sys/shm.h>
-#include <sys/sem.h>
 #include <sys/socket.h>
+#include <sys/stat.h>
 #include <sys/un.h>
-#include <pthread.h>
-#include <semaphore.h>
 
 #include <minigui/common.h>
 #include <minigui/minigui.h>
 #include <minigui/gdi.h>
 #include <minigui/window.h>
 
-#include "lcd_spi.h"
-
 /* The pixel format */
 #define COMMLCD_TRUE_RGB565      3
 #define COMMLCD_TRUE_RGB8888     4
 
 struct commlcd_info {
-    short height, width;  // Size of the screen
-    short bpp;            // Depth (bits-per-pixel)
-    short type;           // Pixel type
-    short rlen;           // Length of one scan line in bytes
-    void  *fb;            // Frame buffer
+    short height;
+    short width;        // Size of the screen
+    short bpp;          // Depth (bits-per-pixel)
+    short type;         // Pixel type
+    short rlen;         // Length of one scan line in bytes
+    void  *fb;          // Frame buffer
+    short async_update;
 };
 
-/* all methods for COMMLCD engine should return zero for success */
 
-#define SRV_PATH    "/var/tmp/mg-remote-server"
-#define CLI_PATH    "/var/tmp/mg-remote-client-%d"
-#define CLI_PERM    S_IRWXU            /* rwx for user only */
+#define USS_PATH    "/var/tmp/web-display-server"
 
-#define FT_MODE         1
-    #define MAX_MODE        15
-#define FT_IPCID        2
+#define USC_PATH    "/var/tmp/web-display-client-%d"
+#define USC_PERM    S_IRWXU            /* rwx for user only */
 
-#define FT_PING         3
-#define FT_PONG         4
-
-#define FT_EVENT        5
-
-#define FT_DIRTY        6
-#define FT_ACK          7
+#define FT_PING         11
+#define FT_PONG         12
+#define FT_EVENT        13
+#define FT_DIRTYPIXELS  14
 
 struct _frame_header {
     int type;
     size_t payload_len;
     unsigned char payload[0];
-}
+};
 
 static int _fd_socket;
-static pthread_mutex_t _lock_socket;
-static int _shmid_vfb;
-static int _semid_vfb;
 static struct commlcd_info _lcd_info;
 
-/* Down/up a semaphore uninterruptablly. */
-static void _sysvipc_sem_op (int semid, int sem_num, int value)
-{
-    struct sembuf sb;
-
-again:
-    sb.sem_num = sem_num;
-    sb.sem_op = value;
-    sb.sem_flg = 0;
-
-    if (semop (semid, &sb, 1) == -1) {
-        if (errno == EINTR) {
-            goto again;
-        }
-    }
-}
-
-extern BOOL GAL_ParseVideoMode (const char* mode, int* w, int* h, int* depth);
-
+/* all methods for COMMLCD engine should return zero for success */
 int __commlcd_drv_init (void)
 {
     int len, retval;
     struct sockaddr_un unix_addr;
-    struct _frame_header header;
-    ssize_t n;
-    char mode [MAX_MODE + 1];
-    union semun sunion;
 
     /* create a Unix domain stream socket */
     if ((_fd_socket = socket (AF_UNIX, SOCK_STREAM, 0)) < 0) {
@@ -149,7 +113,7 @@ int __commlcd_drv_init (void)
     /* fill socket address structure w/our address */
     memset (&unix_addr, 0, sizeof (unix_addr));
     unix_addr.sun_family = AF_UNIX;
-    sprintf (unix_addr.sun_path, CLI_PATH, getpid());
+    sprintf (unix_addr.sun_path, USC_PATH, getpid());
     len = sizeof (unix_addr.sun_family) + strlen (unix_addr.sun_path);
 
     unlink (unix_addr.sun_path);        /* in case it already exists */
@@ -158,7 +122,7 @@ int __commlcd_drv_init (void)
         goto error;
     }
 
-    if (chmod (unix_addr.sun_path, CLI_PERM) < 0) {
+    if (chmod (unix_addr.sun_path, USC_PERM) < 0) {
         retval = 3;
         goto error;
     }
@@ -166,7 +130,7 @@ int __commlcd_drv_init (void)
     /* fill socket address structure w/server's addr */
     memset (&unix_addr, 0, sizeof (unix_addr));
     unix_addr.sun_family = AF_UNIX;
-    strcpy (unix_addr.sun_path, SRV_PATH);
+    strcpy (unix_addr.sun_path, USS_PATH);
     len = sizeof (unix_addr.sun_family) + strlen (unix_addr.sun_path);
 
     if (connect (_fd_socket, (struct sockaddr *) &unix_addr, len) < 0) {
@@ -174,80 +138,10 @@ int __commlcd_drv_init (void)
         goto error;
     }
 
-    n = read (_fd_socket, &header, sizeof (struct _frame_header));
-    if (n < sizeof (struct _frame_header) || header.type != FT_MODE) {
-        retval = 5;
-        goto error;
-    }
-
-    if (header.payload_len > MAX_LEN_MODE) {
-        retval = 6;
-        goto error;
-    }
-
-    memset (mode, 0, sizeof (mode));
-    n = read (_fd_socket, mode, header.payload_len);
-    if (n < header.payload_len) {
-        retval = 7;
-        goto error;
-    }
-
-    if (!GAL_ParseVideoMode (mode, &_lcd_info.width, &_lcd_info.height, &_lcd_info.bpp)) {
-        retval = 8;
-        goto error;
-    }
-
-    if (_lcd_info.width > 640 || _lcd_info.height > 640 || _lcd_info.bpp != 16 || _lcd_info.bpp != 32) {
-        retval = 9;
-        goto error;
-    }
-
-    if (_lcd_info.bpp == 16) {
-        _lcd_info.type = COMMLCD_TRUE_RGB565;
-        _lcd_info.rlen = (_lcd_info.width * 2 + 3)/4*4;
-    }
-    else {
-        _lcd_info.type = COMMLCD_TRUE_RGB8888;
-        _lcd_info.rlen = (_lcd_info.width * 4 + 3)/4*4;
-    }
-
-    /* create a shared memory as the virtual frame buffer */
-    _shmid_vfb = shmget (IPC_PRIVATE, _lcd_info.rlen * _lcd_info.height, IPC_CREAT | 0666 | IPC_EXCL);
-    if (_shmid_vfb == -1){
-        retval = 10;
-        goto error;
-    }
-
-    _lcd_info.fb = shmat (_shmid_vfb, 0, 0); 
-
-    header.type = FT_IPCID;
-    header.payload_len = sizeof (_shmid_vfb);
-    n = write (_fd_socket, &header, sizeof (struct _frame_header));
-    n = write (_fd_socket, &_shmid_vfb, sizeof (int));
-
-    _semid_vfb = semget (IPC_PRIVATE, 1, 0666 | IPC_CREAT | IPC_EXCL);
-    if (_semdi_vfb < 0) {
-        retval = 11;
-        goto error;
-    }
-    
-    sunion.val = 1;
-    semctl (_semid_vfb, 0, SETVAL, sunion);
-
-    header.type = FT_IPCID;
-    header.payload_len = sizeof (_semid_vfb);
-    n = write (_fd_socket, &header, sizeof (struct _frame_header));
-    n = write (_fd_socket, &_semid_vfb, sizeof (int));
-
-    pthread_mutex_init (&_lock_socket, NULL);
     return 0;
 
 error:
     _ERR_PRINTF ("__commlcd_drv_init: failed (%d)\n", retval);
-    if (_lcd_info.fb != NULL) {
-        shmdt (_lcd_info.fb);
-    }
-
     if (_fd_socket) {
         close (_fd_socket);
     }
@@ -258,46 +152,93 @@ error:
 #define SHADOW_SHM_KEY 0x4D475344 
 
 /* return zero for success */
-int __commlcd_drv_getinfo (struct commlcd_info *li)
+int __commlcd_drv_getinfo (struct commlcd_info *li, int width, int height, int bpp)
 {
-    memcpy (li, &_lcd_info, sizeof (struct commlcd_info));
-    return 0;
-}
+    int retval = 0;
 
-/* this method will be called async */
-int __commlcd_drv_update (const RECT* rc_dirty)
-{
-    ssize_t n;
-    struct _frame_header header;
-
-    pthread_mutex_lock (&_lock_socket);
-    //_sysvipc_sem_op (_semid_vfb, 0, -1);
-
-    header.type = FT_DIRTY;
-    header.payload_len = sizeof (RECT);
-    n = write (_fd_socket, &header, sizeof (struct _frame_header));
-    n = write (_fd_socket, rc_dirty, sizeof (RECT));
-
-    n = read (_fd_socket, &header, sizeof (struct _frame_header));
-    if (header.type != FT_ACK) {
-        _ERR_PRINTF ("__commlcd_drv_update: ACK expected, but got type %d.\n", header.type);
+    if (width > 1024 || height > 768 || bpp != 16 || bpp != 32) {
+        retval = 1;
+        goto error;
     }
 
-    //_sysvipc_sem_op (_semid_vfb, 0, 1);
-    pthread_mutex_unlock (&_lock_socket);
+    if (bpp == 16) {
+        _lcd_info.type = COMMLCD_TRUE_RGB565;
+        _lcd_info.rlen = (_lcd_info.width * 2 + 3)/4*4;
+        _lcd_info.bpp = 16;
+    }
+    else {
+        _lcd_info.type = COMMLCD_TRUE_RGB8888;
+        _lcd_info.rlen = (_lcd_info.width * 4 + 3)/4*4;
+        _lcd_info.bpp = 32;
+    }
+
+    _lcd_info.fb = calloc (height * _lcd_info.rlen, sizeof (char));
+    if (_lcd_info.fb == NULL) {
+        retval = 1;
+        goto error;
+    }
+
+    _lcd_info.async_update = 0;
+    memcpy (li, &_lcd_info, sizeof (struct commlcd_info));
+    return retval;
+
+error:
+    _ERR_PRINTF ("__commlcd_drv_getinfo: failed (%d)\n", retval);
+    if (_fd_socket) {
+        close (_fd_socket);
+    }
+
+    return retval;
+}
+
+/* this method will be called synchronously */
+int __commlcd_drv_update (const RECT* rc_dirty)
+{
+    int i, Bpp, dirty_w, dirty_h;
+    unsigned char* pixels;
+    ssize_t n;
+    size_t bytes;
+    struct _frame_header header;
+
+    dirty_w = RECTWP (rc_dirty);
+    dirty_h = RECTHP (rc_dirty);
+
+    if (dirty_w < 0 || rc_dirty->left < 0 || (rc_dirty->left + dirty_w) > _lcd_info.width
+            || dirty_h < 0 || rc_dirty->top < 0 || (rc_dirty->top + dirty_h) > _lcd_info.height) {
+        return 1;
+    }
+
+    Bpp = 2;
+    if (_lcd_info.bpp == 32)
+        Bpp = 4;
+
+    bytes = dirty_w * dirty_h * Bpp;
+
+    header.type = FT_DIRTYPIXELS;
+    header.payload_len = sizeof (RECT) + bytes;
+
+    n = write (_fd_socket, &header, sizeof (struct _frame_header));
+    n += write (_fd_socket, rc_dirty, sizeof (RECT));
+
+    pixels = _lcd_info.fb + _lcd_info.rlen * rc_dirty->top + rc_dirty->left * Bpp;
+    for (i = 0; i < dirty_h; i++) {
+        n += write (_fd_socket, pixels, dirty_w * Bpp);
+
+        pixels += _lcd_info.rlen;
+    }
+
+    if (n != header.payload_len) {
+        _ERR_PRINTF ("__commlcd_drv_update: error on writting pixels: %ld (%lu)\n", n, header.payload_len);
+    }
+
     return 0;
 }
 
 int __commlcd_drv_release (void)
 {
-    union semun ignored;
-
-    pthread_mutex_destroy (&_lock_socket);
-    shmdt (_lcd_info.fb);
+    free (_lcd_info.fb);
     close (_fd_socket);
-    
-    shmctl (_shmid_vfb, IPC_RMID, NULL);
-    semctl (_semid_vfb, 0, IPC_RMID, ignored);
+
     return 0;
 }
 
@@ -326,7 +267,7 @@ struct _remote_event {
     int type;
     int value1;
     int value2;
-}
+};
 
 static struct _remote_event _last_event;
 
@@ -360,12 +301,12 @@ int __comminput_kb_getdata (short *key, short *status)
 {
     switch (_last_event.type) {
     case EVENT_KEYDOWN:
-        *key = (short)value1;
+        *key = (short)_last_event.value1;
         *status = 1;
         break;
 
     case EVENT_KEYUP:
-        *key = (short)value1;
+        *key = (short)_last_event.value1;
         *status = 0;
         break;
 
@@ -386,7 +327,6 @@ int __comminput_wait_for_input (struct timeval *timeout)
     FD_ZERO (&rfds);
     FD_SET (_fd_socket, &rfds);
 
-    pthread_mutex_lock (&_lock_socket);
     retval = select (_fd_socket + 1, &rfds, NULL, NULL, timeout);
 
     if (retval > 0 && FD_ISSET (_fd_socket, &rfds)) {
@@ -394,6 +334,9 @@ int __comminput_wait_for_input (struct timeval *timeout)
         struct _frame_header header;
 
         n = read (_fd_socket, &header, sizeof (struct _frame_header));
+        if (n != sizeof (struct _frame_header)) {
+            _ERR_PRINTF ("__comminput_wait_for_input: error on reading event: %ld\n", n);
+        }
         switch (header.type) {
         case FT_PING:
             header.type = FT_PONG;
@@ -403,7 +346,7 @@ int __comminput_wait_for_input (struct timeval *timeout)
 
         case FT_EVENT: {
             if (header.payload_len != sizeof (struct _remote_event)) {
-                _ERR_PRINTF ("__comminput_wait_for_input: payload length does not matched the frame type: %d.\n", header.payload_len);
+                _ERR_PRINTF ("__comminput_wait_for_input: payload length does not matched the data type: %lu.\n", header.payload_len);
                 break;
             }
 
@@ -430,7 +373,6 @@ int __comminput_wait_for_input (struct timeval *timeout)
         event_flag = -1;
     }
 
-    pthread_mutex_unklock (&_lock_socket);
     return event_flag;
 }
 

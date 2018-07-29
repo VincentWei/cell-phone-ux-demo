@@ -2,12 +2,13 @@ AUTOMAKE_OPTIONS = foreign subdir-objects
 
 AM_CPPFLAGS=-Iinclude/ -Incs4pad/include -Incs4pad/include/pieces -Incs4pad/include/physics-animation
 
-SUBDIRS = etc include common controls ncs4pad desktop apps inner-res res
+SUBDIRS = etc include common engines controls ncs4pad desktop apps inner-res res
 DIST_SUBDIRS = test tools
 
 bin_PROGRAMS=mguxdemo activity-loader
 
 APP_LIBS = \
+    engines/libengines.la \
     apps/libapps.la \
     desktop/libdesktop.la \
     common/libcommon.la \
