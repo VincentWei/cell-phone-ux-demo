@@ -416,12 +416,12 @@ static LRESULT InfoBarProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
                 assert(bar_hdc);
                 SetSecondaryDC(hWnd,bar_hdc , ON_UPDSECDC_DEFAULT);
 #endif
-                g_sysTimeFont = CreateLogFont ("ttf", "helvetica", "GB2312",
-                        FONT_WEIGHT_BOOK,
+                g_sysTimeFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+                        FONT_WEIGHT_REGULAR,
                         FONT_SLANT_ROMAN,
-                        FONT_SETWIDTH_NORMAL,
-                        FONT_OTHER_AUTOSCALE,
-                        FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+                        FONT_FLIP_NONE,
+                        FONT_OTHER_NONE,
+                        FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
                         SYSTEM_TIME_TEXT_SIZE, 0);
 
                 mGEffInit();

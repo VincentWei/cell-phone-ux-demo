@@ -825,33 +825,33 @@ void ScreenLockActivity::loadMyResource()
     for (int i = 0; i < BUBBLE_NUM; ++i)
         m_bubbleBmp[i] = (PBITMAP) Load32Resource(btn_img_path[i], RES_TYPE_IMAGE, (DWORD)HDC_SCREEN);
 
-    m_timeFont = CreateLogFont ("ttf", "helvetica", "GB2312",
-            FONT_WEIGHT_BOOK,
+    m_timeFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+            FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
-            FONT_SETWIDTH_NORMAL,
-            FONT_OTHER_AUTOSCALE,
-            FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+            FONT_FLIP_NONE,
+            FONT_OTHER_LCDPORTRAIT,
+            FONT_DECORATE_NONE, FONT_RENDER_GREY,
             48, 0);
-    m_dateFont = CreateLogFont ("ttf", "helvetica", "GB2312",
-            FONT_WEIGHT_BOOK,
+    m_dateFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+            FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
-            FONT_SETWIDTH_NORMAL,
-            FONT_OTHER_AUTOSCALE,
-            FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+            FONT_FLIP_NONE,
+            FONT_OTHER_NONE,
+            FONT_DECORATE_NONE, FONT_RENDER_MONO,
             16, 0);
-    m_infoFont = CreateLogFont ("ttf", "helvetica", "GB2312",
+    m_infoFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
             FONT_WEIGHT_BOOK,
             FONT_SLANT_ROMAN,
-            FONT_SETWIDTH_NORMAL,
-            FONT_OTHER_AUTOSCALE,
-            FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+            FONT_FLIP_NONE,
+            FONT_OTHER_LCDPORTRAIT,
+            FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             20, 0);
-    m_hintbarFont = CreateLogFont ("ttf", "helvetica", "GB2312",
+    m_hintbarFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
             FONT_WEIGHT_BOOK,
             FONT_SLANT_ROMAN,
-            FONT_SETWIDTH_NORMAL,
-            FONT_OTHER_AUTOSCALE,
-            FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+            FONT_FLIP_NONE,
+            FONT_OTHER_LCDPORTRAIT,
+            FONT_DECORATE_NONE, FONT_RENDER_GREY,
             HILIGHT_TEXT_W, 0);
 }
 
