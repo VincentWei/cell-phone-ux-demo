@@ -516,14 +516,14 @@ void DialPadActivity::initResource()
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
             FONT_OTHER_NONE,
-            FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
+            FONT_DECORATE_NONE, FONT_RENDER_GREY,
             DIAL_TITLE_FONT_H, 0);
     m_padMainFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
             FONT_OTHER_NONE,
-            FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
+            FONT_DECORATE_NONE, FONT_RENDER_GREY,
             DIAL_PADMAIN_FONT_H, 0);
     m_padSubFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
