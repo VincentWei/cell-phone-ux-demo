@@ -836,7 +836,7 @@ void ScreenLockActivity::loadMyResource()
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
-            FONT_OTHER_NONE,
+            FONT_OTHER_LCDPORTRAIT,
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             16, 0);
     m_infoFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
