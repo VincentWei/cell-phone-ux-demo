@@ -424,7 +424,7 @@ void SMSActivity::smsGetListData(char *name,char *detail,char *time,int row)
 
 void SMSActivity::initResource()
 {
-    m_btnFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_btnFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,

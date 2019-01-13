@@ -841,14 +841,14 @@ ActivityPicturePlayer::MOVEDIRECTION ActivityPicturePlayer::getDirection(){
 void ActivityPicturePlayer::initRes(){
     //SetResPath("res/pictureviewer/");
 
-    m_titleFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_titleFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
             FONT_OTHER_NONE,
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             PP_TITLE_TEXT_FONT_H, 0);
-    m_playFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_playFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,

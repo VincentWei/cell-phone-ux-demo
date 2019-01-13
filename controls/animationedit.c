@@ -184,7 +184,7 @@ static void mAnimationEdit_construct(mAnimationEdit *self, DWORD param)
 
     /*create font*/
     for (i=0; i<TABLESIZE(FONT_SIZE_TABLE); ++i) {
-        self->pFont[i] = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+        self->pFont[i] = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
                 FONT_WEIGHT_REGULAR,
                 FONT_SLANT_ROMAN,
                 FONT_FLIP_NONE,

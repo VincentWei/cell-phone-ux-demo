@@ -163,7 +163,7 @@ void PhoneCallActivity::initResource(void)
             printf("bmp load failure!%s\n",bmpfiles[i]);
         }
     }
-    m_mainFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_mainFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
@@ -171,7 +171,7 @@ void PhoneCallActivity::initResource(void)
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             KEYPAD_TEXT_FONT_H, 0);
 
-    m_starFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_starFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
@@ -179,7 +179,7 @@ void PhoneCallActivity::initResource(void)
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             KEYPAD_STARTEXT_FONT_H, 0);
 
-    m_subFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_subFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
@@ -187,7 +187,7 @@ void PhoneCallActivity::initResource(void)
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             KEYPAD_SUBTEXT_FONT_H, 0);
 
-    m_infoFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_infoFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
@@ -195,7 +195,7 @@ void PhoneCallActivity::initResource(void)
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             CALL_INFO_FONT_H, 0);
 
-    m_funcFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_funcFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
@@ -204,7 +204,7 @@ void PhoneCallActivity::initResource(void)
             FUNC_TEXT_FONT_H, 0);
     m_endcallFont = m_infoFont;
 
-    m_hideFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_hideFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
@@ -212,7 +212,7 @@ void PhoneCallActivity::initResource(void)
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             CALL_HIDEKEYPAD_FONT_H, 0);
 
-    m_titleFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_titleFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,

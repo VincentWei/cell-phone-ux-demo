@@ -217,7 +217,7 @@ void mActivityToolbarPiece_setButtonName(mActivityToolbarPiece *self, int which_
         assert (0);
     }
     if (!self->font) {
-        self->font = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+        self->font = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
                 FONT_WEIGHT_REGULAR,
                 FONT_SLANT_ROMAN,
                 FONT_FLIP_NONE,

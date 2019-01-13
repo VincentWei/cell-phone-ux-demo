@@ -287,7 +287,7 @@ void ActivityPicturePreviewer::loadResource()
         Load32Resource (PICTURES[i], RES_TYPE_IMAGE, (DWORD)HDC_SCREEN);
     }
 
-    m_titleFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_titleFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
@@ -295,7 +295,7 @@ void ActivityPicturePreviewer::loadResource()
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             PP_TITLE_FONT_H, 0);
 
-    m_titleBtnFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_titleBtnFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,

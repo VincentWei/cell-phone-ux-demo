@@ -778,14 +778,14 @@ mContainerCtrl* CalcActivity::keyBoardCreate(HWND hwnd,RECT rect)
 }
 void CalcActivity::initResource()
 {
-    m_titleFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_titleFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
             FONT_OTHER_NONE,
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             CALC_TITLE_FONT_H, 0);
-    m_numKeyFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_numKeyFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
@@ -793,35 +793,35 @@ void CalcActivity::initResource()
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             CALC_KEY_FONT_H, 0);
     m_mKeyFont = m_numKeyFont;
-    m_addKeyFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_addKeyFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
             FONT_OTHER_NONE,
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             CALC_ADD_KEY_FONT_H, 0);
-    m_subKeyFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_subKeyFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
             FONT_OTHER_NONE,
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             CALC_SUB_KEY_FONT_H, 0);
-    m_mulDivKeyFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_mulDivKeyFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
             FONT_OTHER_NONE,
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             CALC_MUL_DIV_KEY_FONT_H, 0);
-    m_equalKeyFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_equalKeyFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
             FONT_OTHER_NONE,
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             CALC_EQUAL_KEY_FONT_H, 0);
-    m_cKeyFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_cKeyFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,

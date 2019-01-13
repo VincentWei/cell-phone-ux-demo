@@ -416,7 +416,7 @@ static LRESULT InfoBarProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
                 assert(bar_hdc);
                 SetSecondaryDC(hWnd,bar_hdc , ON_UPDSECDC_DEFAULT);
 #endif
-                g_sysTimeFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+                g_sysTimeFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
                         FONT_WEIGHT_REGULAR,
                         FONT_SLANT_ROMAN,
                         FONT_FLIP_NONE,

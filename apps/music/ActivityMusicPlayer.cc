@@ -937,21 +937,21 @@ void ActivityMusicPlayer::loadMyResource()
 {
     m_bmpCD = (PBITMAP) Load32Resource(MUSIC_IMG_PATH, RES_TYPE_IMAGE, 0);
 
-    m_navbarTitleFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_navbarTitleFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
             FONT_OTHER_NONE,
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             20, 0);
-    m_navbarBtnFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_navbarBtnFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
             FONT_OTHER_NONE,
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             16, 0);
-    m_font12 = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_font12 = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,

@@ -511,28 +511,28 @@ int DialPadActivity::onResume()
 void DialPadActivity::initResource()
 {
     unsigned int i;
-    m_titleBigFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_titleBigFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
             FONT_OTHER_NONE,
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             DIAL_TITLE_FONT_H, 0);
-    m_padMainFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_padMainFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
             FONT_OTHER_NONE,
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             DIAL_PADMAIN_FONT_H, 0);
-    m_padSubFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_padSubFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
             FONT_OTHER_NONE,
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             DIAL_PADSUB_FONT_H, 0);
-    m_padStarFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_padStarFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,

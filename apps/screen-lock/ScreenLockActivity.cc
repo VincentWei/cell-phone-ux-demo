@@ -825,28 +825,28 @@ void ScreenLockActivity::loadMyResource()
     for (int i = 0; i < BUBBLE_NUM; ++i)
         m_bubbleBmp[i] = (PBITMAP) Load32Resource(btn_img_path[i], RES_TYPE_IMAGE, (DWORD)HDC_SCREEN);
 
-    m_timeFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_timeFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
             FONT_OTHER_LCDPORTRAIT,
             FONT_DECORATE_NONE, FONT_RENDER_GREY,
             48, 0);
-    m_dateFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_dateFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
             FONT_OTHER_NONE,
-            FONT_DECORATE_NONE, FONT_RENDER_MONO,
+            FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             16, 0);
-    m_infoFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_infoFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_BOOK,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
             FONT_OTHER_LCDPORTRAIT,
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             20, 0);
-    m_hintbarFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_hintbarFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_BOOK,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,

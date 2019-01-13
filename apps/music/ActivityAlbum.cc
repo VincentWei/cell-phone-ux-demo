@@ -243,7 +243,7 @@ void PhoneAlbumActivity::loadResource(void)
 {
     int i;
 
-    m_buttonFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_buttonFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
@@ -251,14 +251,14 @@ void PhoneAlbumActivity::loadResource(void)
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             PLAYALL_BTN_TEXT_SIZE, 0);
 
-    m_trkbarTitleFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_trkbarTitleFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
             FONT_OTHER_NONE,
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             TRKBAR_TITLE_TEXT_SIZE, 0);
-    m_timeFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+    m_timeFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
