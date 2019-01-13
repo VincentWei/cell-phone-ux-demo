@@ -139,12 +139,12 @@ int PhoneContactsActivity::initContacts ()
 
     m_intent = Intent::newIntent();
 
-    m_font = CreateLogFont ("ttf", "helvetica", "GB2312",
-            FONT_WEIGHT_BOOK,
+    m_font = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+            FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
-            FONT_SETWIDTH_NORMAL,
-            FONT_OTHER_AUTOSCALE,
-            FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+            FONT_FLIP_NONE,
+            FONT_OTHER_NONE,
+            FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             DETAIL_FONT_SIZE, 0);
 
     return 0;

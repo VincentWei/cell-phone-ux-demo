@@ -274,12 +274,12 @@ void CallHistoryActivity::createBody(mWidget *self, mContainerCtrl *ct){
 }
 
 void CallHistoryActivity::initResource(void){
-    m_btnFont = CreateLogFont ("ttf", "helvetica", "GB2312",
-            FONT_WEIGHT_BOOK, 
+    m_btnFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+            FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
-            FONT_SETWIDTH_NORMAL,
-            FONT_OTHER_AUTOSCALE,
-            FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+            FONT_FLIP_NONE,
+            FONT_OTHER_NONE,
+            FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             CH_BTN_TEXT_H, 0);
 }
 void CallHistoryActivity::releaseResource(void) {

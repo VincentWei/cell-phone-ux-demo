@@ -841,19 +841,19 @@ ActivityPicturePlayer::MOVEDIRECTION ActivityPicturePlayer::getDirection(){
 void ActivityPicturePlayer::initRes(){
     //SetResPath("res/pictureviewer/");
 
-    m_titleFont = CreateLogFont ("ttf", "helvetica", "GB2312",
-            FONT_WEIGHT_BOOK, 
+    m_titleFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+            FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
-            FONT_SETWIDTH_NORMAL,
-            FONT_OTHER_AUTOSCALE,
-            FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+            FONT_FLIP_NONE,
+            FONT_OTHER_NONE,
+            FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             PP_TITLE_TEXT_FONT_H, 0);
-    m_playFont = CreateLogFont ("ttf", "helvetica", "GB2312",
-            FONT_WEIGHT_BOOK, 
+    m_playFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+            FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
-            FONT_SETWIDTH_NORMAL,
-            FONT_OTHER_AUTOSCALE,
-            FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+            FONT_FLIP_NONE,
+            FONT_OTHER_NONE,
+            FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             PP_PLAY_TEXT_FONT_H, 0);
 }
 int ActivityPicturePlayer::loadRes(void){

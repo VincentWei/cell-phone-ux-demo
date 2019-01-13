@@ -243,27 +243,27 @@ void PhoneAlbumActivity::loadResource(void)
 {
     int i;
 
-    m_buttonFont = CreateLogFont ("ttf", "helvetica", "GB2312",
-            FONT_WEIGHT_BOOK, 
+    m_buttonFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+            FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
-            FONT_SETWIDTH_NORMAL,
-            FONT_OTHER_AUTOSCALE,
-            FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+            FONT_FLIP_NONE,
+            FONT_OTHER_NONE,
+            FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             PLAYALL_BTN_TEXT_SIZE, 0);
 
-    m_trkbarTitleFont = CreateLogFont ("ttf", "helvetica", "GB2312",
-            FONT_WEIGHT_BOOK, 
+    m_trkbarTitleFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+            FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
-            FONT_SETWIDTH_NORMAL,
-            FONT_OTHER_AUTOSCALE,
-            FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+            FONT_FLIP_NONE,
+            FONT_OTHER_NONE,
+            FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             TRKBAR_TITLE_TEXT_SIZE, 0);
-    m_timeFont = CreateLogFont ("ttf", "helvetica", "GB2312",
-            FONT_WEIGHT_BOOK, 
+    m_timeFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+            FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
-            FONT_SETWIDTH_NORMAL,
-            FONT_OTHER_AUTOSCALE,
-            FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+            FONT_FLIP_NONE,
+            FONT_OTHER_NONE,
+            FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             TIMETEXT_SIZE, 0);
 
     Load32Resource (MUSIC_IMG_PATH, RES_TYPE_IMAGE, (DWORD)HDC_SCREEN);

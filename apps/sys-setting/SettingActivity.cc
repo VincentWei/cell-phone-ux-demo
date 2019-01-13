@@ -174,20 +174,20 @@ void SettingActivity::createUISubWin(const char* name)
 
 void SettingActivity::initResource()
 {
-    m_btnFont = CreateLogFont ("ttf", "helvetica", "GB2312",
-            FONT_WEIGHT_BOOK, 
+    m_btnFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+            FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
-            FONT_SETWIDTH_NORMAL,
-            FONT_OTHER_AUTOSCALE,
-            FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+            FONT_FLIP_NONE,
+            FONT_OTHER_NONE,
+            FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             SETTING_OK_BTN_TEXT_H, 0);
 
-    m_itemTextFont = CreateLogFont ("ttf", "helvetica", "GB2312",
-            FONT_WEIGHT_BOOK, 
+    m_itemTextFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+            FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
-            FONT_SETWIDTH_NORMAL,
-            FONT_OTHER_AUTOSCALE,
-            FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+            FONT_FLIP_NONE,
+            FONT_OTHER_NONE,
+            FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             SETTING_ITEM_TEXT_H, 0);
     return;
 }

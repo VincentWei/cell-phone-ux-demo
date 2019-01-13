@@ -217,12 +217,12 @@ void mActivityToolbarPiece_setButtonName(mActivityToolbarPiece *self, int which_
         assert (0);
     }
     if (!self->font) {
-        self->font = CreateLogFont ("ttf", "helvetica", "GB2312",
-                FONT_WEIGHT_BOOK,
+        self->font = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+                FONT_WEIGHT_REGULAR,
                 FONT_SLANT_ROMAN,
-                FONT_SETWIDTH_NORMAL,
-                FONT_OTHER_AUTOSCALE,
-                FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+                FONT_FLIP_NONE,
+                FONT_OTHER_NONE,
+                FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
                 TOOLBARFONT_SIZE, 0);
     }
 

@@ -84,12 +84,12 @@ IPhoneDesktopItem::IPhoneDesktopItem(const std::string& name, const std::string&
     BITMAP *bmp;
     int w = 0, h = 0;
 
-    m_nameFont = CreateLogFont ("ttf", "helvetica", "GB2312",
+    m_nameFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
             FONT_WEIGHT_BOOK,
             FONT_SLANT_ROMAN,
-            FONT_SETWIDTH_NORMAL,
-            FONT_OTHER_AUTOSCALE,
-            FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+            FONT_FLIP_NONE,
+            FONT_OTHER_NONE,
+            FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             ITEM_TEXT_FONT_H, 0);
 
     getPicturesName (iconPath.c_str());

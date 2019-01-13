@@ -121,12 +121,12 @@ void DesktopToolbar::loadRes()
 
     m_toolbarRingBmp = (PBITMAP) Load32Resource(RING_IMG_PATH, RES_TYPE_IMAGE, 0);
 
-    m_toolbarNumFont = CreateLogFont ("ttf", "helvetica", "GB2312",
-            FONT_WEIGHT_BOOK,
+    m_toolbarNumFont = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+            FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
-            FONT_SETWIDTH_NORMAL,
-            FONT_OTHER_AUTOSCALE,
-            FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+            FONT_FLIP_NONE,
+            FONT_OTHER_NONE,
+            FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             8, 0);
 }
 

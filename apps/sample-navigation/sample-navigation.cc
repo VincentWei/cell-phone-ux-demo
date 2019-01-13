@@ -91,12 +91,12 @@ LRESULT SampleNavigation::proc(HWND hWnd, UINT message, WPARAM wParam,LPARAM lPa
             RECT rect;
             mShapeTransRoundPiece* bk_piece;
 
-            font = CreateLogFont ("ttf", "helvetica", "GB2312",
-                FONT_WEIGHT_BOOK, 
+            font = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+                FONT_WEIGHT_REGULAR,
                 FONT_SLANT_ROMAN,
-                FONT_SETWIDTH_NORMAL,
-                FONT_OTHER_AUTOSCALE,
-                FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+                FONT_FLIP_NONE,
+                FONT_OTHER_NONE,
+                FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
                 14, 0);
 
             text_piece1 = (mTextPiece*)NEWPIECE(mTextPiece);

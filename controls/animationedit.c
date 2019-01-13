@@ -184,13 +184,12 @@ static void mAnimationEdit_construct(mAnimationEdit *self, DWORD param)
 
     /*create font*/
     for (i=0; i<TABLESIZE(FONT_SIZE_TABLE); ++i) {
-        self->pFont[i] = CreateLogFont ("ttf", "helvetica", "GB2312",
-                //FONT_WEIGHT_SUBPIXEL,
-                FONT_WEIGHT_BOOK,
+        self->pFont[i] = CreateLogFontEx ("ttf", "helvetica", "GB2312",
+                FONT_WEIGHT_REGULAR,
                 FONT_SLANT_ROMAN,
-                FONT_SETWIDTH_NORMAL,
-                FONT_OTHER_AUTOSCALE,
-                FONT_UNDERLINE_NONE, FONT_STRUCKOUT_NONE,
+                FONT_FLIP_NONE,
+                FONT_OTHER_NONE,
+                FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
                 FONT_SIZE_TABLE[i], 0);
     }
 }
