@@ -2,9 +2,7 @@ AUTOMAKE_OPTIONS = foreign subdir-objects
 
 AM_CPPFLAGS=-Iinclude/ -Incs4pad/include -Incs4pad/include/pieces -Incs4pad/include/physics-animation
 
-SUBDIRS = etc include common engines controls ncs4pad desktop apps inner-res res
-DIST_SUBDIRS = test tools
-
+SUBDIRS = m4 etc include common engines controls ncs4pad desktop apps inner-res res
 bin_PROGRAMS=mguxdemo activity-loader
 
 APP_LIBS = \
@@ -22,7 +20,8 @@ mguxdemo_LDADD = $(APP_LIBS) @DEP_LIBS@
 activity_loader_SOURCES = test/apps/activity-loader.cc
 activity_loader_LDADD = $(APP_LIBS) @DEP_LIBS@
 
-EXTRA_DIST = LICENSE README.md
+EXTRA_DIST = LICENSE README.md MiniGUI.cfg MiniGUI.cfg.win32 \
+    res tools
 
 install-data-local:
 	$(INSTALL_DATA) MiniGUI.cfg $(prefix)/bin/MiniGUI.cfg

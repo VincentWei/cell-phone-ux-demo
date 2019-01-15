@@ -8,12 +8,12 @@ similar to the popular modern smart phones.
 
 ## Prerequisites
 
-  * MiniGUI: v3.2.0 or later
+  * MiniGUI: v3.2.2 or later
   * MiniGUI Resource: v3.0.12 or later
   * mGPlus: v1.4.0 or later
   * mGEff: v1.2.0 or later
-  * mGNCS: V1.2.0 or later
-  * mGNCS4Touch: V1.2.0 or later
+  * mGNCS: V1.2.2 or later
+  * mGNCS4Touch: V1.2.2 or later
 
   * System library dependencies:
     * sqlite3-dev
@@ -34,7 +34,8 @@ if you have installed the dependent libraries listed above.
 
 Run
 
-    $ ./autogen.sh; ./configure;
+    $ ./autogen.sh; # if you got the source from GitHub repo
+    $ ./configure;
     $ make
     $ sudo make install
     $ cd /usr/local/bin
@@ -42,7 +43,7 @@ Run
 
 ## Copying
 
-    Copyright (C) 2018, Beijing FMSoft Technologies Co., Ltd.
+    Copyright (C) 2018, 2019, Beijing FMSoft Technologies Co., Ltd.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

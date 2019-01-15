@@ -1,4 +1,4 @@
-DIST_SUBDIRS = boost
+EXTRA_DIST = boost
 
 noinst_HEADERS = \
     Activity.hh \

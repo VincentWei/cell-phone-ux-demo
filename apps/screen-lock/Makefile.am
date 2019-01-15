@@ -1,6 +1,6 @@
 AM_CPPFLAGS = -I../../include -I../../ncs4pad/include
 
-DIST_SUBDIRS = test
+EXTRA_DIST = test
 
 noinst_LTLIBRARIES = libscreen-lock.la
 
