@@ -3,8 +3,8 @@
 This is a comprehensive demonstration of MiniGUI and its key components,
 including mGEff, mGPlus, mGNCS, and mGNCS4Touch.
 
-UXDemo implements a set user interfaces with special effects, which are 
-similar to the popular modern smart phones. 
+UXDemo implements a set user interfaces with special effects, which are
+similar to the popular modern smart phones.
 
 ## Prerequisites
 
@@ -20,14 +20,14 @@ similar to the popular modern smart phones.
     * libxml2-dev
 
   * 3rd-party libraries:
-    * chipmunk-5.3.1 (included in `3rd-party` directory in miniLinux)
+    * chipmunk-5.3.1 (included in `3rd-party` directory in build-minigui-3.2)
 
 ## Building
 
 We strongly recommend you to build this demo by using the fetching and building
-scripts of miniLinux:
+scripts of build-minigui-3.2:
 
-    https://github.com/VincenWei/minilinux
+    https://github.com/VincenWei/build-minigui-3.2
 
 Or you can use the following commands to configure, make, install, and run it,
 if you have installed the dependent libraries listed above.
