@@ -78,12 +78,12 @@ struct commlcd_info {
     short async_update;
 };
 
-
 #define USS_PATH    "/var/tmp/web-display-server"
+#define USC_PATH    "/var/tmp/web-display-client-P%d"
 
-#define USC_PATH    "/var/tmp/web-display-client-%d"
 #define USC_PERM    S_IRWXU            /* rwx for user only */
 
+#define FT_VFBINFO      10
 #define FT_PING         11
 #define FT_PONG         12
 #define FT_EVENT        13
@@ -154,7 +154,9 @@ error:
 /* return zero for success */
 int __commlcd_drv_getinfo (struct commlcd_info *li, int width, int height, int bpp)
 {
+    ssize_t n;
     int retval = 0;
+    struct _frame_header header;
 
     if (width > 1024 || height > 768 || bpp != 16 || bpp != 32) {
         retval = 1;
@@ -175,6 +177,15 @@ int __commlcd_drv_getinfo (struct commlcd_info *li, int width, int height, int b
     _lcd_info.fb = calloc (height * _lcd_info.rlen, sizeof (char));
     if (_lcd_info.fb == NULL) {
         retval = 1;
+        goto error;
+    }
+
+    header.type = FT_VFBINFO;
+    header.payload_len = sizeof (struct commlcd_info);
+    n = write (_fd_socket, &header, sizeof (struct _frame_header));
+    n += write (_fd_socket, &_lcd_info, sizeof (struct commlcd_info));
+    if (n != sizeof (struct _frame_header) + header.payload_len) {
+        retval = 2;
         goto error;
     }
 
