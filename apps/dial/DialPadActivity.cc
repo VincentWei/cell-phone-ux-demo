@@ -384,7 +384,7 @@ mContainerCtrl* DialPadActivity::toolBarCreate(HWND main_hwnd,RECT rect)
     containerctrl = (mContainerCtrl*)ncsCreateWindow(
             NCSCTRL_CONTAINERCTRL,
             "ContainerCtrl",
-            WS_VISIBLE, WS_EX_NONE/*WS_EX_TRANSPARENT*/, IDC_DIAL_TOOLBAR,
+            WS_VISIBLE, WS_EX_TRANSPARENT, IDC_DIAL_TOOLBAR,
             rect.left, rect.top,
             RECTW(rect), RECTH(rect),
             main_hwnd,
@@ -625,7 +625,7 @@ static NCS_MNWND_TEMPLATE mymain_templ = {
         1,
         ACTIVITY_X, ACTIVITY_Y, ACTIVITY_W, ACTIVITY_H,
         WS_NONE,
-        WS_EX_NONE,
+        WS_EX_AUTOSECONDARYDC,
         "Phone Contacts",
         NULL,
         NULL,
