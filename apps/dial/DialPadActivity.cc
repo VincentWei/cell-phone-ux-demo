@@ -625,7 +625,7 @@ static NCS_MNWND_TEMPLATE mymain_templ = {
         1,
         ACTIVITY_X, ACTIVITY_Y, ACTIVITY_W, ACTIVITY_H,
         WS_NONE,
-        WS_EX_NONE,
+        WS_EX_AUTOSECONDARYDC,
         "Phone Contacts",
         NULL,
         NULL,
