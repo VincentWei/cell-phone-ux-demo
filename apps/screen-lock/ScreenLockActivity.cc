@@ -829,14 +829,14 @@ void ScreenLockActivity::loadMyResource()
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
-            FONT_OTHER_LCDPORTRAIT,
+            FONT_OTHER_NONE,
             FONT_DECORATE_NONE, FONT_RENDER_GREY,
             48, 0);
     m_dateFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
             FONT_WEIGHT_REGULAR,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
-            FONT_OTHER_LCDPORTRAIT,
+            FONT_OTHER_NONE,
             FONT_DECORATE_NONE, FONT_RENDER_SUBPIXEL,
             16, 0);
     m_infoFont = CreateLogFontEx ("ttf", "helvetica", "UTF-8",
@@ -850,7 +850,7 @@ void ScreenLockActivity::loadMyResource()
             FONT_WEIGHT_BOOK,
             FONT_SLANT_ROMAN,
             FONT_FLIP_NONE,
-            FONT_OTHER_LCDPORTRAIT,
+            FONT_OTHER_NONE,
             FONT_DECORATE_NONE, FONT_RENDER_GREY,
             HILIGHT_TEXT_W, 0);
 }
