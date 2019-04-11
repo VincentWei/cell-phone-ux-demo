@@ -1,9 +1,9 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.61)
-AC_INIT(mguxdemo, 3.2.2)
+AC_INIT(mguxdemo, 4.0.0)
 AC_CONFIG_SRCDIR(main.cc)
-AC_CONFIG_HEADER(config.h) 
+AC_CONFIG_HEADER(config.h)
 
 dnl needed for cross-compiling
 AC_CANONICAL_SYSTEM
@@ -73,7 +73,7 @@ AC_CHECK_FUNCS([memset])
 dnl ========================================
 dnl check for installation of dependencies
 
-PKG_CHECK_MODULES([MINIGUI], [minigui >= 3.2.0])
+PKG_CHECK_MODULES([MINIGUI], [minigui >= 4.0.0])
 PKG_CHECK_MODULES([MGPLUS], [mgplus >= 1.4.0])
 PKG_CHECK_MODULES([MGEFF], [mgeff >= 1.2.0])
 PKG_CHECK_MODULES([MGNCS], [mgncs >= 1.2.0])
