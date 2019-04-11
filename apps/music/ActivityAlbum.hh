@@ -59,7 +59,7 @@
 typedef struct _tagsonginfo{
     int curtime;
     int totaltime;
-    char totaltime_str[TOTALTIME_STRLEN];
+    char totaltime_str[TOTALTIME_STRLEN + 4];
     char name[MP_STR_MAX];
     char author[MP_STR_MAX];
 }SONGINFO, *PSONGINFO;
@@ -79,7 +79,7 @@ typedef struct _tagdatain{
     int mode;
     int n;
     int curtime;
-    char curtime_str[TOTALTIME_STRLEN];
+    char curtime_str[TOTALTIME_STRLEN + 4];
 }MUSICPLAYERDATAIN, *PMUSICPLAYERDATAIN;
 
 class PhoneAlbumActivity : public NCSActivity {

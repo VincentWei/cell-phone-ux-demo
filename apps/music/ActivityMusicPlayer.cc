@@ -132,8 +132,8 @@ static BOOL update_curtime(mStatic *listener, mTimer *sender, int id, DWORD tota
     ActivityMusicPlayer *activity;
     int timerVal;
     int cur = 0;
-    char time[10];
-    static char oldtime[10] = {0};
+    char time[12];
+    static char oldtime[12] = {0};
 
     activity = (ActivityMusicPlayer *)ActivityMusicPlayer::getActivityFromHWND(GetParent(listener->hwnd));
     cur = activity->curTimeInc();
@@ -173,7 +173,7 @@ static BOOL update_curtime_trkbar(mStatic *listener, mTrackBar *sender, int id, 
     ActivityMusicPlayer* activity;
     mDialogBox *dialogbox;
     mTimer *timer;
-    char time[10];
+    char time[12];
     int curpos, curtime;
     int maxpos;
     int timeVal;
@@ -569,8 +569,8 @@ int ActivityMusicPlayer::loadData(mWidget *self){
     mTimer *timer;
     int tmp;
     int timerVal;
-    char time[10];
-    char info[256];
+    char time[12];
+    char info[1025];
 
     printf("enter the loaddata\n");
     timer = (mTimer *)ncsGetChildObj(self->hwnd, IDC_TIMER);
@@ -589,7 +589,7 @@ int ActivityMusicPlayer::loadData(mWidget *self){
     _c(st)->setProperty(st, NCSP_WIDGET_TEXT, (DWORD)time);
 
     st = (mStatic *)ncsGetChildObj(self->hwnd, IDC_CTRL_INFO);
-    sprintf(info, "%s-%s", albuminfo[m_album].pSong[m_index].name, albuminfo[m_album].pSong[m_index].author);
+    snprintf(info, 1024, "%s-%s", albuminfo[m_album].pSong[m_index].name, albuminfo[m_album].pSong[m_index].author);
     ncsSetProperty(st->hwnd, NCSP_WIDGET_TEXT, (DWORD)info);
 
 #if 0

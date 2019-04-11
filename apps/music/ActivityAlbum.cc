@@ -554,7 +554,7 @@ static BOOL on_timerhandler_updatecurtime(mObject *listener, mObject *sender, in
     MUSICPLAYERDATAIN *data;
     mTimer *timer;
     int timeVal;
-    static char oldstr[TOTALTIME_STRLEN] = {0};
+    static char oldstr[TOTALTIME_STRLEN + 4] = {0};
 
     //get datain
     mainwnd = (mWidget*)listener;
