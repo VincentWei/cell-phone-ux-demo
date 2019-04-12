@@ -350,7 +350,7 @@ mIconFlow_onEraseBkgnd(mIconFlow *self, HDC hdc, const RECT *pinv)
 static void
 mIconFlow_onPaint(mIconFlow *self, HDC real_hdc, const PCLIPRGN pinv_clip)
 {
-	int visItemCountP1;
+    int visItemCountP1;
     int count = _c(self)->getItemCount (self);
     HITEM *hItem;
     RECT *rcDraw;
@@ -625,10 +625,10 @@ mIconFlow_wndProc (mIconFlow *self, int message, WPARAM wParam, LPARAM lParam)
 static BOOL
 mIconFlow_setProperty(mIconFlow* self, int id, DWORD value)
 {
-	if( id >= NCSP_ICONFLOW_MAX)
-		return FALSE;
+    if( id >= NCSP_ICONFLOW_MAX)
+        return FALSE;
 
-	switch(id) {
+    switch(id) {
         case NCSP_ICONFLOW_DEFICONHEIGHT:
             _c(self)->setIconSize(self, self->defItemWidth, value);
             return TRUE;
@@ -668,17 +668,17 @@ mIconFlow_setProperty(mIconFlow* self, int id, DWORD value)
             return TRUE;
     }
 
-	return Class(mItemView).setProperty((mItemView*)self, id, value);
+    return Class(mItemView).setProperty((mItemView*)self, id, value);
 }
 
 static DWORD
 mIconFlow_getProperty(mIconFlow* self, int id)
 {
-	if( id >= NCSP_ICONFLOW_MAX)
-		return -1;
+    if( id >= NCSP_ICONFLOW_MAX)
+        return -1;
 
-	switch(id)
-	{
+    switch(id)
+    {
         case NCSP_ICONFLOW_DEFICONWIDTH:
             return self->defItemWidth;
         case NCSP_ICONFLOW_DEFICONHEIGHT:
@@ -697,7 +697,7 @@ mIconFlow_getProperty(mIconFlow* self, int id)
             return (DWORD)self->iconUseZoom;
     }
 
-	return Class(mItemView).getProperty((mItemView*)self, id);
+    return Class(mItemView).getProperty((mItemView*)self, id);
 }
 
 BEGIN_CMPT_CLASS(mIconFlow, mItemView)
@@ -721,5 +721,5 @@ BEGIN_CMPT_CLASS(mIconFlow, mItemView)
     CLASS_METHOD_MAP(mIconFlow, setIconSize);
     CLASS_METHOD_MAP(mIconFlow, setVisItemCount);
     CLASS_METHOD_MAP(mIconFlow, setSpan);
-	SET_DLGCODE(DLGC_WANTARROWS);
+    SET_DLGCODE(DLGC_WANTARROWS);
 END_CMPT_CLASS

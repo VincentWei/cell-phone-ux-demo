@@ -13,7 +13,7 @@
     
 static void mPhoneSeparatorPiece_construct(mPhoneSeparatorPiece *self, DWORD add_data)
 {
-	Class(mStaticPiece).construct((mStaticPiece*)self, add_data);
+    Class(mStaticPiece).construct((mStaticPiece*)self, add_data);
 
     self->darkercolor  = 0x0;
     self->lightercolor = 0x0;
@@ -25,20 +25,20 @@ static void mPhoneSeparatorPiece_construct(mPhoneSeparatorPiece *self, DWORD add
 
 static void mPhoneSeparatorPiece_destroy(mPhoneSeparatorPiece *self)
 {
-	Class(mStaticPiece).destroy((mStaticPiece*)self);
+    Class(mStaticPiece).destroy((mStaticPiece*)self);
 
     return;
 }
 
 static inline void line(HDC hdc, int x0,int y0, int x1, int y1, gal_pixel color)
 {
-	gal_pixel old = SetPenColor(hdc, color);
+    gal_pixel old = SetPenColor(hdc, color);
 
-	MoveTo(hdc, x0, y0);
+    MoveTo(hdc, x0, y0);
 
-	LineTo(hdc, x1, y1);
+    LineTo(hdc, x1, y1);
 
-	SetPenColor(hdc, old);
+    SetPenColor(hdc, old);
 
     return;
 }
@@ -85,44 +85,44 @@ static void mPhoneSeparatorPiece_paint(mPhoneSeparatorPiece *self,
 
 static BOOL mPhoneSeparatorPiece_setProperty(mPhoneSeparatorPiece *self, int id, DWORD value)
 {
-	switch(id)
-	{
-	    case NCSP_PHONESEPARATORPIECE_DARKER_COLOR:
+    switch(id)
+    {
+        case NCSP_PHONESEPARATORPIECE_DARKER_COLOR:
             self->darkercolor = value; 
-	    	break;
-	    case NCSP_PHONESEPARATORPIECE_LIGHTER_COLOR:
+            break;
+        case NCSP_PHONESEPARATORPIECE_LIGHTER_COLOR:
             self->lightercolor = value; 
-	    	break;
-	    case NCSP_PHONESEPARATORPIECE_DIRECT_MODE:
+            break;
+        case NCSP_PHONESEPARATORPIECE_DIRECT_MODE:
             self->direct_mode = (PHONESEPARATORPIECE_DIRECT_MODE_E)value; 
-	    	break;
-	    default:
-		    return Class(mStaticPiece).setProperty((mStaticPiece*)self, id, value);
-	}
+            break;
+        default:
+            return Class(mStaticPiece).setProperty((mStaticPiece*)self, id, value);
+    }
 
-	return TRUE;
+    return TRUE;
 }
 
 static DWORD mPhoneSeparatorPiece_getProperty(mPhoneSeparatorPiece* self, int id)
 {
-	switch(id)
-	{
-	    case NCSP_PHONESEPARATORPIECE_DARKER_COLOR:
-		    return (DWORD)self->darkercolor;
-	    case NCSP_PHONESEPARATORPIECE_LIGHTER_COLOR:
+    switch(id)
+    {
+        case NCSP_PHONESEPARATORPIECE_DARKER_COLOR:
+            return (DWORD)self->darkercolor;
+        case NCSP_PHONESEPARATORPIECE_LIGHTER_COLOR:
             return (DWORD)self->lightercolor;
-	    case NCSP_PHONESEPARATORPIECE_DIRECT_MODE:
+        case NCSP_PHONESEPARATORPIECE_DIRECT_MODE:
             return (PHONESEPARATORPIECE_DIRECT_MODE_E)self->direct_mode; 
-	}
+    }
 
-	return Class(mStaticPiece).getProperty((mStaticPiece*)self, id);
+    return Class(mStaticPiece).getProperty((mStaticPiece*)self, id);
 }
 
 BEGIN_MINI_CLASS(mPhoneSeparatorPiece, mStaticPiece)
-	CLASS_METHOD_MAP( mPhoneSeparatorPiece, construct     )
-	CLASS_METHOD_MAP( mPhoneSeparatorPiece, destroy       )
-	CLASS_METHOD_MAP( mPhoneSeparatorPiece, paint         )
-	CLASS_METHOD_MAP( mPhoneSeparatorPiece, setProperty   )
-	CLASS_METHOD_MAP( mPhoneSeparatorPiece, getProperty   )
+    CLASS_METHOD_MAP( mPhoneSeparatorPiece, construct     )
+    CLASS_METHOD_MAP( mPhoneSeparatorPiece, destroy       )
+    CLASS_METHOD_MAP( mPhoneSeparatorPiece, paint         )
+    CLASS_METHOD_MAP( mPhoneSeparatorPiece, setProperty   )
+    CLASS_METHOD_MAP( mPhoneSeparatorPiece, getProperty   )
 END_MINI_CLASS
 

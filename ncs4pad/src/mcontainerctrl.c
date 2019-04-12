@@ -32,7 +32,7 @@ static void mContainerCtrl_setBody(mContainerCtrl* self, mHotPiece* body)
 #include <unistd.h>
 
 #define TCK_PER_SEC sysconf(_SC_CLK_TCK)
-#define ANIM_TICKS_MAX	(2 * TCK_PER_SEC)
+#define ANIM_TICKS_MAX    (2 * TCK_PER_SEC)
 
 volatile int anim_fps_test_status = 0; /* 0:ready, 1:running */
 static int anim_frames = 0;
