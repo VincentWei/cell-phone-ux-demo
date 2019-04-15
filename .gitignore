@@ -24,3 +24,7 @@ Makefile.in
 /*config.h
 /*config.h.in
 !configure.ac
+
+activity-loader
+mguxdemo
+
