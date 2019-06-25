@@ -14,6 +14,11 @@
 #include <string>
 #include <map>
 
+/* VW: workaround for compile with g++ 4.8 */
+#if __cplusplus < 201103L
+typedef unsigned short char16_t;
+#endif // __cplusplus
+
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 #include <libxml/xpath.h>
