@@ -1,3 +1,15 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+//                          IMPORTANT NOTICE
+//
+// The following open source license statement does not apply to any
+// entity in the Exception List published by FMSoft.
+//
+// For more information, please visit:
+//
+// https://www.fmsoft.cn/exception-list
+//
+//////////////////////////////////////////////////////////////////////////////
 /*********************************************************************
  * Copyright (C) 2002 ~ 2010, Feynman Software Technology Co., Ltd.
  * Room 508B-C, Floor 5, Citic Guoan Shumagang, No.32, Haidian South
