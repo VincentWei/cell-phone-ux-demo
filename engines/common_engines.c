@@ -251,7 +251,7 @@ int __commlcd_drv_update (const RECT* rc_dirty)
     }
 
     if (n != header.payload_len) {
-        _ERR_PRINTF ("__commlcd_drv_update: error on writting pixels: %ld (%lu)\n", n, header.payload_len);
+        _ERR_PRINTF ("__commlcd_drv_update: error on writting pixels: %zd (%zu)\n", n, header.payload_len);
     }
 
     return 0;
@@ -358,7 +358,7 @@ int __comminput_wait_for_input (struct timeval *timeout)
 
         n = read (_fd_socket, &header, sizeof (struct _frame_header));
         if (n != sizeof (struct _frame_header)) {
-            _ERR_PRINTF ("__comminput_wait_for_input: error on reading event: %ld\n", n);
+            _ERR_PRINTF ("__comminput_wait_for_input: error on reading event: %zd\n", n);
         }
         switch (header.type) {
         case FT_PING:
@@ -369,7 +369,7 @@ int __comminput_wait_for_input (struct timeval *timeout)
 
         case FT_EVENT: {
             if (header.payload_len != sizeof (struct _remote_event)) {
-                _ERR_PRINTF ("__comminput_wait_for_input: payload length does not matched the data type: %lu.\n", header.payload_len);
+                _ERR_PRINTF ("__comminput_wait_for_input: payload length does not matched the data type: %zu.\n", header.payload_len);
                 break;
             }
 
