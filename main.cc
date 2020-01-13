@@ -32,7 +32,7 @@
 #include "ResourceManager.hh"
 
 #ifdef _MGINCORE_RES
-# include "inner_res_init.h"
+# include "inner-res/inner_res_init.h"
 #endif
 
 //#define USE_DRAW_WND
