@@ -9,7 +9,7 @@ COMMON_BINS = mguxdemo activity-loader
 if MGRM_PROCESSES
 OTHER_BINS = mginit
 else
-OTHER_BINS = mginit
+OTHER_BINS =
 endif
 
 bin_PROGRAMS = $(COMMON_BINS) $(OTHER_BINS)

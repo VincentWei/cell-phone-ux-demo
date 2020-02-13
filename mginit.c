@@ -60,7 +60,7 @@ static void on_new_del_client (int op, int cli)
         nr_clients --;
         if (nr_clients == 0) {
             printf ("There is no any client, I will quit.\n");
-            quit = TRUE;
+            //quit = TRUE;
         }               
         else if (nr_clients < 0) {
             printf ("Serious error: nr_clients less than zero.\n");
@@ -122,7 +122,8 @@ int MiniGUIMain (int args, const char* arg[])
 
     if (args > 1) {
         if (exec_app (arg[1], arg[1]) == 0)
-            return 3;
+            fprintf (stderr, 
+                 "Can not start specified client: %s.\n", arg[1]);
     }
     else {
         if (exec_app ("./mguxdemo", "mguxdemo") == 0)
