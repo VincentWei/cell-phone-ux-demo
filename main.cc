@@ -626,6 +626,13 @@ int main (int argc, const char* argv[])
         return 1;
     }
 
+#ifndef _MGRM_THREADS
+    if (!InitVectorialFonts ()) {
+        printf ("InitVectorialFonts: error.\n");
+        exit (2);
+    }
+#endif
+
     DO_REGISTER_ACTIVITY (ActivityDesktop);
     DO_REGISTER_ACTIVITY (PhoneContactsActivity);
     DO_REGISTER_ACTIVITY (CalcActivity);
@@ -792,8 +799,12 @@ int main (int argc, const char* argv[])
     finalizeEnvironment (); 
 
     mGEffDeinit ();
-    TerminateGUI (0);
 
+#ifndef _MGRM_THREADS
+    TermVectorialFonts ();
+#endif
+
+    TerminateGUI (0);
     fprintf(stderr, "%s:quit.\n", __FUNCTION__);
 	return 0;
 }
