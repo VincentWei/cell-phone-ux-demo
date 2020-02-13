@@ -203,7 +203,8 @@ static BOOL num_key_event(HWND hwnd, mButtonPanelPiece *piece)
     if (strlen(strtemp) == 0 && strcmp(keystr[index],".") == 0)
     {
         strcpy(strtemp,"0");
-        _c(editPiece)->setContent (ctrl->hwnd,editPiece,strtemp,TEXT_ALIGN_RIGHT);
+        _c(editPiece)->setContent (ctrl->hwnd, editPiece, "", TEXT_ALIGN_RIGHT);
+        _c(editPiece)->append (ctrl->hwnd, editPiece, strtemp);
     }
 
     if (strcmp(keystr[index],"+/-") == 0)
@@ -212,6 +213,7 @@ static BOOL num_key_event(HWND hwnd, mButtonPanelPiece *piece)
         {
             memset(strtemp,0x00,OPERAND_MAX_NUM);
             _c(editPiece)->setContent (ctrl->hwnd,editPiece,"",TEXT_ALIGN_RIGHT);
+            _c(editPiece)->append (ctrl->hwnd, editPiece, "");
         }
         else if (strlen(strtemp) > 0 && 
                 ((atof(strtemp) > 0.0) || strtemp[0] == '-'))
@@ -228,7 +230,8 @@ static BOOL num_key_event(HWND hwnd, mButtonPanelPiece *piece)
             {
                 strcpy(strtemp,&temp[1]);
             }
-            _c(editPiece)->setContent (ctrl->hwnd,editPiece,strtemp,TEXT_ALIGN_RIGHT);
+           _c(editPiece)->setContent (ctrl->hwnd, editPiece, "", TEXT_ALIGN_RIGHT);
+           _c(editPiece)->append (ctrl->hwnd, editPiece, strtemp);
         }
     }
     if (strlen(strtemp) >= OPERAND_MAX_NUM-1 || 
@@ -239,9 +242,9 @@ static BOOL num_key_event(HWND hwnd, mButtonPanelPiece *piece)
         memset(strtemp,0x00,OPERAND_MAX_NUM);
         _c(editPiece)->setContent (ctrl->hwnd,editPiece,"",TEXT_ALIGN_RIGHT);
         if (strcmp(keystr[index],"+/-") == 0)
-        {
-            _c(editPiece)->setContent (ctrl->hwnd,editPiece, "0",TEXT_ALIGN_RIGHT);
-        }
+            _c(editPiece)->append (ctrl->hwnd, editPiece, "0");
+        else
+            _c(editPiece)->append (ctrl->hwnd, editPiece, "");
     }
 
     if (strcmp(keystr[index],"+/-") != 0) {
@@ -276,7 +279,8 @@ static BOOL c_e_key_event(CalcActivity* act,mHotPiece *self,
         memset(act->getOperand(OPERAND_RIGHT),0x00,OPERAND_MAX_NUM);
         //memset(act->getOperand(OPERAND_STORE),0x00,OPERAND_MAX_NUM);
         //act->getOperand(OPERAND_STORE)[0] = '0';
-        _c(editPiece)->setContent (ctrl->hwnd,editPiece,"0",TEXT_ALIGN_RIGHT);
+        _c(editPiece)->setContent (ctrl->hwnd,editPiece,"",TEXT_ALIGN_RIGHT);
+        _c(editPiece)->append (ctrl->hwnd,editPiece,"0");
     }
     else if (strcmp(keystr[index],"=") == 0)
     {
@@ -345,7 +349,8 @@ static BOOL m_key_event(CalcActivity* act, mHotPiece *self,
                     result,CALC_ANIMATION_DURATION,Linear);
             */
             strncpy(act->getOperand(OPERAND_RIGHT),strbuffer,OPERAND_MAX_NUM-1);
-            _c(editPiece)->setContent (ctrl->hwnd,editPiece,strbuffer,TEXT_ALIGN_RIGHT);
+            _c(editPiece)->setContent (ctrl->hwnd,editPiece,"",TEXT_ALIGN_RIGHT);
+            _c(editPiece)->append (ctrl->hwnd,editPiece,strbuffer);
         }
         else
         {
@@ -592,7 +597,8 @@ mContainerCtrl* CalcActivity::titleCreate(HWND hwnd,RECT rect)
             manimationeditpiece, NCSP_ANIMATIONEDITPIECE_TEXTSHADOWCOLOR,CALC_TITLE_SHADOW_COLOR);
     _c(containerpiece)->addContent(containerpiece, manimationeditpiece, -ACTIVITY_W, 0);
     m_editPiece = (mAnimationEditPiece *)manimationeditpiece;
-    _c(m_editPiece)->setContent (containerctrl->hwnd,m_editPiece,"0",TEXT_ALIGN_RIGHT);
+    _c(m_editPiece)->setContent (containerctrl->hwnd,m_editPiece,"",TEXT_ALIGN_RIGHT);
+    _c(m_editPiece)->append (containerctrl->hwnd,m_editPiece,"0");
 
     return containerctrl;
 }
