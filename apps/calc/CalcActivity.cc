@@ -244,15 +244,15 @@ static BOOL num_key_event(HWND hwnd, mButtonPanelPiece *piece)
         }
     }
 
-    if (strcmp(keystr[index],"+/-") != 0)
-    {
+    if (strcmp(keystr[index],"+/-") != 0) {
         strcat(strtemp,keystr[index]);
-        if (strlen(strtemp) == 1)
-        {
-            _c(editPiece)->setContent (ctrl->hwnd,editPiece, strtemp,TEXT_ALIGN_RIGHT);
+        _DBG_PRINTF("strtemp: %s\n", strtemp);
+
+        if (strlen(strtemp) == 1) {
+            _c(editPiece)->setContent (ctrl->hwnd, editPiece, "", TEXT_ALIGN_RIGHT);
+            _c(editPiece)->append (ctrl->hwnd, editPiece, strtemp);
         }
-        else
-        {
+        else {
             _c(editPiece)->append (ctrl->hwnd,editPiece, keystr[index]);
         }
     }
@@ -391,7 +391,9 @@ static BOOL op_key_event(CalcActivity* act, mHotPiece *self,
     return TRUE;
 }
 
-static BOOL s_onTimer(HWND hwnd, LINT id, DWORD tickCount) {
+static BOOL s_onTimer(HWND hwnd, LINT id, DWORD tickCount)
+{
+    _DBG_PRINTF("called\n");
     num_key_event(hwnd, (mButtonPanelPiece*)id);
     KillTimer(hwnd, id);
     return TRUE;
@@ -966,6 +968,7 @@ static BOOL main_userApp(mMainWnd* self, int msg, DWORD wparam, DWORD lparam)
     PostMessage(self->hwnd, MSG_CALC_USERAPP,0,0);
     return TRUE;
 }
+
 static BOOL main_onEraseBk(mWidget *self, HDC hdc, const PRECT clip){
     return TRUE;
 }

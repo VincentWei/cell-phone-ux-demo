@@ -416,8 +416,6 @@ void ScreenLockActivity::press_bubble1 ()
 {
     int whichBubble = 0;
 
-    printf("evt_bubble1_down\n");
-
     if (this->m_stateMachine.moveOn(EVT_BUBBLE1_DOWN)) {
         assert(this->m_stateMachine.currentStateId() == STA_UNLOCK_BUBBLE1);
 
@@ -429,8 +427,6 @@ void ScreenLockActivity::press_bubble1 ()
 void ScreenLockActivity::press_bubble2 ()
 {
     int whichBubble = 1;
-
-    printf("evt_bubble2_down\n");
 
     if (this->m_stateMachine.moveOn(EVT_BUBBLE2_DOWN)) {
         if (this->m_stateMachine.currentStateId() == STA_UNLOCK_BUBBLE2) {
@@ -1654,10 +1650,15 @@ static int mainWnd_onIdle(mWidget* self, int message, WPARAM wParam, LPARAM lPar
 
 static int mainWnd_onUserClick(mWidget* self, int message, WPARAM wParam, LPARAM lParam)
 {
+    /* XXX:
+       Under standalone runmode, this event will be called before a bubble down event,
+       so the state moves to phone locked.
+     */
+#ifdef _MGRM_THREADS
     ScreenLockActivity* _this = thisActivity(self->hwnd);
 
     ScreenLockActivity::bubble_idle(_this);
-    
+#endif
     return 0;
 }
 

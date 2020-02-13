@@ -102,7 +102,7 @@ void IPhoneDesktopStateApp::setAnimation(const Event *event, const Transition *_
     assert(HDC_INVALID != dst_hdc);
     assert(HWND_INVALID != dst_hwnd);
 
-    #if HAVE_APP_INOUT_ANIMATION
+#if HAVE_APP_INOUT_ANIMATION
     IPhoneDesktopLayout *layout = &m_controller->getLayout();
     int page = layout->currentPage();
 /*
@@ -210,7 +210,7 @@ void IPhoneDesktopStateApp::setAnimation(const Event *event, const Transition *_
         SetBrushColor(g_bg_hdc, view.getBgColor());   
     }
     view.setEraseBackgroundCallback(erase_view_bg, reinterpret_cast<void*>(&view));
-    animation = mGEffAnimationCreate((void *)layout->getHwnd(), onStateApp, (int)dst_hdc, MGEFF_RECT);
+    animation = mGEffAnimationCreate((void *)layout->getHwnd(), onStateApp, dst_hdc, MGEFF_RECT);
     mGEffAnimationSetStartValue(animation, prc_s);
     mGEffAnimationSetEndValue(animation, prc_e);
     mGEffAnimationSetDuration(animation, duration);
@@ -229,10 +229,10 @@ void IPhoneDesktopStateApp::setAnimation(const Event *event, const Transition *_
     mGEffAnimationSetProperty(m_animation, MGEFF_PROP_KEEPALIVE, 0);
     mGEffAnimationWait(&hwnd, m_animation);
     view.setEraseBackgroundCallback(NULL, NULL);
-    #else
+#else
     //std::pair<HWND, HDC>* ctxt = new std::pair<HWND, HDC>(dst_hwnd, dst_hdc);
     //ShowWindow(ctxt->first, SW_SHOWNORMAL);
     //DeleteMemDC (ctxt->second);
     //delete ctxt;
-    #endif /* HAVE_APP_INOUT_ANIMATION */
+#endif /* HAVE_APP_INOUT_ANIMATION */
 }

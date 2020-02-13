@@ -273,6 +273,8 @@ const int TimeSnapshot::get(int type) const
         assert(0);
         break;
     }
+
+    return 0;
 }
 
 bool TimeSnapshot::set(int type, int val)
