@@ -28,4 +28,5 @@ Makefile.in
 # executables
 activity-loader
 mguxdemo
+mginit
 

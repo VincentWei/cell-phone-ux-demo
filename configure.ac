@@ -138,6 +138,9 @@ esac
 CPPFLAGS="$CPPFLAGS -DENABLE_SCROLLVIEW"
 dnl AC_DEFINE(ENABLE_SCROLLVIEW, 1, [Define if ScrollView enabled])
 
+AC_CHECK_DECLS(_MGRM_PROCESSES, minigui_runmode="procs", foo=bar, [#include <minigui/common.h>])
+AM_CONDITIONAL(MGRM_PROCESSES, test "x$minigui_runmode" = "xprocs")
+
 AC_SUBST(DEP_LIBS)
 
 AC_OUTPUT(
