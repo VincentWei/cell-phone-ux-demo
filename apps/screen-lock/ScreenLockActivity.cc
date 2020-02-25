@@ -167,15 +167,14 @@ enum TimeFormat {
 // state & transition-----------------------------------
 enum ScreenLockStateId
 {
-    STA_PHONE_LOCKED      = 0,
-    STA_UNLOCK_BUBBLE1            ,
-    STA_BUBBLE1_UNLOCKED          ,
-    STA_UNLOCK_BUBBLE2            ,
-    STA_BUBBLE2_UNLOCKED          ,
-    STA_PHONE_UNLOCKED       ,
-    STA_ERR_UNLOCK_B2    ,
-    STA_PAUSED       ,
-
+    STA_PHONE_LOCKED = 0,
+    STA_UNLOCK_BUBBLE1,
+    STA_BUBBLE1_UNLOCKED,
+    STA_UNLOCK_BUBBLE2,
+    STA_BUBBLE2_UNLOCKED,
+    STA_PHONE_UNLOCKED,
+    STA_ERR_UNLOCK_B2,
+    STA_PAUSED,
     STA_NUM,
 };
 
