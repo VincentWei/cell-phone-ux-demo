@@ -96,7 +96,7 @@ bool TransitionSpeedMeasure::testMouse(const MouseEvent* event)
         printf("speed_move: %.4f, %.4f, (%.2f, %.2f), %d\n", abs_speed, m_curSpeed,
                 m_speedDownLimit, m_speedUpLimit, ret);
 #else
-        float v_x, v_y;
+         float v_x, v_y;
          QueryMouseMoveVelocity(&v_x, &v_y);
          if (v_y > 10000.0f) {
              printf("v_y=%.2f, set to 10000 forcely\n", v_y);
