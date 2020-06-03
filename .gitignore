@@ -5,6 +5,8 @@
 *.a
 *.so
 .dirstamp
+\#
+am--include-marker
 Makefile
 Makefile.in
 .deps/
