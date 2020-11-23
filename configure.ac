@@ -118,6 +118,7 @@ fi
 if test "$ac_cv_prog_gcc" = "yes"; then
     CPPFLAGS="$CPPFLAGS -D_GNU_SOURCE -Wall -pipe"
     CFLAGS="$CFLAGS -Wstrict-prototypes"
+    CXXFLAGS="$CXXFLAGS -std=gnu++11"
 fi
 
 case "$with_gpu" in
