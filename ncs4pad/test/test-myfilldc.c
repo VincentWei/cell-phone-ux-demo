@@ -99,7 +99,7 @@ static LRESULT HelloWinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
                     DestroyFreeClipRectList (&my_cliprc_heap);
                 }
 
-                BitBlt(memdc, 0, 0, 0, 0, hdc, 50, 50, -1);
+                BitBlt(memdc, 0, 0, 0, 0, hdc, 50, 50, 0);
                 DeleteMemDC(memdc);
             }
             EndPaint (hWnd, hdc);

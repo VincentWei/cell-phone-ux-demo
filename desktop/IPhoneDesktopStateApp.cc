@@ -36,7 +36,7 @@ static void erase_view_bg(HDC dst_dc, const RECT &rc, void * ctxt)
 {
     IPhoneDesktopView* view = reinterpret_cast<IPhoneDesktopView*>(ctxt);
     if (g_bg_hdc && NULL != view) {
-        BitBlt(g_bg_hdc, 0, 0, -1, -1, dst_dc, rc.left, rc.top, -1);
+        BitBlt(g_bg_hdc, 0, 0, -1, -1, dst_dc, rc.left, rc.top, 0);
     }
 }
 #endif
@@ -84,7 +84,7 @@ void IPhoneDesktopStateApp::onStateApp(MGEFF_ANIMATION animation, void *target, 
     if (RECTW(old_rc) != 0 && RECTH(old_rc) != 0) {
         FillBox(g_bg_hdc, old_rc.left, old_rc.top, RECTW(old_rc), RECTH(old_rc));
     }
-    STRETCHBLT(hsdc, 0, 0, -1, -1, g_bg_hdc, prc->left, prc->top, RECTWP(prc), RECTHP(prc), -1);
+    STRETCHBLT(hsdc, 0, 0, -1, -1, g_bg_hdc, prc->left, prc->top, RECTWP(prc), RECTHP(prc), 0);
     old_rc = *prc;
 }
 

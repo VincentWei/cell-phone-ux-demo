@@ -156,7 +156,7 @@ static LRESULT HelloWinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
                         context.rgba[1] = MakeRGBA(0, 0, 0xff, 0xff);
                         mFillRegion(memdc, &my_cliprgn1, fillspan_gradient, &context);
 
-                        BitBlt(memdc, 0, 0, 0, 0, hdc, 0, 0, -1);
+                        BitBlt(memdc, 0, 0, 0, 0, hdc, 0, 0, 0);
                     }
 
                     {
@@ -172,11 +172,11 @@ static LRESULT HelloWinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
                         gauss_blur(hdc, data, width, height, pitch, 1.0, 1.0);
                         UnlockDC(memdc);
 
-                        BitBlt(memdc, 0, 0, 0, 0, hdc, 300, 0, -1);
+                        BitBlt(memdc, 0, 0, 0, 0, hdc, 300, 0, 0);
 
                         SetBrushColor(memdc, RGBA2Pixel(memdc, 0xff, 0, 0, 0xff));
                         FillBox(memdc, 0, 0, 300, 300);
-                        BitBlt(memdc, 0, 0, 0, 0, hdc, 0, 300, -1);
+                        BitBlt(memdc, 0, 0, 0, 0, hdc, 0, 300, 0);
                     }
 
                     EmptyClipRgn (&my_cliprgn1);

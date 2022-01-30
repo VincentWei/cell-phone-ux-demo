@@ -136,7 +136,7 @@ static void onTimer(HWND hWnd){
         updateConstraint((cpConstraint *)constraints->arr[i], (void *)hdc);
     }
 
-    BitBlt(memdc, 0, 0, 0, 0, clientdc, 0, 0, -1);
+    BitBlt(memdc, 0, 0, 0, 0, clientdc, 0, 0, 0);
     DeleteMemDC(memdc);
     ReleaseDC(clientdc);
 }

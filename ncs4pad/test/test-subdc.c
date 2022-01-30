@@ -33,7 +33,7 @@ static void fill_subdc(HDC windc) {
     SetBrushColor(subdc, RGB2Pixel(subdc, 0, 0xff, 0));
     FillBox(subdc, 60, 60, 10, 10);
 
-    BitBlt(memdc, 0, 0, 0, 0, windc, 10, 10, -1);
+    BitBlt(memdc, 0, 0, 0, 0, windc, 10, 10, 0);
 
     ReleaseDC(subdc);
     DeleteMemDC(memdc);
@@ -54,7 +54,7 @@ static void read_subdc(HDC windc) {
     SetBrushColor(subdc, RGB2Pixel(subdc, 0, 0xff, 0));
     FillBox(subdc, 60, 60, 10, 10);
 
-    BitBlt(subdc, 0, 0, 0, 0, windc, 10, 10, -1);
+    BitBlt(subdc, 0, 0, 0, 0, windc, 10, 10, 0);
 
     ReleaseDC(subdc);
     DeleteMemDC(memdc);

@@ -212,7 +212,7 @@ void View::onDraw(HDC dst_dc, const RECT &rc) {
     }
 
     if (m_doubleBuffer) {
-        BitBlt(memdc, 0, 0, 0, 0, dst_dc, 0, 0, -1);
+        BitBlt(memdc, 0, 0, 0, 0, dst_dc, 0, 0, 0);
         DeleteMemDC(memdc);
     }
 }

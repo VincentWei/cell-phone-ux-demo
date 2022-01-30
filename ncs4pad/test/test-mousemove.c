@@ -135,7 +135,7 @@ static LRESULT HelloWinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
                     FillBox(g_memdc, 0, 0, 1000, 1000);
                     SetPenColor(g_memdc, RGB2Pixel(g_memdc, 0, 0, 0));
                 }
-                BitBlt(g_memdc, 0, 0, 0, 0, hdc, 0, 0, -1);
+                BitBlt(g_memdc, 0, 0, 0, 0, hdc, 0, 0, 0);
                 if (g_pressed) {
                     float vx, vy;
                     char s[128];

@@ -80,7 +80,7 @@ void Controller::setup() {
 }
 
 void Controller::paint(HDC hdc) {
-    BitBlt(m_dc[BACKGROUND], 0, 0, 0, 0, hdc, 0, 0, -1);
+    BitBlt(m_dc[BACKGROUND], 0, 0, 0, 0, hdc, 0, 0, 0);
 
     {
         vector<Point>::const_iterator i;

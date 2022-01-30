@@ -53,7 +53,7 @@ HDC GetWindowForeground(HWND hwnd, BOOL set_foreground)
             }
         }
         if (HDC_INVALID != memdc) {
-            BitBlt(sec_dc, 0, 0, -1, -1, memdc, 0, 0, -1);
+            BitBlt(sec_dc, 0, 0, -1, -1, memdc, 0, 0, 0);
         }
         /* If window haven't secondary dc ago.*/
         if (!has_secondary_dc) {

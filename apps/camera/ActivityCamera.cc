@@ -165,7 +165,7 @@ static int anim_onShoot (mWidget *self)
     sink_dc = GetDC(self->hwnd);
     src1_dc = CreateCompatibleDC(sink_dc);
     src2_dc = CreateCompatibleDC(sink_dc);
-    BitBlt (sink_dc, 0, 0, 0, 0, src1_dc, 0, 0, 1);
+    BitBlt (sink_dc, 0, 0, 0, 0, src1_dc, 0, 0, 0);
     SetBrushColor (src2_dc, RGB2Pixel(src2_dc, 0x3f, 0x3f, 0x3f));
     FillBox (src2_dc, 0, 0, 
             GetGDCapability(src2_dc, GDCAP_MAXX) + 1,

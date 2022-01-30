@@ -464,7 +464,7 @@ mIconFlow_onPaint(mIconFlow *self, HDC real_hdc, const PCLIPRGN pinv_clip)
             _c(self)->drawItem (self, hItem[sortLine[i]], hdc, &rcDraw[sortLine[i]]);
     }
 
-    BitBlt (hdc, 0, 0, 0, 0, real_hdc, 0, 0, -1);
+    BitBlt (hdc, 0, 0, 0, 0, real_hdc, 0, 0, 0);
     DeleteMemDC (hdc);
 
     free (hItem);

@@ -491,7 +491,7 @@ BOOL CalcActivity::startTextFlipAnimation(mContainerCtrl *ctrl,
     _c(m_editPiece)->setContent (ctrl->hwnd,m_editPiece,str1,TEXT_ALIGN_RIGHT);
     dst_dc = GetDC(ctrl->hwnd);
     src1_dc = CreateCompatibleDC(dst_dc);
-    BitBlt (dst_dc, 0, 0, 0, 0, src1_dc, 0, 0, 1);
+    BitBlt (dst_dc, 0, 0, 0, 0, src1_dc, 0, 0, 0);
 
     _c(m_editPiece)->setContent (ctrl->hwnd,m_editPiece,str2,TEXT_ALIGN_RIGHT);
 

@@ -186,26 +186,26 @@ void IPhoneDesktopItem::onDraw(HDC dc)
         tmpdc = CreateCompatibleDCEx (dc, w, h);
         temp_h = h;
 
-        StretchBlt(m_hdc[0], 0, 0, -1, -1, tmpdc, 0, 0, w, h, -1);
+        StretchBlt(m_hdc[0], 0, 0, -1, -1, tmpdc, 0, 0, w, h, 0);
         SetMemDCColorKey (tmpdc, MEMDC_FLAG_SRCCOLORKEY, ICONSCOLORKEY(tmpdc));
         SetMemDCAlpha (tmpdc, MEMDC_FLAG_SRCALPHA, m_transparency);
         GetViewportOrg(dc, &pt);
         pt.x -= (w - GetGDCapability(m_hdc[0], GDCAP_HPIXEL)) / 2;
         pt.y -= (h - GetGDCapability(m_hdc[0], GDCAP_VPIXEL)) / 2;
-        BitBlt (tmpdc, 0, 0, 0, 0, dc, pt.x, pt.y, -1);
+        BitBlt (tmpdc, 0, 0, 0, 0, dc, pt.x, pt.y, 0);
         DeleteMemDC (tmpdc);
 
         w = m_scale * GetGDCapability(m_textHdc[0], GDCAP_HPIXEL);
         h = m_scale * GetGDCapability(m_textHdc[0], GDCAP_VPIXEL);
         tmpdc = CreateCompatibleDCEx (m_textHdc[0], w, h);
 
-        StretchBlt(m_textHdc[0], 0, 0, -1, -1, tmpdc, 0, 0, w, h, -1);
+        StretchBlt(m_textHdc[0], 0, 0, -1, -1, tmpdc, 0, 0, w, h, 0);
         SetMemDCColorKey (tmpdc, MEMDC_FLAG_SRCCOLORKEY, ICONSCOLORKEY(tmpdc));
         SetMemDCAlpha (tmpdc, MEMDC_FLAG_SRCALPHA, m_transparency);
         GetViewportOrg(dc, &pt);
         pt.x -= (w - GetGDCapability(m_textHdc[0], GDCAP_HPIXEL)) / 2;
         pt.y -= (h - GetGDCapability(m_textHdc[0], GDCAP_VPIXEL)) / 2;
-        BitBlt (tmpdc, 0, 0, 0, 0, dc, pt.x, pt.y+temp_h+SUBSCRIPT_BMP_TEXT_SPACE, -1);
+        BitBlt (tmpdc, 0, 0, 0, 0, dc, pt.x, pt.y+temp_h+SUBSCRIPT_BMP_TEXT_SPACE, 0);
         DeleteMemDC (tmpdc);
     } else if (m_status >= 0 && m_status < MAXICONSTATUS) {
         if (m_hdc[m_status] != HDC_INVALID && m_textHdc[m_status] != HDC_INVALID) {
@@ -214,8 +214,8 @@ void IPhoneDesktopItem::onDraw(HDC dc)
             h = GetGDCapability(m_hdc[0], GDCAP_VPIXEL);
             SetMemDCColorKey (m_hdc[m_status], 
                     MEMDC_FLAG_SRCCOLORKEY, ICONSCOLORKEY(m_hdc[m_status]));
-            BitBlt (m_hdc[m_status], 0, 0, 0, 0, dc, pt.x, pt.y, -1);
-            BitBlt (m_textHdc[m_status], 0, 0, 0, 0, dc, pt.x, pt.y+h+SUBSCRIPT_BMP_TEXT_SPACE, -1);
+            BitBlt (m_hdc[m_status], 0, 0, 0, 0, dc, pt.x, pt.y, 0);
+            BitBlt (m_textHdc[m_status], 0, 0, 0, 0, dc, pt.x, pt.y+h+SUBSCRIPT_BMP_TEXT_SPACE, 0);
         } else {
             Uint8 r,g,b,a;
             getRandColor (r, g, b, a);

@@ -68,9 +68,9 @@ static void do_test(HWND hWnd){
     for (n=0, start=times(NULL);;++n) {
         t1 = times(NULL);
         if (g_to_screen) {
-            BitBlt(memdc, 0, 0, 0, 0, HDC_SCREEN, 50, 0, -1);
+            BitBlt(memdc, 0, 0, 0, 0, HDC_SCREEN, 50, 0, 0);
         }else{
-            BitBlt(memdc, 0, 0, 0, 0, memdc, 0, 5, -1);
+            BitBlt(memdc, 0, 0, 0, 0, memdc, 0, 5, 0);
         }
         t2 = times(NULL);
         if (t2-t1 >= 10) {

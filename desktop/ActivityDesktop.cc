@@ -266,7 +266,7 @@ static void erase_view_background(HDC dst_dc, const RECT &rc, void * ctxt)
 
         FillBoxWithBitmap (dst_dc, 0, 0, w, h, pbmp);
         // blit the app zoom animation layer.
-        BitBlt(g_background_dc, 0, 0, -1, -1, dst_dc, 0, 0, -1);
+        BitBlt(g_background_dc, 0, 0, -1, -1, dst_dc, 0, 0, 0);
     };
 }
 
@@ -315,7 +315,7 @@ void ActivityDesktop::onStateApp(MGEFF_ANIMATION animation, void *target, intptr
     SetBrushColor(g_background_dc, BKGND_DC_COLORKEY);
     FillBox(g_background_dc, 0, 0, w, h);
 
-    STRETCHBLT(hsdc, 0, 0, -1, -1, g_background_dc, prc->left, prc->top, RECTWP(prc), RECTHP(prc), -1);
+    STRETCHBLT(hsdc, 0, 0, -1, -1, g_background_dc, prc->left, prc->top, RECTWP(prc), RECTHP(prc), 0);
     old_rc = *prc;
 }
 

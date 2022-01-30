@@ -117,7 +117,7 @@ static void onTimer(void){
         updateConstraint((cpConstraint *)constraints->arr[i], hdc);
     }
 
-    BitBlt(memdc, 0, 0, 0, 0, clientdc, 0, 0, -1);
+    BitBlt(memdc, 0, 0, 0, 0, clientdc, 0, 0, 0);
     DeleteMemDC(memdc);
     ReleaseDC(clientdc);
 }
