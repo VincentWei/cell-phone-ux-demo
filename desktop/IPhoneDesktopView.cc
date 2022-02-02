@@ -49,7 +49,8 @@ void IPhoneDesktopView::invalidateRect(const RECT *rc) {
         UpdateWindow(hmainwnd, TRUE);
         SetSecondaryDC(hmainwnd, sec_dc, ON_UPDSECDC_DEFAULT);
 
-        dst_dc = GetClientDC(hmainwnd); 
+        dst_dc = GetClientDC(hmainwnd);
+        SetMemDCAlpha(sec_dc, 0, 0);    // VW: disable alpha blending.
         BitBlt(sec_dc, 0, 0, 0, 0, dst_dc, 0, 0, 0);
         ReleaseDC(dst_dc);
     } else {

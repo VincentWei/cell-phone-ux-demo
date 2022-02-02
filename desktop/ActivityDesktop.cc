@@ -103,7 +103,7 @@ LRESULT ActivityDesktop::DesktopProc(HWND hWnd, UINT message, WPARAM wParam, LPA
 
                 //g_background_dc = CreateCompatibleDCEx(memDC, RECTW(crc), RECTH(crc));
                 g_background_dc = CreateMyCompatibleDC(memDC, RECTW(crc), RECTH(crc));
-                if (GetGDCapability(g_background_dc, GDCAP_AMASK) == 0) {
+                if (true /* GetGDCapability(g_background_dc, GDCAP_AMASK) == 0 */) {
                     int w = GetGDCapability(g_background_dc, GDCAP_MAXX) + 1;
                     int h = GetGDCapability(g_background_dc, GDCAP_MAXY) + 1;
                     SetMemDCColorKey (g_background_dc, MEMDC_FLAG_SRCCOLORKEY, 
