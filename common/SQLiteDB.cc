@@ -120,7 +120,7 @@ ContentCursor* SQLiteDB::query(const std::string& table,
 bool SQLiteDB::execSQL(const std::string& sql_cmd, bool is_query)
 {
     char* err_msg = NULL;
-//    fprintf(stdout, "execSQL=> %s\n", sql_cmd.c_str());
+    //fprintf(stdout, "execSQL=> %s\n", sql_cmd.c_str());
     // clear last query result, but not destroy item inside, let the SQLiteCursor do that.
     if (!m_useCache) {
         for_each(m_sqlResult.begin(), m_sqlResult.end(), DeleteObject());
@@ -299,16 +299,30 @@ std::string SQLiteDB::replaceSelectionArgs(const std::string& selection,
 
 void SQLiteDB::refreshTableCache(const std::string& tableName) {
     if (m_useCache) {
+#if 1   /* FIXED by VincentWei on 2/2, 2022 */
+        SQLCacheItem::iterator i;;
+        for (i = m_resultCache.begin(); i != m_resultCache.end();) {
+            if (i->first.find(tableName) != std::string::npos) {
+                for_each(i->second.begin(), i->second.end(), DeleteObject());
+                i->second.clear();
+                m_resultCache.erase(i++);
+            }
+            else {
+                ++i;
+            }
+        }
+#else
         SQLCacheItem::iterator i = m_resultCache.begin();
         for (; i != m_resultCache.end(); ++i) {
             // TODO: This method is more extensive for refresh the cache
             if (i->first.find(tableName) != std::string::npos) {
-                //fprintf(stderr, "[refresh cache]%s\n", i->first.c_str());
+                fprintf(stderr, "[refresh cache]%s\n", i->first.c_str());
                 for_each(i->second.begin(), i->second.end(), DeleteObject());
                 i->second.clear();
-                m_resultCache.erase(i);
+                //m_resultCache.erase(i);
             }
         }
+#endif
     }
 }
 

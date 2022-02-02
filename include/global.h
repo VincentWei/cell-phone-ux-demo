@@ -129,7 +129,7 @@ static inline unsigned int MyGetTickCount(void) {
 #ifndef BITBLT
 #define BITBLT(shdc, sx, sy, sw, sh, dhdc, dx, dy, rop) \
     do { \
-        if (0 != sw && 0 != sh) BitBlt(shdc, sx, sy, sw, sh, dhdc, dx, dy, rop); \
+        if (0 != sw && 0 != sh) BitBlt(shdc, sx, sy, sw, sh, dhdc, dx, dy, 0); \
     } while(0)
 #endif
 
@@ -137,7 +137,7 @@ static inline unsigned int MyGetTickCount(void) {
 #define STRETCHBLT(shdc, sx, sy, sw, sh, dhdc, dx, dy, dw, dh, rop) \
     do { \
         if (0 != sw && 0 != sh && 0 != dw && 0 != dh)   \
-        StretchBlt(shdc, sx, sy, sw, sh, dhdc, dx, dy, dw, dh, rop); \
+        StretchBlt(shdc, sx, sy, sw, sh, dhdc, dx, dy, dw, dh, 0); \
     } while(0)
 #endif
 
