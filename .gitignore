@@ -25,6 +25,7 @@ Makefile.in
 /*.pc
 /*config.h
 /*config.h.in
+/configure~
 !configure.ac
 
 # executables
